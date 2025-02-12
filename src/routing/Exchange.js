@@ -1,7 +1,10 @@
 
 const Exchange = () => {
+
   return (
-    <div>Exchange</div>
+    <>
+      <p>Exchange Page</p>
+    </>
   )
 }
 
