@@ -5,7 +5,7 @@ import Inventory from "./Inventory";
 import Exchange from "./Exchange";
 import Layout from "./Layout";
 import ErrorPage from "./ErrorPage";
-import PrivateRoutes from "./privateroutes";
+// import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -20,13 +20,13 @@ const router = createBrowserRouter([
     ]
 
   },
-  {
-    element: <PrivateRoutes />,
-    children: [
-      //any routes that requires a login or privacy
-      //ideally all the pages in this project will be here
-    ]
-  }
+  // {
+  //   element: <PrivateRoutes />,
+  //   children: [
+  //     //any routes that requires a login or privacy
+  //     //ideally all the pages in this project will be here
+  //   ]
+  // }
 
 ])
 
