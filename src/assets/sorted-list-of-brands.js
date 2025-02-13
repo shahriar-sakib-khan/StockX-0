@@ -1,6 +1,6 @@
 const publicUrl = process.env.PUBLIC_URL;
 
-const allCylinders = [
+const allBrands = [
   {
     id: 1,
     name: "AYGAZ United",
@@ -172,4 +172,4 @@ const allCylinders = [
   },
 ];
 
-export default allCylinders;
+export default allBrands;
