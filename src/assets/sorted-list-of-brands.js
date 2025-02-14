@@ -15,6 +15,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/1.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 3,
@@ -22,6 +23,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/6.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 4,
@@ -29,6 +31,7 @@ const allBrands = [
     price: 100,
     stock: 0,
     logo: `${publicUrl}/images/brands/7.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 5,
@@ -36,6 +39,7 @@ const allBrands = [
     price: 200,
     stock: 0,
     logo: `${publicUrl}/images/brands/8.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 6,
@@ -43,6 +47,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/9.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 7,
@@ -50,6 +55,7 @@ const allBrands = [
     price: 100,
     stock: 0,
     logo: `${publicUrl}/images/brands/10.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 8,
@@ -57,6 +63,7 @@ const allBrands = [
     price: 200,
     stock: 0,
     logo: `${publicUrl}/images/brands/11.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 9,
@@ -64,6 +71,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/4.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 10,
@@ -71,6 +79,7 @@ const allBrands = [
     price: 100,
     stock: 0,
     logo: `${publicUrl}/images/brands/13.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 11,
@@ -78,6 +87,7 @@ const allBrands = [
     price: 200,
     stock: 0,
     logo: `${publicUrl}/images/brands/14.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 12,
@@ -85,6 +95,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/2.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 13,
@@ -92,6 +103,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/15.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 14,
@@ -99,6 +111,7 @@ const allBrands = [
     price: 100,
     stock: 0,
     logo: `${publicUrl}/images/brands/16.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 15,
@@ -106,6 +119,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/12.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 16,
@@ -113,6 +127,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/3.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 17,
@@ -120,6 +135,7 @@ const allBrands = [
     price: 200,
     stock: 0,
     logo: `${publicUrl}/images/brands/17.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 18,
@@ -127,6 +143,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/18.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 19,
@@ -134,6 +151,7 @@ const allBrands = [
     price: 100,
     stock: 0,
     logo: `${publicUrl}/images/brands/19.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 20,
@@ -141,6 +159,7 @@ const allBrands = [
     price: 200,
     stock: 0,
     logo: `${publicUrl}/images/brands/20.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 21,
@@ -148,6 +167,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/21.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 22,
@@ -155,6 +175,7 @@ const allBrands = [
     price: 100,
     stock: 0,
     logo: `${publicUrl}/images/brands/22.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 23,
@@ -162,6 +183,7 @@ const allBrands = [
     price: 200,
     stock: 0,
     logo: `${publicUrl}/images/brands/23.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
   {
     id: 24,
@@ -169,6 +191,7 @@ const allBrands = [
     price: 300,
     stock: 0,
     logo: `${publicUrl}/images/brands/24.png`,
+    cylinder: `${publicUrl}/images/cylinders/1.png`,
   },
 ];
 
