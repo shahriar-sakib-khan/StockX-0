@@ -11,19 +11,11 @@ function Layout() {
     localStorage.setItem("selectedBrands", JSON.stringify(selectedBrands));
   }, [selectedBrands]);
 
-  const toggleBrand = (id) => {
-    setSelectedBrands((prev) =>
-      prev.includes(id)
-       ? prev.filter(brand => brand.id !== id)
-       : [...prev, id]
-    )
-  }
-
   return(
     <>
       <Navbar />
       <div id="main">
-        <Outlet context={{selectedBrands, toggleBrand}}/>
+        <Outlet context={{selectedBrands, setSelectedBrands}}/>
       </div>
     </>
   );

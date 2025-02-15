@@ -1,15 +1,18 @@
+import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/sorted-list-of-brands';
 import Card from './Card';
 import styles from './Inventory.module.css';
 
-function Inventory() {  
+function Inventory() {
+  const { selectedBrands } = useOutletContext();
 
   return (
     <div className={styles.inventoryContainer}>
       <h2>Inventory</h2>
       {allBrands.length > 0 ? (
         <div className={styles.grid}>
-          {allBrands.map(brand => (
+          {allBrands.map(brand => 
+          selectedBrands.includes(brand.id) && (
             <Card
               key={brand.id}
               id={brand.id}

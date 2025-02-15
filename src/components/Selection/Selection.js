@@ -5,8 +5,16 @@ import Card from './Card';
 import styles from './Selection.module.css';
 
 function Selection() {
-  const { selectedBrands, toggleBrand } = useOutletContext();
+  const { selectedBrands, setSelectedBrands } = useOutletContext();
   const navigate = useNavigate();
+
+  const toggleBrand = (id) => {
+    setSelectedBrands((prev) =>
+      prev.includes(id)
+       ? prev.filter(brand => brand.id !== id)
+       : [...prev, id]
+    )
+  }
 
   const handleSubmit = () => {
     navigate("/inventory");
