@@ -11,7 +11,7 @@ function Selection() {
   const toggleBrand = (id) => {
     setSelectedBrands((prev) =>
       prev.includes(id)
-       ? prev.filter(brand => brand.id !== id)
+       ? prev.filter(brand => brand !== id)
        : [...prev, id]
     )
   }
