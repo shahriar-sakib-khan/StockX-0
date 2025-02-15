@@ -1,15 +1,31 @@
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
-import { SelectionProvider } from "../components/Selection/SelectionContext";
 
 function Layout() {
+  const [selectedBrands, setSelectedBrands] = useState(
+    JSON.parse(localStorage.getItem("selectedBrands")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("selectedBrands", JSON.stringify(selectedBrands));
+  }, [selectedBrands]);
+
+  const toggleBrand = (id) => {
+    setSelectedBrands((prev) =>
+      prev.includes(id)
+       ? prev.filter(brand => brand.id !== id)
+       : [...prev, id]
+    )
+  }
+
   return(
-    <SelectionProvider>
+    <>
       <Navbar />
       <div id="main">
-        <Outlet />
+        <Outlet context={{selectedBrands, toggleBrand}}/>
       </div>
-    </SelectionProvider>
+    </>
   );
 }
 

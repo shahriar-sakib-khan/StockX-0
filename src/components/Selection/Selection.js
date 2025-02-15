@@ -1,24 +1,12 @@
-import { useSelection } from './SelectionContext';
 import { useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/sorted-list-of-brands';
 import Card from './Card';
 import styles from './Selection.module.css';
 
 function Selection() {
-  const { selectedBrands, setSelectedBrands } = useSelection();
+  const { selectedBrands, toggleBrand } = useOutletContext();
   const navigate = useNavigate();
-
-  const handleSelection = (id) => {
-    setSelectedBrands(prevSelected => {
-      if(!Array.isArray(prevSelected)) return [id];
-
-      if(prevSelected.includes(id)) {
-        return prevSelected.filter(item => item !== id);
-      } else {
-        return [...prevSelected, id] 
-      }
-    });
-  }
 
   const handleSubmit = () => {
     navigate("/inventory");
@@ -42,7 +30,7 @@ function Selection() {
             name={brand.name}
             logo={brand.logo}
             isSelected={selectedBrands.includes(brand.id)}
-            onSelect={() => handleSelection(brand.id)}
+            onSelect={() => toggleBrand(brand.id)}
           />
         )))}
       </ul>
