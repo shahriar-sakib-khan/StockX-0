@@ -3,9 +3,9 @@ import Modal from './Modal';
 import styles from './Card.module.css';
 
 function Card({ id, name, picture, price, stock, updateStock }) {
-  let currnetStock = stock;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
+  const [currnetStock, setCurrentStock] = useState(stock);
 
   const openModal = (type) => {
     setModalType(type);
@@ -18,10 +18,16 @@ function Card({ id, name, picture, price, stock, updateStock }) {
 
   const handleStockChange = (value) => {
     if(modalType === "INCREASE") {
-      updateStock(id, currnetStock + value);
+      setCurrentStock(prevStock => {
+        updateStock(id, prevStock + value);
+        return prevStock + value;
+      })
     }
     else if(modalType === "DECREASE" && currnetStock - value >= 0) {
-      updateStock(id, stock - value);
+      setCurrentStock(prevStock => {
+        updateStock(id, prevStock - value);
+        return prevStock - value;
+      })
     }
   }
 
