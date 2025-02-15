@@ -1,11 +1,12 @@
 .navbar{
-  height: 70px;
+  min-height: 70px;
   background-color: hsl(210, 30%, 20%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   border-radius: 8px;
+  position: relative;
 }
 
 .specialNavbar {
@@ -34,7 +35,7 @@
   cursor: pointer;
 }
 
-.navList {
+nav ul {
   display: flex;
   gap: 20px;
   list-style: none;
@@ -48,10 +49,68 @@
   padding: 10px 10px 8px;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
-  /* background-color: hsl(210, 30%, 30%); */
 }
 
-.navItem:hover {
+.navItem:not(.active):hover {
   border-radius: 2px;
   background-color: hsl(210, 30%, 30%);
+}
+
+.active {
+  border-bottom: 3px solid hsl(215, 80%, 50%);
+}
+
+nav .menu {
+  display: none;
+  position: absolute;
+  top: 1.2rem;
+  right: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 2.25rem;
+  height: 1.75rem;
+}
+
+nav .menu span {
+  height: 0.3rem;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.2rem;
+}
+
+@media (max-width: 480px) {
+
+  .logo {
+    padding-top: 10px;
+  }
+
+  nav .menu {
+    display: flex;
+    cursor: pointer;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  nav ul.open {
+      display: flex;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li a {
+    margin: 0.2rem 0.5rem;
+  }
 }

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./Login";
+import Login from "../components/Login/Login";
 import Selection from "../components/Selection/Selection";
 import Inventory from "../components/Inventory/Inventory";
 import Exchange from "../components/Exchange/Exchange";
