@@ -16,6 +16,10 @@ function Selection() {
     )
   }
 
+  const toggleSelect = () => {
+    setSelectedBrands(allBrands);
+  }
+
   const handleSubmit = () => {
     navigate("/inventory");
   }
@@ -23,11 +27,14 @@ function Selection() {
   return (
     <>
       <div className={styles.titleSection}>
-        <h2 className={styles.title}>Selection Page</h2>
-        <div>
+        <div className={styles.titleSubmit}>
+          <h2 className={styles.title}>Selection Page</h2>
           <button className={styles.submitBtn} onClick={handleSubmit}>Submit</button>
-          {/* Selection Counter
-          Select All Button */}
+        </div>
+        <div className={styles.selectCount}>
+          <button className={styles.selectAllBtn}>Select All</button>
+          {/* button functionality still not added */}
+          <span className={styles.counter}>Selected: {selectedBrands.length} / {allBrands.length}</span>
         </div>
       </div>
       <ul className={styles.listContainer}>

@@ -24,6 +24,8 @@ function Navbar() {
               <li><NavLink to="/" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Selection</NavLink></li>
               <li><NavLink to="/inventory" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Inventory</NavLink></li>
               <li><NavLink to="/exchange" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Exchange</NavLink></li>
+              <li><NavLink to="/login" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Login</NavLink></li>
+              <li><NavLink to="/register" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Sign Up</NavLink></li>
             </ul>
           </>
         )}

@@ -1,8 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../components/Login/Login";
-import Selection from "../components/Selection/Selection";
-import Inventory from "../components/Inventory/Inventory";
-import Exchange from "../components/Exchange/Exchange";
+import { Login, Register, Selection, Inventory, Exchange } from '../components';
 import Layout from "./Layout";
 import ErrorPage from "./ErrorPage";
 // import PrivateRoutes from "./PrivateRoutes";
@@ -15,6 +12,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Selection /> },
       { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
       { path: 'inventory', element: <Inventory /> },
       { path: 'exchange', element: <Exchange /> },
     ]
