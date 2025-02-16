@@ -5,7 +5,6 @@ import styles from './Card.module.css';
 function Card({ id, name, picture, price, stock, updateStock }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
-  const [currnetStock, setCurrentStock] = useState(stock);
 
   const openModal = (type) => {
     setModalType(type);
@@ -18,23 +17,17 @@ function Card({ id, name, picture, price, stock, updateStock }) {
 
   const handleStockChange = (value) => {
     if(modalType === "INCREASE") {
-      setCurrentStock(prevStock => {
-        updateStock(id, prevStock + value);
-        return prevStock + value;
-      })
+      updateStock(id, stock + value);
     }
-    else if(modalType === "DECREASE" && currnetStock - value >= 0) {
-      setCurrentStock(prevStock => {
-        updateStock(id, prevStock - value);
-        return prevStock - value;
-      })
+    else if(modalType === "DECREASE" && stock - value >= 0) {
+      updateStock(id, stock - value);
     }
   }
 
   return (
     <>
       <div className={styles.card}>
-        <span className={styles.stockCount}>In Stock: {currnetStock}</span>
+        <span className={styles.stockCount}>In Stock: {stock}</span>
         <img src={picture} alt={name} className={styles.image} />
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.price}>Price: {price}</p>

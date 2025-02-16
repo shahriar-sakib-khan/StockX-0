@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/sorted-list-of-brands';
 import Card from './Card';
@@ -6,30 +6,36 @@ import styles from './Inventory.module.css';
 
 function Inventory() {
   const { selectedBrands } = useOutletContext();
+  
+  const [stocks, setStocks] = useState(() => {
+    const storedStocks = localStorage.getItem("stocks");
+    return storedStocks ? JSON.parse(storedStocks) : {};
+  });
 
-  const [brands, setBrands] = useState(allBrands);
+  useEffect(() => {
+    localStorage.setItem("stocks", JSON.stringify(stocks));
+  }, [stocks]);
 
   const updateStock = (id, newStock) => {
-    setBrands(prevBrands =>
-      prevBrands.map(brand =>
-        brand.id === id ? {...brand, stock: newStock} : brand
-      )
-    );
+    setStocks(prevStocks => ({
+      ...prevStocks,
+      [id]: newStock
+    }));
   }
 
   return (
     <div className={styles.inventoryContainer}>
       {allBrands.length > 0 ? (
         <div className={styles.grid}>
-          {allBrands.map(brand => 
-          selectedBrands.includes(brand.id) && (
+          {allBrands.filter(brand => selectedBrands.includes(brand.id))
+          .map(brand => (
             <Card
               key={brand.id}
               id={brand.id}
               name={brand.name}
               picture={brand.cylinder}
               price={brand.price}
-              stock={brand.stock}
+              stock={stocks[brand.id] ?? brand.stock}
               updateStock={updateStock}
             />
           ))}
