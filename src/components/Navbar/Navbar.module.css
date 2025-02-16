@@ -78,6 +78,9 @@ nav .menu span {
   border-radius: 0.2rem;
 }
 
+
+
+/* media querry for small devices */
 @media (max-width: 480px) {
 
   .logo {

@@ -19,7 +19,6 @@ function Inventory() {
 
   return (
     <div className={styles.inventoryContainer}>
-      <h2>Inventory</h2>
       {allBrands.length > 0 ? (
         <div className={styles.grid}>
           {allBrands.map(brand => 

@@ -16,7 +16,6 @@ const router = createBrowserRouter([
       { path: 'inventory', element: <Inventory /> },
       { path: 'exchange', element: <Exchange /> },
     ]
-
   },
   // {
   //   element: <PrivateRoutes />,

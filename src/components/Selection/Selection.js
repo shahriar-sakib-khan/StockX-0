@@ -17,7 +17,10 @@ function Selection() {
   }
 
   const toggleSelect = () => {
-    setSelectedBrands(allBrands);
+    if(selectedBrands.length === allBrands.length)
+      setSelectedBrands([]);
+    else
+      setSelectedBrands(allBrands.map(brand => brand.id));
   }
 
   const handleSubmit = () => {
@@ -32,7 +35,9 @@ function Selection() {
           <button className={styles.submitBtn} onClick={handleSubmit}>Submit</button>
         </div>
         <div className={styles.selectCount}>
-          <button className={styles.selectAllBtn}>Select All</button>
+          <button className={styles.selectAllBtn} onClick={toggleSelect}>
+            {selectedBrands.length === allBrands.length ? 'Deselect All' : 'Select All'}
+          </button>
           {/* button functionality still not added */}
           <span className={styles.counter}>Selected: {selectedBrands.length} / {allBrands.length}</span>
         </div>
