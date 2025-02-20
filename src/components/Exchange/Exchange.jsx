@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/sorted-list-of-brands";
 import Card from "./Card";

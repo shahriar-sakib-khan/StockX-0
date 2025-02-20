@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Login, Register, Selection, Inventory, Exchange } from '../components';
 import Layout from "./Layout";
-import ErrorPage from "./ErrorPage";
+// import ErrorPage from "./ErrorPage";
 // import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
