@@ -4,31 +4,31 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 10px;
+  padding-top: 10px;
   margin: 5px 10px;
   border-radius: 8px;
   box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.1);
-  width: 200px;
-  height: 290px;
+  width: 150px;
+  height: auto;
   text-align: center;
   transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
 
 .image {
-  max-width: 70%;
+  max-width: 65%;
   height: auto;
   border-radius: 4px;
 }
 
 .name {
-  font-size: 18px;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 0;
 }
 
 .price {
-  font-size: 16px;
+  font-size: 0.95rem;
   color: #888;
 }
 
@@ -41,6 +41,7 @@
   color: #333;
   border: none;
   cursor: pointer;
+  margin-bottom: 5px;
   transition: background-color 0.2s ease;
 }
 
