@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Popup from "../components/Popup";
 import { items2 } from "../list_of_items";  // Import items2 from the list_of_items file
