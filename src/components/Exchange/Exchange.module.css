@@ -9,6 +9,7 @@
   display: flex;
   gap: 20px;
   justify-content: space-between;
+  text-align: center;
 }
 
 .section {
@@ -25,6 +26,10 @@
 
 .section:hover {
   background-color: #f9f9f9;
+}
+
+.section:active {
+  background-color: hsl(0, 0%, 88%);
 }
 
 h3 {

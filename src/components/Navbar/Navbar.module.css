@@ -81,7 +81,7 @@ nav .menu span {
 
 
 /* media querry for small devices */
-@media (max-width: 480px) {
+@media (max-width: 680px) {
 
   .logo {
     padding-top: 10px;
