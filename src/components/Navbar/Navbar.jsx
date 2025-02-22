@@ -7,6 +7,22 @@ function Navbar() {
 
   const location = useLocation();
   const isSelectionPage = location.pathname === "/";
+
+  const handleNavClick = () => setMenuOpen(false);
+
+  const renderNavLink = (path, label) => (
+    <li>
+      <NavLink
+        to={path}
+        className={({ isActive }) =>
+          isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
+        }
+        onClick={handleNavClick}
+      >
+        {label}
+      </NavLink>
+    </li>
+  );
   
   return (
     <nav className={isSelectionPage ? styles.specialNavbar : styles.navbar}>
@@ -20,11 +36,11 @@ function Navbar() {
               <span></span>
             </div>
             <ul className={menuOpen ? styles.open : styles.notOpen}>
-            {/* <ul className={styles.navList}> */}
-              <li><NavLink to="/" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Selection</NavLink></li>
-              <li><NavLink to="/inventory" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Inventory</NavLink></li>
-              <li><NavLink to="/exchange" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Exchange</NavLink></li>
-              <li><NavLink to="/profile" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>Profile</NavLink></li>
+              {/* <ul className={styles.navList}> */}
+              {renderNavLink("/", "Selection")}
+              {renderNavLink("/inventory", "Inventory")}
+              {renderNavLink("/exchange", "Exchange")}
+              {renderNavLink("/profile", "Profile")}
             </ul>
           </>
         )}
