@@ -39,7 +39,7 @@ const Exchange = () => {
           }`}
           onClick={() => handleSelectSection("delivered")}
         >
-          <h3>Delivered</h3>
+          <h3 className={styles.sectionTitles}>Delivered</h3>
           <div className={styles.itemList}>
             {Object.entries(deliveredItems).map(([item, count]) => (
               <div key={item} className={styles.itemRow}>
@@ -55,7 +55,7 @@ const Exchange = () => {
           }`}
           onClick={() => handleSelectSection("received")}
         >
-          <h3>Received</h3>
+          <h3 className={styles.sectionTitles}>Received</h3>
           <div className={styles.itemList}>
             {Object.entries(receivedItems).map(([item, count]) => (
               <div key={item} className={styles.itemRow}>
