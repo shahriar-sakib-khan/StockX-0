@@ -106,6 +106,25 @@ nav .menu span {
 }
 
 
+body::-webkit-scrollbar {
+  width: .5rem;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: hsl(215, 20%, 90%);
+  border-radius: 50px;
+  margin-block: 0.5em;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: hsl(215, 20%, 50%);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(215, 20%, 40%);
+}
+
 
 /* media querry for small devices */
 @media (max-width: 680px) {
