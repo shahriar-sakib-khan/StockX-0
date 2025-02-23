@@ -7,14 +7,14 @@
   margin: 16px;
   border-radius: 8px;
   box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.1);
-  width: 250px;
+  width: min(200px, 100%);
   text-align: center;
-  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.2);
+  transform: translateY(-7px);
+  box-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.1);
 }
 
 .stockCount {
@@ -70,4 +70,45 @@
 .minusBtn:focus {
   outline: none;
   background-color: #ccc;
+}
+
+
+@media (max-width: 680px) {
+  .card {
+    padding: 8px;
+    margin: 8px;
+    width: min(150px, 100%);
+  }
+  
+  .stockCount {
+    font-size: .85rem;
+  }
+  
+  .image {
+    max-width: 70%;
+    margin-bottom: 0px;
+  }
+  
+  .name {
+    font-size: 0.75rem;
+    margin-bottom: 0;
+  }
+  
+  .price {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .controls {
+    gap: 10px;
+  }
+  
+  .plusBtn,
+  .minusBtn {
+    width: 25px;
+    height: 25px;
+    padding: 2px 2px 5px;
+    font-size: 16px;
+  }
 }

@@ -53,3 +53,32 @@
   outline: none;
   background-color: #ccc;
 }
+
+
+
+@media (max-width: 680px) {
+  .card {
+    width: 95px;
+    padding-top: 7px;
+    margin: 2px 5px;
+  }
+
+  .name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0;
+  }
+
+  .plusBtn {
+    width: 25px;
+    height: 25px;
+    padding: 2px 2px 5px;
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 0.75rem;
+    margin-top: 0;
+  }
+}

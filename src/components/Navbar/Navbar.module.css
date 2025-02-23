@@ -90,16 +90,16 @@ nav ul {
 nav .menu {
   display: none;
   position: absolute;
-  top: 1.2rem;
+  top: 1.5rem;
   right: 1rem;
   flex-direction: column;
   justify-content: space-between;
-  width: 2.25rem;
-  height: 1.75rem;
+  width: 1.75rem;
+  height: 1.5rem;
 }
 
 nav .menu span {
-  height: 0.3rem;
+  height: 0.2rem;
   width: 100%;
   background-color: white;
   border-radius: 0.2rem;
@@ -129,8 +129,20 @@ body::-webkit-scrollbar-thumb:hover {
 /* media querry for small devices */
 @media (max-width: 680px) {
 
+  .navbar{
+    min-height: 70px;
+  }
+  
+  .specialNavbar {
+    height: 85px;
+  }
+  
   .logo {
-    padding-top: 10px;
+    padding-top: 8px;
+  }
+  
+  .specialLogo {
+    font-size: 2rem;
   }
 
   nav .menu {

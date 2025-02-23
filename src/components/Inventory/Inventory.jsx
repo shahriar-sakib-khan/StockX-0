@@ -25,7 +25,7 @@ function Inventory() {
 
   return (
     <div className={styles.inventoryContainer}>
-      {allBrands.length > 0 ? (
+      {selectedBrands.length > 0 ? (
         <div className={styles.grid}>
           {allBrands.filter(brand => selectedBrands.includes(brand.id))
           .map(brand => (

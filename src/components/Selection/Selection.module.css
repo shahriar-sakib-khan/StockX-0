@@ -69,3 +69,39 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+
+@media (max-width: 680px) {
+  .titleSection {
+    margin: 5px;
+  }
+  
+  .titleSubmit {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .selectCount {
+    padding: 0;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .counter {
+    font-size: .90rem;
+  }
+  
+  .submitBtn,
+  .selectAllBtn {
+    font-size: .9rem;
+    padding: 0px 10px;
+  }
+  
+  .listContainer {
+    gap: 10px;
+    margin: 0px;
+    padding: 10px;
+  }
+}
