@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/sorted-list-of-brands";
 import Card from "./Card";
@@ -7,8 +7,22 @@ import styles from "./Exchange.module.css";
 const Exchange = () => {
   const { selectedBrands } = useOutletContext();
   const [activeSection, setActiveSection] = useState(null);
-  const [deliveredItems, setDeliveredItems] = useState({});
-  const [receivedItems, setReceivedItems] = useState({});
+
+  const [deliveredItems, setDeliveredItems] = useState(() => {
+    return JSON.parse(localStorage.getItem("deliveredItems") || {});
+  });
+
+  const [receivedItems, setReceivedItems] = useState(() => {
+    return JSON.parse(localStorage.getItem("receivedItems")) || {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem("deliveredItems", JSON.stringify(deliveredItems));
+  }, [deliveredItems]);
+
+  useEffect(() => {
+    localStorage.setItem("receivedItems", JSON.stringify(receivedItems));
+  });
 
   const handleSelectSection = (section) => {
     setActiveSection(section);
