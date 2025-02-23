@@ -53,12 +53,6 @@ nav ul {
   z-index: 1;
 }
 
-
-.navItem:not(.active):hover {
-  color: white;
-  border-radius: 2px;
-}
-
 .navItem::after {
   content: "";
   position: absolute;

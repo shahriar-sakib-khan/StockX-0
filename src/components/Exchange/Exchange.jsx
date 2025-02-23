@@ -80,12 +80,12 @@ const Exchange = () => {
           {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
           <span className={styles.itemCount}>( {count} )</span>
           <button
-                  className={styles.removeButton}
-                  onClick={() => handleRemoveItem(item)}
-                  disabled={activeSection !== active} // Disable when inactive
-                >
-                  Remove
-                </button>
+            className={styles.removeButton}
+            onClick={() => handleRemoveItem(item)}
+            disabled={activeSection !== active}
+          >
+            Remove
+          </button>
         </div>
       );
     });
