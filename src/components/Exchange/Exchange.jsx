@@ -49,26 +49,52 @@ const Exchange = () => {
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
-        if (prev[brandName] <= 1) {
-          const { [brandName]: _, ...rest } = prev; // Remove item if count is 0
-          return rest;
+        const updated = { ...prev };
+        if (updated[brandName] > 1) {
+          updated[brandName] -= 1;
+        } else {
+          delete updated[brandName];
         }
-        return { ...prev, [brandName]: prev[brandName] - 1 };
+        return updated;
       });
     } else {
       setReceivedItems((prev) => {
-        if (prev[brandName] <= 1) {
-          const { [brandName]: _, ...rest } = prev; // Remove item if count is 0
-          return rest;
+        const updated = { ...prev };
+        if (updated[brandName] > 1) {
+          updated[brandName] -= 1;
+        } else {
+          delete updated[brandName];
         }
-        return { ...prev, [brandName]: prev[brandName] - 1 };
+        return updated;
       });
     }
+  };
+
+  const renderItemList = (items, active) => {
+    return Object.entries(items).map(([item, count], index) => {
+      const brand = allBrands.find((brand) => brand.name === item);
+
+      return (
+        <div key={item} className={styles.itemRow}>
+          <span className={styles.serialNumber}>{index + 1}.</span>
+          {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
+          <span className={styles.itemCount}>( {count} )</span>
+          <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemoveItem(item)}
+                  disabled={activeSection !== active} // Disable when inactive
+                >
+                  Remove
+                </button>
+        </div>
+      );
+    });
   };
 
   return (
     <div className={styles.exchangeContainer}>
       <div className={styles.sectionsContainer}>
+        {/* Delivered Section */}
         <div
           className={`${styles.section} ${
             activeSection === "delivered" ? styles.active : ""
@@ -76,22 +102,10 @@ const Exchange = () => {
           onClick={() => handleSelectSection("delivered")}
         >
           <h3 className={styles.sectionTitles}>Delivered</h3>
-          <div className={styles.itemList}>
-            {Object.entries(deliveredItems).map(([item, count]) => (
-              <div key={item} className={styles.itemRow}>
-                {item} ({count})
-                <button
-                  className={styles.removeButton}
-                  onClick={() => handleRemoveItem(item)}
-                  disabled={activeSection !== "delivered"} // Disable when inactive
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
+          <div className={styles.itemList}>{renderItemList(deliveredItems, "delivered")}</div>
         </div>
 
+        {/* Received Section */}
         <div
           className={`${styles.section} ${
             activeSection === "received" ? styles.active : ""
@@ -99,20 +113,7 @@ const Exchange = () => {
           onClick={() => handleSelectSection("received")}
         >
           <h3 className={styles.sectionTitles}>Received</h3>
-          <div className={styles.itemList}>
-            {Object.entries(receivedItems).map(([item, count]) => (
-              <div key={item} className={styles.itemRow}>
-                {item} ({count})
-                <button
-                  className={styles.removeButton}
-                  onClick={() => handleRemoveItem(item)}
-                  disabled={activeSection !== "received"} // Disable when inactive
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
+          <div className={styles.itemList}>{renderItemList(receivedItems, "received")}</div>
         </div>
       </div>
 

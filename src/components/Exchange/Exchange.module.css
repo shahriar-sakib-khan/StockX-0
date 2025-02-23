@@ -85,6 +85,24 @@
   justify-content: space-between;
 }
 
+.serialNumber {
+  font-weight: bold;
+  margin: 0;
+}
+
+.brandLogo {
+  width: 100px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 5px;
+}
+
+.itemCount {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
 .removeButton {
   margin-left: 10px;
   padding: 5px 8px;
