@@ -9,11 +9,11 @@ const Exchange = () => {
   const [activeSection, setActiveSection] = useState(null);
 
   const [deliveredItems, setDeliveredItems] = useState(() => {
-    return JSON.parse(localStorage.getItem("deliveredItems") || {});
+    return JSON.parse(localStorage.getItem("deliveredItems") || "{}");
   });
 
   const [receivedItems, setReceivedItems] = useState(() => {
-    return JSON.parse(localStorage.getItem("receivedItems")) || {};
+    return JSON.parse(localStorage.getItem("receivedItems") || "{}");
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Exchange = () => {
 
   useEffect(() => {
     localStorage.setItem("receivedItems", JSON.stringify(receivedItems));
-  });
+  }, [receivedItems]);
 
   const handleSelectSection = (section) => {
     setActiveSection(section);
@@ -44,6 +44,28 @@ const Exchange = () => {
     }
   };
 
+  const handleRemoveItem = (brandName) => {
+    if (!activeSection) return;
+
+    if (activeSection === "delivered") {
+      setDeliveredItems((prev) => {
+        if (prev[brandName] <= 1) {
+          const { [brandName]: _, ...rest } = prev; // Remove item if count is 0
+          return rest;
+        }
+        return { ...prev, [brandName]: prev[brandName] - 1 };
+      });
+    } else {
+      setReceivedItems((prev) => {
+        if (prev[brandName] <= 1) {
+          const { [brandName]: _, ...rest } = prev; // Remove item if count is 0
+          return rest;
+        }
+        return { ...prev, [brandName]: prev[brandName] - 1 };
+      });
+    }
+  };
+
   return (
     <div className={styles.exchangeContainer}>
       <div className={styles.sectionsContainer}>
@@ -58,6 +80,13 @@ const Exchange = () => {
             {Object.entries(deliveredItems).map(([item, count]) => (
               <div key={item} className={styles.itemRow}>
                 {item} ({count})
+                <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemoveItem(item)}
+                  disabled={activeSection !== "delivered"} // Disable when inactive
+                >
+                  Remove
+                </button>
               </div>
             ))}
           </div>
@@ -74,6 +103,13 @@ const Exchange = () => {
             {Object.entries(receivedItems).map(([item, count]) => (
               <div key={item} className={styles.itemRow}>
                 {item} ({count})
+                <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemoveItem(item)}
+                  disabled={activeSection !== "received"} // Disable when inactive
+                >
+                  Remove
+                </button>
               </div>
             ))}
           </div>
