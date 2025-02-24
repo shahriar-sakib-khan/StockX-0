@@ -96,6 +96,7 @@ const Exchange = () => {
       return (
         <div key={item} className={styles.itemRow}>
           <span className={styles.serialNumber}>{index + 1}.</span>
+          <span className={styles.name}>{item}</span>
           {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
           <span className={styles.itemCount}>( {count} )</span>
           <button

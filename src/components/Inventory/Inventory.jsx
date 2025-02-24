@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import allBrands from '../../assets/sorted-list-of-brands';
+import allBrands from '../../assets/list_of_brands';
 import Card from './Card';
 import styles from './Inventory.module.css';
 
@@ -24,26 +24,33 @@ function Inventory() {
   }
 
   return (
-    <div className={styles.inventoryContainer}>
-      {selectedBrands.length > 0 ? (
-        <div className={styles.grid}>
-          {allBrands.filter(brand => selectedBrands.includes(brand.id))
-          .map(brand => (
-            <Card
-              key={brand.id}
-              id={brand.id}
-              name={brand.name}
-              picture={brand.cylinder}
-              price={brand.price}
-              stock={stocks[brand.id] ?? brand.stock}
-              updateStock={updateStock}
-            />
-          ))}
-        </div>
-      ) : (
-        <p>No brands selected</p>
-      )}
+<div className={styles.inventoryContainer}>
+  {selectedBrands.length > 0 ? (
+    <div className={styles.grid}>
+      {allBrands
+        .filter(brand => selectedBrands.includes(brand.id))
+        .map(brand => (
+          <div key={brand.id} className={styles.brandContainer}>
+            {brand.cylinders.map((cylinder, index) => (
+              <Card
+                key={index}
+                id={brand.id}
+                name={brand.name}
+                type={cylinder.type}
+                picture={cylinder.image}
+                price={brand.price}
+                stock={stocks[brand.id] ?? brand.stock}
+                updateStock={updateStock}
+              />
+            ))}
+          </div>
+        ))}
     </div>
+  ) : (
+    <p>No brands selected</p>
+  )}
+</div>
+
   )
 }
 
