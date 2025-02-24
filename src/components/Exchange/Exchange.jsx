@@ -44,7 +44,7 @@ const Exchange = () => {
     }
   };
 
-  const handleRemoveItem = (brandName) => {
+  const handleDecrementItem = (brandName) => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
@@ -70,6 +70,25 @@ const Exchange = () => {
     }
   };
 
+  
+  const handleRemoveItem = (brandName) => {
+    if (!activeSection) return;
+
+    if (activeSection === "delivered") {
+      setDeliveredItems((prev) => {
+        const updated = { ...prev };
+          delete updated[brandName];
+        return updated;
+      });
+    } else {
+      setReceivedItems((prev) => {
+        const updated = { ...prev };
+          delete updated[brandName];
+        return updated;
+      });
+    }
+  };
+
   const renderItemList = (items, active) => {
     return Object.entries(items).map(([item, count], index) => {
       const brand = allBrands.find((brand) => brand.name === item);
@@ -79,6 +98,13 @@ const Exchange = () => {
           <span className={styles.serialNumber}>{index + 1}.</span>
           {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
           <span className={styles.itemCount}>( {count} )</span>
+          <button
+            className={styles.decrementButton}
+            onClick={() => handleDecrementItem(item)}
+            disabled={activeSection !== active}
+          >
+            -
+          </button>
           <button
             className={styles.removeButton}
             onClick={() => handleRemoveItem(item)}

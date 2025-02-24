@@ -155,10 +155,11 @@
   margin-right: 10px;
 }
 
-.removeButton {
+.removeButton,
+.decrementButton {
   margin-left: 10px;
   padding: 5px 8px;
-  background-color: red;
+  background-color: hsl(0, 100%, 50%);
   color: white;
   border: none;
   cursor: pointer;
@@ -166,11 +167,30 @@
 }
 
 .removeButton:hover {
-  background-color: darkred;
+  background-color: hsl(0, 100%, 45%);
 }
 
-.removeButton:disabled {
-  background-color: gray;
+.decrementButton {
+  font-size: 1.075rem;
+  color: #333;
+  /* background-color: hsl(210, 90%, 60%); */
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 50%;
+}
+
+.decrementButton:hover {
+  /* background-color: hsl(210, 90%, 50%); */
+  background-color: #ddd;
+}
+
+.decrementButton:active {
+  background-color: #ccc;
+}
+
+.removeButton:disabled,
+.decrementButton:disabled {
+  background-color: hsl(0, 0%, 70%);
   cursor: not-allowed;
   opacity: 0.5;
 }
