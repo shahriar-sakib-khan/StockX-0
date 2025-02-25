@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import allBrands from "../../assets/sorted-list-of-brands";
+import allBrands from "../../assets/list_of_brands";
 import Card from "./Card";
 import styles from "./Exchange.module.css";
 
@@ -28,42 +28,56 @@ const Exchange = () => {
     setActiveSection(section);
   };
 
-  const handleAddItem = (brandName) => {
+  const handleAddItem = (brandName, cylinderType) => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => ({
         ...prev,
-        [brandName]: (prev[brandName] || 0) + 1,
+        [brandName]: {
+          ...(prev[brandName] || {}),
+          [cylinderType]: (prev[brandName]?.[cylinderType] || 0) + 1,
+        }
       }));
     } else {
       setReceivedItems((prev) => ({
         ...prev,
-        [brandName]: (prev[brandName] || 0) + 1,
+        [brandName]: {
+          ...(prev[brandName] || {}),
+          [cylinderType]: (prev[brandName]?.[cylinderType] || 0) + 1,
+        }
       }));
     }
   };
 
-  const handleDecrementItem = (brandName) => {
+  const handleDecrementItem = (brandName, cylinderType) => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
         const updated = { ...prev };
-        if (updated[brandName] > 1) {
-          updated[brandName] -= 1;
+        if (updated[brandName]?.[cylinderType] > 1) {
+          updated[brandName][cylinderType] -= 1;
         } else {
-          delete updated[brandName];
+          delete updated[brandName][cylinderType];
+
+          if(Object.keys(updated[brandName]).length === 0) {
+            delete updated[brandName];
+          }
         }
         return updated;
       });
     } else {
       setReceivedItems((prev) => {
         const updated = { ...prev };
-        if (updated[brandName] > 1) {
-          updated[brandName] -= 1;
+        if (updated[brandName]?.[cylinderType] > 1) {
+          updated[brandName][cylinderType] -= 1;
         } else {
-          delete updated[brandName];
+          delete updated[brandName][cylinderType];
+
+          if(Object.keys(updated[brandName]).length === 0) {
+            delete updated[brandName];
+          }
         }
         return updated;
       });
@@ -71,50 +85,70 @@ const Exchange = () => {
   };
 
   
-  const handleRemoveItem = (brandName) => {
+  const handleRemoveItem = (brandName, cylinderType) => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
         const updated = { ...prev };
+
+        if(cylinderType) {
+          delete updated[brandName]?.[cylinderType];
+
+          if(Object.keys(updated[brandName] || {}).length === 0) {
+            delete updated[brandName];
+          }
+        }
+        else {
           delete updated[brandName];
+        }
         return updated;
       });
     } else {
       setReceivedItems((prev) => {
         const updated = { ...prev };
+
+        if(cylinderType) {
+          delete updated[brandName]?.[cylinderType];
+
+          if(Object.keys(updated[brandName] || {}).length === 0) {
+            delete updated[brandName];
+          }
+        }
+        else {
           delete updated[brandName];
+        }
         return updated;
       });
     }
   };
 
   const renderItemList = (items, active) => {
-    return Object.entries(items).map(([item, count], index) => {
-      const brand = allBrands.find((brand) => brand.name === item);
+    return Object.entries(items).flatMap(([brandName, cylinderTypes], index) => {
+      const brand = allBrands.find((brand) => brand.name === brandName);
 
-      return (
-        <div key={item} className={styles.itemRow}>
+      return Object.entries(cylinderTypes).map(([cylinderType, count]) => (
+        <div key={`${brandName}-${cylinderType}`} className={styles.itemRow}>
           <span className={styles.serialNumber}>{index + 1}.</span>
-          <span className={styles.name}>{item}</span>
+          <span className={styles.name}>{brandName} - {cylinderType}</span>
           {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
           <span className={styles.itemCount}>( {count} )</span>
           <button
             className={styles.decrementButton}
-            onClick={() => handleDecrementItem(item)}
+            onClick={() => handleDecrementItem(brandName, cylinderType)}
             disabled={activeSection !== active}
           >
             -
           </button>
           <button
             className={styles.removeButton}
-            onClick={() => handleRemoveItem(item)}
+            onClick={() => handleRemoveItem(brandName, cylinderType)}
             disabled={activeSection !== active}
           >
             Remove
           </button>
         </div>
-      );
+      ));
     });
   };
 
@@ -146,16 +180,19 @@ const Exchange = () => {
 
       <div className={styles.bottomScrollable}>
         {allBrands.map((brand) =>
-          selectedBrands.includes(brand.id) ? (
-            <Card
-              key={brand.id}
-              id={brand.id}
-              name={brand.name}
-              picture={brand.cylinder}
-              price={brand.price}
-              onAdd={() => handleAddItem(brand.name)}
-            />
-          ) : null
+          selectedBrands.includes(brand.id)
+           ? brand.cylinders.map((cylinder) => (
+              <Card
+                key={`${brand.id}-${cylinder.type}`}
+                id={brand.id}
+                name={brand.name}
+                type={cylinder.type}
+                picture={cylinder.image}
+                price={brand.price}
+                onAdd={() => handleAddItem(brand.name, cylinder.type)}
+              />
+            )) 
+          : null
         )}
       </div>
     </div>
