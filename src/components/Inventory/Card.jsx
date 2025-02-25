@@ -42,7 +42,8 @@ function Card({ id, name, type, picture, price, stock, updateStock }) {
         isOpen={isModalOpen} 
         onClose={closeModal} 
         onSubmit={handleStockChange} 
-        modalType={modalType} 
+        modalType={modalType}
+        stock={stock}
       />
     </>
   );

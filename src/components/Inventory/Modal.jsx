@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from './Modal.module.css';
 
-function Modal({ isOpen, onClose, onSubmit, modalType }) {
+function Modal({ isOpen, onClose, onSubmit, modalType, stock }) {
   const [inputValue, setInputValue] = useState('');
+  const [showWarning, setShowWarning] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -15,9 +16,20 @@ function Modal({ isOpen, onClose, onSubmit, modalType }) {
   const handleSubmit = () => {
     const value = parseInt(inputValue, 10);
     if(!isNaN(value) && value > 0) {
-      onSubmit(value);
+      if(modalType === "DECREASE" && value > stock && !showWarning) {
+        setShowWarning(true);
+      }
+      else {
+        const finalValue = modalType === "INCREASE" ? value : (value > stock ? stock : value);
+        onSubmit(finalValue);
+        closeAndReset();
+      }
     }
+  }
+  
+  const closeAndReset = () => {
     setInputValue('');
+    setShowWarning(false);
     onClose();
   }
   
@@ -27,28 +39,39 @@ function Modal({ isOpen, onClose, onSubmit, modalType }) {
       handleSubmit();
     }
     else if(e.key === "Escape") {
-      onClose();
+      closeAndReset();
     }
   }
 
   if(!isOpen) return null;
   
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
+    <div className={styles.modalOverlay} onClick={closeAndReset}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <h3>{modalType === "INCREASE" ? "Increase Stock" : "Decrease Stock"}</h3>
+        {showWarning && (
+          <div className={styles.warningContainer}>
+            <div className={styles.warningBubble}>
+              Entered amount is greater than stock.
+              Proceeding will set the stock to 0.
+            </div>
+          </div>
+        )}
         <input
           ref={inputRef}
           type="number"
           min="1"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setShowWarning(false);
+          }}
           placeholder="Enter amount"
           onKeyDown={handleKeyDown}
-          className={styles.noArrows}
+          className={`${styles.noArrows} ${showWarning ? styles.inputWarning : ""}`}
         />
         <div className={styles.modalButtons}>
-          <button onClick={onClose} className={styles.cancelBtn}>Cancel</button>
+          <button onClick={closeAndReset} className={styles.cancelBtn}>Cancel</button>
           <button onClick={handleSubmit} className={styles.submitBtn}>Submit</button>
         </div>
       </div>
