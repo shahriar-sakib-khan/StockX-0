@@ -10,6 +10,7 @@
   width: min(200px, 100%);
   text-align: center;
   transition: transform 0.1s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .card:hover {
@@ -17,12 +18,25 @@
   box-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.1);
 }
 
-.stockCount {
+/* .stockCount {
   font-size: 18px;
   font-weight: bold;
   color: #12a373;
-}
+} */
 
+.stockCount {
+  /* background-color: hsl(120, 50%, 60%);
+  color: white; */
+  font-weight: bold;
+  color: hsl(215, 20%, 40%);
+  background-color: hsl(0, 0%, 95%);
+  border-top-left-radius: 5px ;
+  padding: 5px;
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
 .image {
   max-width: 80%;
   border-radius: 4px;
