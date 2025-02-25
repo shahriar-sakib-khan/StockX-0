@@ -16,10 +16,13 @@ function Inventory() {
     localStorage.setItem("stocks", JSON.stringify(stocks));
   }, [stocks]);
 
-  const updateStock = (id, newStock) => {
+  const updateStock = (id, cylinderType, newStock) => {
     setStocks(prevStocks => ({
       ...prevStocks,
-      [id]: newStock
+      [id]: {
+        ...(prevStocks[id] || {}),
+        [cylinderType]: newStock
+      }
     }));
   }
 
@@ -33,13 +36,13 @@ function Inventory() {
           <div key={brand.id} className={styles.brandContainer}>
             {brand.cylinders.map((cylinder, index) => (
               <Card
-                key={index}
+                key={`${brand.id}-${cylinder.type}`}
                 id={brand.id}
                 name={brand.name}
                 type={cylinder.type}
                 picture={cylinder.image}
                 price={brand.price}
-                stock={stocks[brand.id] ?? brand.stock}
+                stock={stocks[brand.id]?.[cylinder.type] ?? brand.stock}
                 updateStock={updateStock}
               />
             ))}

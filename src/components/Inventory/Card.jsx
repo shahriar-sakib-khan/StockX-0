@@ -17,10 +17,10 @@ function Card({ id, name, type, picture, price, stock, updateStock }) {
 
   const handleStockChange = (value) => {
     if(modalType === "INCREASE") {
-      updateStock(id, stock + value);
+      updateStock(id, type, stock + value);
     }
     else if(modalType === "DECREASE" && stock - value >= 0) {
-      updateStock(id, stock - value);
+      updateStock(id, type, stock - value);
     }
   }
 
