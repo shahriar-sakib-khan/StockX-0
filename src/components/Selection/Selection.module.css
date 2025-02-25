@@ -63,7 +63,7 @@
 .listContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
+  gap: 25px;
   margin: 0 50px;
   padding: 20px 35px;
   overflow-x: hidden;
