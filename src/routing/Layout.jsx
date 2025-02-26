@@ -7,15 +7,23 @@ function Layout() {
     JSON.parse(localStorage.getItem("selectedBrands")) || []
   );
 
+  const [stockCount, setStockCount] = useState(() => {
+    return JSON.parse(localStorage.getItem("stockCount")) || {};
+  });
+
   useEffect(() => {
     localStorage.setItem("selectedBrands", JSON.stringify(selectedBrands));
   }, [selectedBrands]);
+  
+  useEffect(() => {
+    localStorage.setItem("stockCount", JSON.stringify(stockCount));
+  }, [stockCount]);
 
   return(
     <>
       <Navbar />
       <div id="main">
-        <Outlet context={{selectedBrands, setSelectedBrands}}/>
+        <Outlet context={{selectedBrands, setSelectedBrands, stockCount, setStockCount}}/>
       </div>
     </>
   );

@@ -1,23 +1,13 @@
-import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/list_of_brands';
 import Card from './Card';
 import styles from './Inventory.module.css';
 
 function Inventory() {
-  const { selectedBrands } = useOutletContext();
-  
-  const [stocks, setStocks] = useState(() => {
-    const storedStocks = localStorage.getItem("stocks");
-    return storedStocks ? JSON.parse(storedStocks) : {};
-  });
-
-  useEffect(() => {
-    localStorage.setItem("stocks", JSON.stringify(stocks));
-  }, [stocks]);
+  const { selectedBrands, stockCount, setStockCount } = useOutletContext();
 
   const updateStock = (id, cylinderType, newStock) => {
-    setStocks(prevStocks => ({
+    setStockCount(prevStocks => ({
       ...prevStocks,
       [id]: {
         ...(prevStocks[id] || {}),
@@ -42,7 +32,7 @@ function Inventory() {
                 type={cylinder.type}
                 picture={cylinder.image}
                 price={brand.price}
-                stock={stocks[brand.id]?.[cylinder.type] ?? brand.stock}
+                stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
                 updateStock={updateStock}
               />
             ))}

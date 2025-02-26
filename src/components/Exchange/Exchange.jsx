@@ -5,7 +5,7 @@ import Card from "./Card";
 import styles from "./Exchange.module.css";
 
 const Exchange = () => {
-  const { selectedBrands } = useOutletContext();
+  const { selectedBrands, stockCount, setStockCount } = useOutletContext();
   const [activeSection, setActiveSection] = useState(null);
 
   const [deliveredItems, setDeliveredItems] = useState(() => {
@@ -24,59 +24,78 @@ const Exchange = () => {
     localStorage.setItem("receivedItems", JSON.stringify(receivedItems));
   }, [receivedItems]);
 
+  const updateStock = (id, cylinderType, newStock) => {
+    setStockCount((prevStocks) => ({
+      ...prevStocks,
+      [id]: {
+        ...(prevStocks[id] || {} ),
+        [cylinderType]: newStock,
+      },
+    }));
+  };
+  
   const handleSelectSection = (section) => {
     setActiveSection(section);
   };
 
-  const handleAddItem = (brandName, cylinderType) => {
+  const handleAddItem = (id, cylinderType) => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => ({
         ...prev,
-        [brandName]: {
-          ...(prev[brandName] || {}),
-          [cylinderType]: (prev[brandName]?.[cylinderType] || 0) + 1,
+        [id]: {
+          ...(prev[id] || {}),
+          [cylinderType]: (prev[id]?.[cylinderType] || 0) + 1,
         }
       }));
+
+      const newStock = Math.max((stockCount[id]?.[cylinderType] || 0) - 1, 0);
+      updateStock(id, cylinderType, newStock);
+
     } else {
       setReceivedItems((prev) => ({
         ...prev,
-        [brandName]: {
-          ...(prev[brandName] || {}),
-          [cylinderType]: (prev[brandName]?.[cylinderType] || 0) + 1,
+        [id]: {
+          ...(prev[id] || {}),
+          [cylinderType]: (prev[id]?.[cylinderType] || 0) + 1,
         }
       }));
     }
   };
 
-  const handleDecrementItem = (brandName, cylinderType) => {
+  const handleDecrementItem = (id, cylinderType) => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
         const updated = { ...prev };
-        if (updated[brandName]?.[cylinderType] > 1) {
-          updated[brandName][cylinderType] -= 1;
-        } else {
-          delete updated[brandName][cylinderType];
 
-          if(Object.keys(updated[brandName]).length === 0) {
-            delete updated[brandName];
+        if (updated[id]?.[cylinderType] > 1) {
+          updated[id][cylinderType] -= 1;
+        } else {
+          delete updated[id][cylinderType];
+          if(Object.keys(updated[id]).length === 0) {
+            delete updated[id];
           }
         }
+        
+        const newStock = Math.max((stockCount[id]?.[cylinderType] || 0) + 1, 0);
+        updateStock(id, cylinderType, newStock);
+
         return updated;
       });
+      
     } else {
       setReceivedItems((prev) => {
         const updated = { ...prev };
-        if (updated[brandName]?.[cylinderType] > 1) {
-          updated[brandName][cylinderType] -= 1;
+        if (updated[id]?.[cylinderType] > 1) {
+          updated[id][cylinderType] -= 1;
         } else {
-          delete updated[brandName][cylinderType];
+          delete updated[id][cylinderType];
 
-          if(Object.keys(updated[brandName]).length === 0) {
-            delete updated[brandName];
+          if(Object.keys(updated[id]).length === 0) {
+            delete updated[id];
           }
         }
         return updated;
@@ -85,38 +104,46 @@ const Exchange = () => {
   };
 
   
-  const handleRemoveItem = (brandName, cylinderType) => {
+  const handleRemoveItem = (id, cylinderType) => {
     if (!activeSection) return;
-
+    
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
         const updated = { ...prev };
+        const removedCount = updated[id]?.[cylinderType] || 0;
 
         if(cylinderType) {
-          delete updated[brandName]?.[cylinderType];
-
-          if(Object.keys(updated[brandName] || {}).length === 0) {
-            delete updated[brandName];
+          delete updated[id]?.[cylinderType];
+          if(Object.keys(updated[id] || {}).length === 0) {
+            delete updated[id];
           }
         }
         else {
-          delete updated[brandName];
+          delete updated[id];
         }
+
+        setStockCount((prevStocks) => ({
+          ...prevStocks,
+          [id]: {
+            ...(prevStocks[id] || {}),
+            [cylinderType]: (prevStocks[id]?.[cylinderType] || 0) + removedCount,
+          },
+        }));
+
         return updated;
       });
+
     } else {
       setReceivedItems((prev) => {
         const updated = { ...prev };
-
         if(cylinderType) {
-          delete updated[brandName]?.[cylinderType];
-
-          if(Object.keys(updated[brandName] || {}).length === 0) {
-            delete updated[brandName];
+          delete updated[id]?.[cylinderType];
+          if(Object.keys(updated[id] || {}).length === 0) {
+            delete updated[id];
           }
         }
         else {
-          delete updated[brandName];
+          delete updated[id];
         }
         return updated;
       });
@@ -124,25 +151,25 @@ const Exchange = () => {
   };
 
   const renderItemList = (items, active) => {
-    return Object.entries(items).flatMap(([brandName, cylinderTypes], index) => {
-      const brand = allBrands.find((brand) => brand.name === brandName);
+    return Object.entries(items).flatMap(([id, cylinderTypes], index) => {
+      const brand = allBrands.find((brand) => brand.id === parseInt(id));
 
       return Object.entries(cylinderTypes).map(([cylinderType, count]) => (
-        <div key={`${brandName}-${cylinderType}`} className={styles.itemRow}>
+        <div key={`${id}-${cylinderType}`} className={styles.itemRow}>
           <span className={styles.serialNumber}>{index + 1}.</span>
-          <span className={styles.name}>{brandName} - {cylinderType}</span>
+          <span className={styles.name}>{brand?.name} - {cylinderType}</span>
           {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
           <span className={styles.itemCount}>( {count} )</span>
           <button
             className={styles.decrementButton}
-            onClick={() => handleDecrementItem(brandName, cylinderType)}
+            onClick={() => handleDecrementItem(id, cylinderType)}
             disabled={activeSection !== active}
           >
             -
           </button>
           <button
             className={styles.removeButton}
-            onClick={() => handleRemoveItem(brandName, cylinderType)}
+            onClick={() => handleRemoveItem(id, cylinderType)}
             disabled={activeSection !== active}
           >
             Remove
@@ -189,7 +216,8 @@ const Exchange = () => {
                 type={cylinder.type}
                 picture={cylinder.image}
                 price={brand.price}
-                onAdd={() => handleAddItem(brand.name, cylinder.type)}
+                stock={stockCount[brand.id]?.[cylinder.type] ?? 0}
+                onAdd={() => handleAddItem(brand.id, cylinder.type)}
               />
             )) 
           : null
