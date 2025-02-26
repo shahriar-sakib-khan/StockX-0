@@ -42,6 +42,9 @@ const Exchange = () => {
     if (!activeSection) return;
 
     if (activeSection === "delivered") {
+      if((stockCount[id]?.[cylinderType] || 0) === 0)
+        return;
+      
       setDeliveredItems((prev) => ({
         ...prev,
         [id]: {
