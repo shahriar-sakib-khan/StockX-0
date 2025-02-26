@@ -44,7 +44,7 @@ const Exchange = () => {
     if (activeSection === "delivered") {
       if((stockCount[id]?.[cylinderType] || 0) === 0)
         return;
-      
+
       setDeliveredItems((prev) => ({
         ...prev,
         [id]: {
@@ -182,6 +182,20 @@ const Exchange = () => {
     });
   };
 
+  const selectedBrandsList = allBrands.filter((brand) => 
+    selectedBrands.includes(brand.id)
+  );
+
+  const unselectedBrandsList = allBrands.filter((brand) => 
+    !selectedBrands.includes(brand.id)
+  );
+
+  const orderedBrandsList = [...selectedBrandsList, ...unselectedBrandsList];
+
+  // console.log("Selected Brands:", selectedBrandsList);
+  // console.log("Unselected Brands:", unselectedBrandsList);
+  console.log("Ordered Brands:", orderedBrandsList);
+
   return (
     <div className={styles.exchangeContainer}>
       <div className={styles.sectionsContainer}>
@@ -209,21 +223,19 @@ const Exchange = () => {
       </div>
 
       <div className={styles.bottomScrollable}>
-        {allBrands.map((brand) =>
-          selectedBrands.includes(brand.id)
-           ? brand.cylinders.map((cylinder) => (
-              <Card
-                key={`${brand.id}-${cylinder.type}`}
-                id={brand.id}
-                name={brand.name}
-                type={cylinder.type}
-                picture={cylinder.image}
-                price={brand.price}
-                stock={stockCount[brand.id]?.[cylinder.type] ?? 0}
-                onAdd={() => handleAddItem(brand.id, cylinder.type)}
-              />
-            )) 
-          : null
+        {[...selectedBrandsList, ...unselectedBrandsList].map((brand) =>
+          brand.cylinders.map((cylinder) => (
+            <Card
+              key={`${brand.id}-${cylinder.type}`}
+              id={brand.id}
+              name={brand.name}
+              type={cylinder.type}
+              picture={cylinder.image}
+              price={brand.price}
+              stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
+              onAdd={() => handleAddItem(brand.id, cylinder.type)}
+            />
+          ))
         )}
       </div>
     </div>
