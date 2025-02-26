@@ -45,7 +45,8 @@
 .name, .type {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  /* color: #333; */
+  color: hsl(215, 20%, 40%);
   margin-top: 5px;
   margin-bottom: 0;
 }
