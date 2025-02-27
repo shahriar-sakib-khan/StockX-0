@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import allBrands from "../../assets/list_of_brands";
 import Card from "./Card";
 import styles from "./Exchange.module.css";
@@ -7,6 +7,7 @@ import styles from "./Exchange.module.css";
 const Exchange = () => {
   const { selectedBrands, stockCount, setStockCount } = useOutletContext();
   const [activeSection, setActiveSection] = useState(null);
+  const navigate = useNavigate();
 
   const [deliveredItems, setDeliveredItems] = useState(() => {
     return JSON.parse(localStorage.getItem("deliveredItems") || "{}");
@@ -186,6 +187,12 @@ const Exchange = () => {
     selectedBrands.includes(brand.id)
   );
 
+  const handleNext = () => {
+    navigate("/receipts", {
+      state: { deliveredItems, receivedItems }
+    });
+  }
+
   return (
     <div className={styles.exchangeContainer}>
       <div className={styles.sectionsContainer}>
@@ -211,6 +218,10 @@ const Exchange = () => {
           <div className={styles.itemList}>{renderItemList(receivedItems, "received")}</div>
         </div>
       </div>
+        
+      <div className={styles.buttonContainer}>
+        <button className={styles.nextBtn} onClick={handleNext}>Next</button>
+      </div>
 
       <div className={styles.bottomScrollable}>
         {[
@@ -232,6 +243,7 @@ const Exchange = () => {
           ))
         )}
       </div>
+
     </div>
   );
 };
