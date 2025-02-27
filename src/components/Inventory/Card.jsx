@@ -24,13 +24,15 @@ function Card({ id, name, type, picture, price, stock, updateStock }) {
     }
   }
 
+  const typeClassName = `type-${type}`;
+
   return (
     <>
-      <div className={styles.card}>
-        <span className={styles.stockCount}>In Stock: {stock}</span>
+      <div className={`${styles.card} ${styles[typeClassName]}`}>
+        <span className={styles.stockCount}>Stock: {stock}</span>
         <img src={picture} alt={name} className={styles.image} />
         <h2 className={styles.name}>{name}</h2>
-        <h2 className={styles.type}>{type}</h2>
+        <span className={styles.type}>{type}</span>
         <p className={styles.price}>Price: {price}</p>
         <div className={styles.controls}>
           <button onClick={() => openModal("DECREASE")} className={styles.minusBtn}>-</button>

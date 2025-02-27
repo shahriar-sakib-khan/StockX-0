@@ -6,6 +6,7 @@
   background-color: #fff;
   padding-top: 30px;
   margin: 5px 10px;
+  border: 1px solid hsl(0, 0%, 85%);
   border-radius: 8px;
   box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.1);
   width: 150px;
@@ -15,13 +16,34 @@
   position: relative;
 }
 
+.type{
+  /* border: 2px solid hsla(0, 0%, 0%, 0.1); */
+  color: hsl(215, 20%, 40%);
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  padding: 0 15px;
+  position: absolute;
+  font-weight: 600;
+  bottom: 0;
+  left: 26%;
+}
+
+.type-20mm .type{
+  background-color: hsl(122, 70%, 85%);
+  /* border: 2px solid hsl(122, 70%, 65%); */
+  /* border-bottom: transparent; */
+}
+.type-22mm .type{
+  background-color: hsl(215, 100%, 90%);
+}
+
 .stockCount {
   /* background-color: hsl(120, 50%, 60%);
   color: white; */
   font-weight: bold;
   color: hsl(215, 20%, 40%);
   background-color: hsl(0, 0%, 95%);
-  border-top-left-radius: 5px ;
+  border-top-left-radius: 7px ;
   padding: 5px;
   font-size: 14px;
   position: absolute;
@@ -45,6 +67,7 @@
 .price {
   font-size: 0.95rem;
   color: #888;
+  margin-bottom: 25px;
 }
 
 .plusBtn {
