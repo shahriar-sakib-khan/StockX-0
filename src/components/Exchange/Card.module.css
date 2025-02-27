@@ -110,13 +110,14 @@
 /* === Tooltip for Disabled Button === */
 .plusBtn:disabled::after {
   content: attr(data-tool-tip);
+  font-weight: 500;
   display: block;
   position: absolute;
   top: 0;
   right: -110%;
   background: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 6px 10px;
+  padding: 6px 10px 8px;
   border-radius: 4px;
   font-size: 12px;
   white-space: nowrap;
@@ -125,6 +126,7 @@
               top ease-out 150ms,
               right ease-out 150ms ;
   z-index: 1;
+  pointer-events: none;
 }
 .plusBtn:disabled:hover::after {
   top: 100%;

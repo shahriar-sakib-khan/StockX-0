@@ -35,7 +35,7 @@ function Card({ id, name, type, picture, price, stock, updateStock }) {
         <span className={styles.type}>{type}</span>
         <p className={styles.price}>Price: {price}</p>
         <div className={styles.controls}>
-          <button onClick={() => openModal("DECREASE")} className={styles.minusBtn}>-</button>
+          <button onClick={() => openModal("DECREASE")} className={styles.minusBtn} disabled={stock === 0}>-</button>
           <button onClick={() => openModal("INCREASE")} className={styles.plusBtn}>+</button>
         </div>
       </div>

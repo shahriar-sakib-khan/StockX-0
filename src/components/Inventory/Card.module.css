@@ -109,6 +109,9 @@
   background-color: #ccc;
 }
 
+.minusBtn:disabled {
+  cursor: not-allowed;
+}
 
 @media (max-width: 680px) {
   .card {
