@@ -186,16 +186,6 @@ const Exchange = () => {
     selectedBrands.includes(brand.id)
   );
 
-  const unselectedBrandsList = allBrands.filter((brand) => 
-    !selectedBrands.includes(brand.id)
-  );
-
-  const orderedBrandsList = [...selectedBrandsList, ...unselectedBrandsList];
-
-  // console.log("Selected Brands:", selectedBrandsList);
-  // console.log("Unselected Brands:", unselectedBrandsList);
-  console.log("Ordered Brands:", orderedBrandsList);
-
   return (
     <div className={styles.exchangeContainer}>
       <div className={styles.sectionsContainer}>
@@ -223,7 +213,10 @@ const Exchange = () => {
       </div>
 
       <div className={styles.bottomScrollable}>
-        {[...selectedBrandsList, ...unselectedBrandsList].map((brand) =>
+        {[
+          ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
+          ...allBrands.filter((brand) => !selectedBrands.includes(brand.id)),
+        ].map((brand) =>
           brand.cylinders.map((cylinder) => (
             <Card
               key={`${brand.id}-${cylinder.type}`}
@@ -233,6 +226,7 @@ const Exchange = () => {
               picture={cylinder.image}
               price={brand.price}
               stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
+              activeSection={activeSection}
               onAdd={() => handleAddItem(brand.id, cylinder.type)}
             />
           ))

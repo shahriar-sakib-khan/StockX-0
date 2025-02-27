@@ -16,6 +16,10 @@
   position: relative;
 }
 
+.card:hover {
+  transform: translateY(-2px);
+}
+
 .type{
   /* border: 2px solid hsla(0, 0%, 0%, 0.1); */
   color: hsl(215, 20%, 40%);
@@ -95,7 +99,38 @@
   background-color: #ccc;
 }
 
+.plusBtn:disabled {
+  cursor: not-allowed;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
 
+/* === Tooltip for Disabled Button === */
+.plusBtn:disabled::after {
+  content: attr(data-tool-tip);
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -110%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  transform: scale(0);
+  transition: transform ease-out 150ms,
+              top ease-out 150ms,
+              right ease-out 150ms ;
+  z-index: 1;
+}
+.plusBtn:disabled:hover::after {
+  top: 100%;
+  right: 0%;
+  transform: scale(1);
+}
 
 @media (max-width: 680px) {
   .card {
