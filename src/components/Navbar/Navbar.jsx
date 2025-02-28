@@ -38,7 +38,7 @@ function Navbar() {
             <ul className={menuOpen ? styles.open : styles.notOpen}>
               {/* <ul className={styles.navList}> */}
               {renderNavLink("/", "Selection")}
-              {renderNavLink("/initialization", "Initialization")}
+              {/* {renderNavLink("/initialization", "Initialization")} */}
               {renderNavLink("/inventory", "Inventory")}
               {renderNavLink("/exchange", "Exchange")}
               {renderNavLink("/profile", "Profile")}
