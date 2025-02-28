@@ -9,6 +9,18 @@ const Receipts = () => {
 
   const navigate = useNavigate();
 
+  const renderTableHeader = () => {
+    return (
+      <tr role="row">
+        <th role="cell">Brand</th>
+        <th role="cell">Type</th>
+        <th role="cell">Price</th>
+        <th role="cell">Quantity</th>
+        <th role="cell">Total Price</th>
+      </tr>
+    );
+  }
+
   const renderTableRows = (items) => {
     let finalTotal = 0;
 
@@ -21,12 +33,12 @@ const Receipts = () => {
         finalTotal += totalPrice;
 
         return (
-          <tr key={`${id}-${cylinderType}`}>
-            <td>{brand?.name || "Unknown"}</td>
-            <td className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
-            <td>${price.toFixed(2)}</td>
-            <td>{count}</td>
-            <td>${totalPrice.toFixed(2)}</td>
+          <tr key={`${id}-${cylinderType}`} role="row">
+            <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
+            <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
+            <td data-cell="Price: " role="cell">${price.toFixed(2)}</td>
+            <td data-cell="Quantity: " role="cell">{count}</td>
+            <td data-cell="Total Price: " role="cell">${totalPrice.toFixed(2)}</td>
           </tr>
         );
       });
@@ -34,9 +46,9 @@ const Receipts = () => {
 
     // Add the final total row
     rows.push(
-      <tr key="final-total" style={{ fontWeight: "bold", backgroundColor: "#f0f0f0" }}>
-        <td colSpan="4" style={{ textAlign: "left" }}>Final Total:</td>
-        <td>${finalTotal.toFixed(2)}</td>
+      <tr key="final-total" role="row">
+        <td role="cell" colSpan="4" style={{ textAlign: "left" }}>Final Total:</td>
+        <td role="cell">${finalTotal.toFixed(2)}</td>
       </tr>
     );
 
@@ -47,35 +59,19 @@ const Receipts = () => {
     <div className={styles.receiptContainer}>
       { Object.keys(deliveredItems).length > 0 &&
       <div className={styles.delivered}>
-        <h2>Delivered Items</h2>
-        <table className={styles.tableContainer}>
-          <thead>
-            <tr>
-              <th>Brand</th>
-              <th>Type</th>
-              <th>Price</th>
-              <th>Count</th>
-              <th>Total Price</th>
-            </tr>
-          </thead>
-          <tbody>{renderTableRows(deliveredItems)}</tbody>
+        <table className={styles.tableContainer} role="table">
+          <caption role="caption">Delivered Items</caption>
+          <thead role="rowgroup">{renderTableHeader()}</thead>
+          <tbody role="rowgroup">{renderTableRows(deliveredItems)}</tbody>
         </table>
       </div>
       }
       { Object.keys(receivedItems).length > 0 &&
       <div className={styles.received}>
-        <h2>Received Items</h2>
-        <table className={styles.tableContainer}>
-          <thead>
-            <tr>
-              <th>Brand</th>
-              <th>Type</th>
-              <th>Price</th>
-              <th>Count</th>
-              <th>Total Price</th>
-            </tr>
-          </thead>
-          <tbody>{renderTableRows(receivedItems)}</tbody>
+        <table className={styles.tableContainer} role="table">
+          <caption role="caption">Received Items</caption>
+          <thead role="rowgroup">{renderTableHeader()}</thead>
+          <tbody role="rowgroup">{renderTableRows(receivedItems)}</tbody>
         </table>
       </div>
       }

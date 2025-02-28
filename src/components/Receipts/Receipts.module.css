@@ -1,46 +1,43 @@
 .receiptContainer {
   display: flex;
   justify-content: space-evenly;
-  gap: 10px;
-  padding: 0 40px;
+  gap: 2%;
+  padding: 0 5%px;
   flex-wrap: wrap;
   position: relative;
 }
 
-.receiptContainer h2 {
+.tableContainer {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: hsl(0, 0%, 95%);
+}
+
+.tableContainer caption,
+.tableContainer th,
+.tableContainer td {
+  padding: 1rem;
+}
+
+.tableContainer th {
+  text-align: left;
+}
+
+.tableContainer caption {
   font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
   color: hsl(214, 20%, 40%);
 }
 
-.tableContainer {
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  border: 1px solid #ccc;
-  min-width: 60%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  border-color: transparent;
-  text-align: left;
-}
-
-.tableContainer thead tr{
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  background-color: #009879;
-  font-weight: bold;
+.tableContainer thead th{
   color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  letter-spacing: 0.1rem;
+  background-color: hsl(0 0% 0% / 0.5);
 }
 
-.tableContainer th,
-.tableContainer td {
-  text-align: center;
-  padding: 10px 15px;
-}
-
-.tableContainer tbody td:first-of-type {
-  text-align: left;
+.tableContainer tbody tr:nth-of-type(even) {
+  background-color: hsl(0 0% 0% / 0.07);
 }
 
 .tableContainer tbody tr {
@@ -48,25 +45,19 @@
   font-weight: 500;
 }
 
-.tableContainer tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
-}
-
 .tableContainer tbody tr:last-of-type {
-  border-top: 1px solid #dddddd;
-  border-bottom: 2px solid #009879;
+  border-top: 2px solid hsl(0 0% 0% / 0.2);
+  border-bottom: 2px solid hsl(0 0% 0% / 0.5);
 }
 
 .type-20mm {
-  color: hsl(214, 20%, 40%);
   background-color: hsl(122, 71%, 85%);
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .type-22mm {
-  color: hsl(214, 20%, 40%);
   background-color: hsl(215, 100%, 90%);
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .backBtn {
@@ -94,4 +85,42 @@
 
 .backBtn:active {
   background-color: hsl(210, 85%, 55%);
+}
+
+@media (max-width: 650px) {
+  .receiptContainer {
+    padding-top: 10%;
+  }
+
+  .tableContainer th {
+    display: none;
+  }
+
+  .tableContainer td {
+    display: grid;
+    grid-template-columns: 15ch auto;
+    padding: 0.5rem 1rem;
+  }
+
+  .tableContainer caption {
+    font-size: 1.25rem;
+  }
+
+  .tableContainer td:first-child {
+    padding-top: 2rem;
+  }
+  
+  .tableContainer td:last-child {
+    padding-bottom: 2rem;
+  }
+
+  .tableContainer td::before {
+    content: attr(data-cell);
+    font-weight: 700;
+  }
+
+  .backBtn {
+    top: 10px;
+    left: 70%;
+  }
 }
