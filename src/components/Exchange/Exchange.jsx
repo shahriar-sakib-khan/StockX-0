@@ -155,43 +155,81 @@ const Exchange = () => {
   };
 
   const renderItemList = (items, active) => {
-    return Object.entries(items).flatMap(([id, cylinderTypes], index) => {
-      const brand = allBrands.find((brand) => brand.id === parseInt(id));
-
-      return Object.entries(cylinderTypes).map(([cylinderType, count]) => (
-        <div key={`${id}-${cylinderType}`} className={styles.itemRow}>
-          <span className={styles.serialNumber}>{index + 1}.</span>
-          <span className={styles.name}>{brand?.name} - {cylinderType}</span>
-          {brand && <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />}
-          <span className={styles.itemCount}>( {count} )</span>
-          <button
-            className={styles.decrementButton}
-            onClick={() => handleDecrementItem(id, cylinderType)}
-            disabled={activeSection !== active}
-          >
-            -
-          </button>
-          <button
-            className={styles.removeButton}
-            onClick={() => handleRemoveItem(id, cylinderType)}
-            disabled={activeSection !== active}
-          >
-            Remove
-          </button>
-        </div>
-      ));
-    });
+    let serialCounter = 0;
+    return (
+      <table className={styles.tableContainer}>
+        { /* Object.keys(items).length > 0 && */
+       <thead>
+          <tr>
+            <th>#</th>
+            <th>Brand</th>
+            <th>Type</th>
+            <th>Logo</th>
+            <th>Price</th>
+            <th>Count</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        }
+        <tbody>
+          {Object.entries(items).flatMap(([id, cylinderTypes], index) => {
+            const brand = allBrands.find((brand) => brand.id === parseInt(id));
+  
+            return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
+              serialCounter++;
+              const price = brand?.price || 0;
+  
+              return (
+                <tr key={`${id}-${cylinderType}`}>
+                  <td>{serialCounter}.</td>
+                  <td>{brand?.name || "Unknown"}</td>
+                  <td>{cylinderType}</td>
+                  <td>
+                    {brand && (
+                      <img src={brand.logo} alt={brand.name} className={styles.logo} />
+                    )}
+                  </td>
+                  <td>${price.toFixed(2)}</td>
+                  <td>{count}</td>
+                  <td className={styles.buttons}>
+                    <button
+                      className={styles.decrementButton}
+                      onClick={() => handleDecrementItem(id, cylinderType)}
+                      disabled={activeSection !== active}
+                    >
+                      -
+                    </button>
+                    <button
+                      className={styles.removeButton}
+                      onClick={() => handleRemoveItem(id, cylinderType)}
+                      disabled={activeSection !== active}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            });
+          })}
+        </tbody>
+      </table>
+    );
   };
+  
 
   const selectedBrandsList = allBrands.filter((brand) => 
     selectedBrands.includes(brand.id)
   );
 
-  const handleNext = () => {
-    navigate("/receipts", {
-      state: { deliveredItems, receivedItems }
-    });
+  const handleNext = (isNextDisabled) => {
+    if(!isNextDisabled) {
+      navigate("/receipts", {
+        state: { deliveredItems, receivedItems }
+      });
+    }
   }
+
+  const isNextDisabled = !(Object.keys(deliveredItems).length > 0) && !(Object.keys(receivedItems).length > 0);
 
   return (
     <div className={styles.exchangeContainer}>
@@ -220,7 +258,12 @@ const Exchange = () => {
       </div>
         
       <div className={styles.buttonContainer}>
-        <button className={styles.nextBtn} onClick={handleNext}>Next</button>
+        <button
+          className={styles.nextBtn}
+          onClick={() => handleNext(isNextDisabled)}
+          disabled={isNextDisabled}
+          data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
+        >Next</button>
       </div>
 
       <div className={styles.bottomScrollable}>

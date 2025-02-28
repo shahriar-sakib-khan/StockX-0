@@ -1,0 +1,97 @@
+.receiptContainer {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  padding: 0 40px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.receiptContainer h2 {
+  font-size: 1.5rem;
+  color: hsl(214, 20%, 40%);
+}
+
+.tableContainer {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  min-width: 60%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-color: transparent;
+  text-align: left;
+}
+
+.tableContainer thead tr{
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  background-color: #009879;
+  font-weight: bold;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tableContainer th,
+.tableContainer td {
+  text-align: center;
+  padding: 10px 15px;
+}
+
+.tableContainer tbody td:first-of-type {
+  text-align: left;
+}
+
+.tableContainer tbody tr {
+  color: hsl(214, 20%, 40%);
+  font-weight: 500;
+}
+
+.tableContainer tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.tableContainer tbody tr:last-of-type {
+  border-top: 1px solid #dddddd;
+  border-bottom: 2px solid #009879;
+}
+
+.type-20mm {
+  color: hsl(214, 20%, 40%);
+  background-color: hsl(122, 71%, 85%);
+  font-weight: bold;
+}
+
+.type-22mm {
+  color: hsl(214, 20%, 40%);
+  background-color: hsl(215, 100%, 90%);
+  font-weight: bold;
+}
+
+.backBtn {
+  display: block;
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+  /* background-color: hsl(208, 100%, 60%); */
+  background-color: hsl(210, 80%, 35%);
+  color: white;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 5px 15px 27px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  position: absolute;
+  top: 3%;
+  left: 3%;
+}
+
+.backBtn:hover {
+  /* background-color: hsl(208, 100%, 70%); */
+  background-color: hsl(210, 85%, 45%);
+}
+
+.backBtn:active {
+  background-color: hsl(210, 85%, 55%);
+}
