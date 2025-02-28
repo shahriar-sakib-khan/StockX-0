@@ -124,7 +124,7 @@
 
 .active .tableContainer thead tr{
   background-color: #009879;
-  transition: background-color 0.3s;
+  transition: background-color 1s;
 }
 .tableContainer thead tr{
   background-color: lightgray;

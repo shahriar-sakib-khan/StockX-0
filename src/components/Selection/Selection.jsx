@@ -25,7 +25,7 @@ function Selection() {
 
   const handleSubmit = (isSubmitDisabled) => {
     if(!isSubmitDisabled)
-      navigate("/inventory");
+      navigate("/initialization");
   }
 
   const isSubmitDisabled = !(selectedBrands.length > 0);

@@ -6,7 +6,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useLocation();
-  const isSelectionPage = location.pathname === "/";
+  const isSpecialPage = (location.pathname === "/") || (location.pathname === "/initialization");
 
   const handleNavClick = () => setMenuOpen(false);
 
@@ -25,10 +25,10 @@ function Navbar() {
   );
   
   return (
-    <nav className={isSelectionPage ? styles.specialNavbar : styles.navbar}>
-      <div className={isSelectionPage ? styles.specialLogo : styles.logo}>StockX</div>
+    <nav className={isSpecialPage ? styles.specialNavbar : styles.navbar}>
+      <div className={isSpecialPage ? styles.specialLogo : styles.logo}>StockX</div>
       <div>
-        {!isSelectionPage && (
+        {!isSpecialPage && (
           <>
             <div className={styles.menu} onClick={() => setMenuOpen(!menuOpen)}>
               <span></span>
@@ -38,6 +38,7 @@ function Navbar() {
             <ul className={menuOpen ? styles.open : styles.notOpen}>
               {/* <ul className={styles.navList}> */}
               {renderNavLink("/", "Selection")}
+              {renderNavLink("/initialization", "Initialization")}
               {renderNavLink("/inventory", "Inventory")}
               {renderNavLink("/exchange", "Exchange")}
               {renderNavLink("/profile", "Profile")}

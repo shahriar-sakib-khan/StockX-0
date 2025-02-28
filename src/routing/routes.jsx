@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Login,Profile, Register, Selection, Inventory, Exchange, Receipts } from '../components';
+import { Login,Profile, Register, Selection, Initialization, Inventory, Exchange, Receipts } from '../components';
 import Layout from "./Layout";
 // import ErrorPage from "./ErrorPage";
 // import PrivateRoutes from "./PrivateRoutes";
@@ -11,6 +11,7 @@ const router = createBrowserRouter([
     // errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Selection /> },
+      { path: 'initialization', element: <Initialization /> },
       { path: 'login', element: <Login /> },
       { path: 'profile', element: <Profile /> },
       { path: 'register', element: <Register /> },
