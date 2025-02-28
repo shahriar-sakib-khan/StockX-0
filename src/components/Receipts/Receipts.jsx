@@ -45,6 +45,7 @@ const Receipts = () => {
 
   return (
     <div className={styles.receiptContainer}>
+      { Object.keys(deliveredItems).length > 0 &&
       <div className={styles.delivered}>
         <h2>Delivered Items</h2>
         <table className={styles.tableContainer}>
@@ -60,7 +61,8 @@ const Receipts = () => {
           <tbody>{renderTableRows(deliveredItems)}</tbody>
         </table>
       </div>
-
+      }
+      { Object.keys(receivedItems).length > 0 &&
       <div className={styles.received}>
         <h2>Received Items</h2>
         <table className={styles.tableContainer}>
@@ -76,6 +78,7 @@ const Receipts = () => {
           <tbody>{renderTableRows(receivedItems)}</tbody>
         </table>
       </div>
+      }
 
       <button className={styles.backBtn} onClick={() => navigate(-1)}>Previous</button>
     </div>
