@@ -59,6 +59,8 @@
   box-shadow: 5px 5px 10px hsl(0, 0%, 90%);
   position: relative;
   transition: 0.3s ease all;
+  width: 48%;
+
 }
 
 .section:not(.active):hover {
@@ -105,55 +107,63 @@
 }
 
 .itemList {
-  /* flex: 1; */
+  width: 100%;
   overflow-y: auto;
-  /* padding: 0 10px 10px; */
-  /* background-color: #ff3c78; */
 }
 
 .tableContainer {
+  width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
-  border: 1px solid #ccc;
-  min-width: 100%;
-  /* max-height: 95%; */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  border-color: transparent;
-  text-align: left;
+  background-color: hsl(0, 0%, 99%);
 }
 
-.active .tableContainer thead tr{
+.tableContainer tbody td:nth-of-type(2),
+.tableContainer th {
+  text-align: left;
+  padding: 0.8rem 1rem;
+}
+
+.tableContainer td {
+  text-wrap: nowrap;
+  text-align: center;
+  padding: 0.6rem 1rem;
+}
+
+.tableContainer th {
+  letter-spacing: 0.1rem;
+}
+
+.active .tableContainer th{
+  color: white;
   background-color: #009879;
   transition: background-color 1s;
 }
+
 .tableContainer thead tr{
   background-color: lightgray;
-  font-weight: bold;
   color: white;
   position: sticky;
   top: 0;
-  z-index: 1;
 }
 
-.tableContainer th,
-.tableContainer td {
-  text-align: center;
-  padding: 10px;
+.tableContainer tbody tr:nth-of-type(even) {
+  background-color: hsl(0 0% 0% / 0.05);
 }
 
 .tableContainer tbody tr {
   color: hsl(214, 20%, 40%);
   font-weight: 500;
-  /* border-bottom: 1px solid #dddddd; */
 }
 
-.tableContainer tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+.active .type-20mm {
+  background-color: hsl(122, 71%, 85%);
+  transition: 1s;
 }
 
-.tableContainer tbody td:nth-of-type(2) {
-  text-wrap: nowrap;
-  text-align: left;
+.active .type-22mm {
+  background-color: hsl(215, 100%, 90%);
+  transition: 1s;
 }
 
 .logo {
@@ -161,9 +171,9 @@
   height: auto;
 }
 
-.buttons {
+.actionButtons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .removeButton,
@@ -184,14 +194,12 @@
 .decrementButton {
   font-size: 1.075rem;
   color: #333;
-  /* background-color: hsl(210, 90%, 60%); */
   background-color: #f0f0f0;
   padding: 5px 10px;
   border-radius: 50%;
 }
 
 .decrementButton:hover {
-  /* background-color: hsl(210, 90%, 50%); */
   background-color: #ddd;
 }
 
@@ -320,6 +328,30 @@
   .name {
     display: none;
   }
+
+  .tableContainer th {
+    display: none;
+  }
+
+  .tableContainer td {
+    display: grid;
+    grid-template-columns: 15ch auto;
+    padding: 0.5rem 1rem;
+    text-align: left;
+  }
+
+  .tableContainer td:first-child {
+    padding-top: 1rem;
+  }
+  
+  .tableContainer td:last-child {
+    padding-bottom: 1rem;
+  }
+
+  .tableContainer td::before {
+    content: attr(data-cell);
+    font-weight: 700;
+  }
 }
 
 @media (max-width: 680px) {
@@ -343,12 +375,5 @@
     padding: 2px 5px;
     background-color: white;
   }
-  .itemList {
-    padding: 0;
-  }
 
-  .itemRow {
-    font-size: 0.75rem;
-    padding: 5px;
-  }
 }

@@ -157,55 +157,55 @@ const Exchange = () => {
   const renderItemList = (items, active) => {
     let serialCounter = 0;
     return (
-      <table className={styles.tableContainer}>
+      <table className={styles.tableContainer} role="table">
         { /* Object.keys(items).length > 0 && */
-       <thead>
-          <tr>
-            <th>#</th>
-            <th>Brand</th>
-            <th>Type</th>
-            <th>Logo</th>
-            <th>Price</th>
-            <th>Count</th>
-            <th>Action</th>
+        <thead role="rowgroup">
+          <tr role="row">
+            <th role="cell">#</th>
+            <th role="cell">Brand</th>
+            <th role="cell">Type</th>
+            <th role="cell">Logo</th>
+            <th role="cell">Price</th>
+            <th role="cell">Quantity</th>
+            <th role="cell">Action</th>
           </tr>
         </thead>
         }
-        <tbody>
+        <tbody role="rowgroup">
           {Object.entries(items).flatMap(([id, cylinderTypes], index) => {
             const brand = allBrands.find((brand) => brand.id === parseInt(id));
-  
             return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
               serialCounter++;
-              const price = brand?.price || 0;
-  
+              const price = brand?.price || 0 ;
               return (
-                <tr key={`${id}-${cylinderType}`}>
-                  <td>{serialCounter}.</td>
-                  <td>{brand?.name || "Unknown"}</td>
-                  <td>{cylinderType}</td>
-                  <td>
+                <tr key={`${id}-${cylinderType}`} role="row">
+                  <td role="cell" data-cell="#: ">{serialCounter}.</td>
+                  <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"}</td>
+                  <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td>
+                  <td role="cell" data-cell="Logo: ">
                     {brand && (
                       <img src={brand.logo} alt={brand.name} className={styles.logo} />
                     )}
-                  </td>
-                  <td>${price.toFixed(2)}</td>
-                  <td>{count}</td>
-                  <td className={styles.buttons}>
-                    <button
-                      className={styles.decrementButton}
-                      onClick={() => handleDecrementItem(id, cylinderType)}
-                      disabled={activeSection !== active}
-                    >
-                      -
-                    </button>
-                    <button
-                      className={styles.removeButton}
-                      onClick={() => handleRemoveItem(id, cylinderType)}
-                      disabled={activeSection !== active}
-                    >
-                      Remove
-                    </button>
+                  </td >
+                  <td role="cell" data-cell="Price: ">${price.toFixed(2)}</td>
+                  <td role="cell" data-cell="Quantity: ">{count}</td>
+                  <td role="cell" data-cell="Action: ">
+                    <div className={styles.actionButtons}>
+                      <button
+                        className={styles.decrementButton}
+                        onClick={() => handleDecrementItem(id, cylinderType)}
+                        disabled={activeSection !== active}
+                      >
+                        -
+                      </button>
+                      <button
+                        className={styles.removeButton}
+                        onClick={() => handleRemoveItem(id, cylinderType)}
+                        disabled={activeSection !== active}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );

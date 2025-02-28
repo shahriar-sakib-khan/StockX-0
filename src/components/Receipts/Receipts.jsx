@@ -12,6 +12,7 @@ const Receipts = () => {
   const renderTableHeader = () => {
     return (
       <tr role="row">
+        <th role="cell">#</th>
         <th role="cell">Brand</th>
         <th role="cell">Type</th>
         <th role="cell">Price</th>
@@ -23,6 +24,7 @@ const Receipts = () => {
 
   const renderTableRows = (items) => {
     let finalTotal = 0;
+    let serialNumber = 0;
 
     const rows = Object.entries(items).flatMap(([id, cylinderTypes]) => {
       const brand = allBrands.find((brand) => brand.id === parseInt(id));
@@ -31,9 +33,11 @@ const Receipts = () => {
         const price = brand?.price || 0;
         const totalPrice = price * count;
         finalTotal += totalPrice;
+        serialNumber++;
 
         return (
           <tr key={`${id}-${cylinderType}`} role="row">
+            <td data-cell="#: " role="cell">{serialNumber}</td>
             <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
             <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
             <td data-cell="Price: " role="cell">${price.toFixed(2)}</td>
