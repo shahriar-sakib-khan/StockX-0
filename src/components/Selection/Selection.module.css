@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+  position: relative;
 }
 
 .selectCount {
@@ -60,6 +61,37 @@
 
 .selectAllBtn:active {
   background-color: hsl(210, 85%, 55%);
+}
+
+.submitBtn:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
+.submitBtn:disabled::after {
+  content: attr(data-tool-tip);
+  font-weight: 500;
+  display: block;
+  position: absolute;
+  bottom: 5%;
+  right: -5%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  transform: scale(0);
+  transition: transform ease-out 150ms,
+              bottom ease-out 150ms,
+              right ease-out 150ms ;
+  z-index: 1;
+  pointer-events: none;
+}
+.submitBtn:disabled:hover::after {
+  bottom: 80%;
+  right: 0%;
+  transform: scale(1);
 }
 
 .listContainer {

@@ -23,16 +23,24 @@ function Selection() {
       setSelectedBrands(allBrands.map(brand => brand.id));
   }
 
-  const handleSubmit = () => {
-    navigate("/inventory");
+  const handleSubmit = (isSubmitDisabled) => {
+    if(!isSubmitDisabled)
+      navigate("/inventory");
   }
+
+  const isSubmitDisabled = !(selectedBrands.length > 0);
 
   return (
     <>
       <div className={styles.titleSection}>
         <div className={styles.titleSubmit}>
           <h2 className={styles.title}>Selection Page</h2>
-          <button className={styles.submitBtn} onClick={handleSubmit}>Submit</button>
+          <button
+            className={styles.submitBtn}
+            onClick={() => handleSubmit(isSubmitDisabled)}
+            disabled={isSubmitDisabled}
+            data-tool-tip={"Select brands to proceed"}
+          >Submit</button>
         </div>
         <div className={styles.selectCount}>
           <button className={styles.selectAllBtn} onClick={toggleSelect}>
