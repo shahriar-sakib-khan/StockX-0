@@ -4,7 +4,7 @@ import Card from './Card';
 import styles from './Inventory.module.css';
 
 function Inventory() {
-  const { selectedBrands, stockCount, setStockCount } = useOutletContext();
+  const { selectedBrands, stockCount, setStockCount, prices } = useOutletContext();
 
   const updateStock = (id, cylinderType, newStock) => {
     setStockCount(prevStocks => ({
@@ -31,7 +31,7 @@ function Inventory() {
                 name={brand.name}
                 type={cylinder.type}
                 picture={cylinder.image}
-                price={brand.price}
+                price={prices[brand.id]?.[cylinder.type] ?? "Undefined"}
                 stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
                 updateStock={updateStock}
               />

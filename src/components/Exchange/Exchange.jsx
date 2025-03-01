@@ -5,7 +5,7 @@ import Card from "./Card";
 import styles from "./Exchange.module.css";
 
 const Exchange = () => {
-  const { selectedBrands, stockCount, setStockCount } = useOutletContext();
+  const { selectedBrands, stockCount, setStockCount, prices } = useOutletContext();
   const [activeSection, setActiveSection] = useState(null);
   const navigate = useNavigate();
 
@@ -176,7 +176,7 @@ const Exchange = () => {
             const brand = allBrands.find((brand) => brand.id === parseInt(id));
             return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
               serialCounter++;
-              const price = brand?.price || 0 ;
+              const price = prices[brand.id]?.[cylinderType] || 0 ;
               return (
                 <tr key={`${id}-${cylinderType}`} role="row">
                   <td role="cell" data-cell="#: ">{serialCounter}.</td>
@@ -187,7 +187,7 @@ const Exchange = () => {
                       <img src={brand.logo} alt={brand.name} className={styles.logo} />
                     )}
                   </td >
-                  <td role="cell" data-cell="Price: ">${price.toFixed(2)}</td>
+                  <td role="cell" data-cell="Price: ">Tk{price.toFixed(2)}</td>
                   <td role="cell" data-cell="Quantity: ">{count}</td>
                   <td role="cell" data-cell="Action: ">
                     <div className={styles.actionButtons}>
@@ -278,7 +278,7 @@ const Exchange = () => {
               name={brand.name}
               type={cylinder.type}
               picture={cylinder.image}
-              price={brand.price}
+              price={prices[brand.id]?.[cylinder.type] ?? "Undefined"}
               stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
               activeSection={activeSection}
               onAdd={() => handleAddItem(brand.id, cylinder.type)}

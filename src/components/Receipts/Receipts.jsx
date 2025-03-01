@@ -1,8 +1,9 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/list_of_brands";
 import styles from "./Receipts.module.css";
 
 const Receipts = () => {
+  const { prices } = useOutletContext()
   const { state } = useLocation();
   const deliveredItems = state?.deliveredItems || {};
   const receivedItems = state?.receivedItems || {};
@@ -30,7 +31,7 @@ const Receipts = () => {
       const brand = allBrands.find((brand) => brand.id === parseInt(id));
 
       return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
-        const price = brand?.price || 0;
+        const price = prices[brand.id]?.[cylinderType] || 0;
         const totalPrice = price * count;
         finalTotal += totalPrice;
         serialNumber++;
@@ -40,7 +41,7 @@ const Receipts = () => {
             <td data-cell="#: " role="cell">{serialNumber}</td>
             <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
             <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
-            <td data-cell="Price: " role="cell">${price.toFixed(2)}</td>
+            <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>
             <td data-cell="Quantity: " role="cell">{count}</td>
             <td data-cell="Total Price: " role="cell">${totalPrice.toFixed(2)}</td>
           </tr>
