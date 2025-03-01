@@ -7,7 +7,7 @@ function Initialization() {
   const navigate = useNavigate();
 
   const handleChange = (id, type, value, setter) => {
-    const newValue = parseInt(value);
+    const newValue = parseFloat(value);
 
     setter((prev) => ({
       ...prev,
@@ -33,33 +33,32 @@ function Initialization() {
             return (
               brand && (
                 <div key={brand.id} className={styles.brandSection}>
-                  <h3>{brand.name}</h3>
                   <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />
+                  <h3>{brand.name}</h3>
                   {brand.cylinders.map((cylinder) => (
                     <div key={cylinder.type} className={styles.cylinderSection}>
-                      <img src={cylinder.image} alt={cylinder.type} className={styles.cylinderImage} />
-                      <label>
-                        {cylinder.type} Cylinder Price:
-                        <input 
-                          type="number" 
-                          value={prices[brand.id]?.[cylinder.type] || ""}
-                          placeholder="Enter Price"
-                          onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setPrices)}
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        {cylinder.type} Cylinder Stock:
-                        <input 
-                          type="number"
-                          value={stockCount[brand.id]?.[cylinder.type] || ""} 
-                          placeholder="Enter Stock Amount"
-                          onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setStockCount)}
-                          min="0"
-                          required
-                        />
-                      </label>
+                      {/* <img src={cylinder.image} alt={cylinder.type} className={styles.cylinderImage} /> */}
+                        <h4 className={styles[`type-${cylinder.type}`]}>{cylinder.type}</h4>
+                        <div className={styles.Input}>
+                          <input
+                            type="number"
+                            value={prices[brand.id]?.[cylinder.type] || ""}
+                            onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setPrices)}
+                            min="0"
+                            required
+                            />
+                            <label>Price:</label>
+                        </div>
+                        <div className={styles.Input}>
+                          <input
+                            type="number"
+                            value={stockCount[brand.id]?.[cylinder.type] || ""}
+                            onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setStockCount)}
+                            min="0"
+                            required
+                            />
+                            <label>Stock:</label>
+                        </div>
                     </div>
                   ))}
                 </div>
