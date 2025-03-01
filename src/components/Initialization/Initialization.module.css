@@ -1,0 +1,91 @@
+.initializationContainer {
+  padding: 0 40px;
+}
+
+.initializationContainer {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brandSection {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.brandLogo {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.cylinderSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cylinderImage {
+  width: 50px;
+  height: auto;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button {
+  display: block;
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+  background-color: hsl(210, 80%, 35%);
+  color: white;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 5px 15px 27px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  z-index: 1;
+}
+
+.button:hover {
+  background-color: hsl(210, 85%, 45%);
+}
+
+.button:active {
+  background-color: hsl(210, 85%, 55%);
+}
+
+.button:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
