@@ -17,7 +17,7 @@ function Card({ name, type, picture, price, stock, activeSection, onAdd }) {
       <img src={picture} alt={name} className={styles.image} />
       <h3 className={styles.name}>{name}</h3>
       <span className={styles.type}>{type}</span>
-      <p className={styles.price}>Price: Tk{price}</p>
+      <p className={styles.price}>Price: Tk {price}</p>
     </div>
   );
 }

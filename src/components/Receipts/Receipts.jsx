@@ -15,6 +15,7 @@ const Receipts = () => {
       <tr role="row">
         <th role="cell">#</th>
         <th role="cell">Brand</th>
+        <th role="cell">Logo</th>
         <th role="cell">Type</th>
         <th role="cell">Price</th>
         <th role="cell">Quantity</th>
@@ -40,6 +41,11 @@ const Receipts = () => {
           <tr key={`${id}-${cylinderType}`} role="row">
             <td data-cell="#: " role="cell">{serialNumber}</td>
             <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
+            <td data-cell="Logo: " role="cell">
+              {brand && (
+                <img src={brand.logo} alt={brand.name} className={styles.logo} />
+              )}
+            </td>
             <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
             <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>
             <td data-cell="Quantity: " role="cell">{count}</td>
@@ -51,8 +57,8 @@ const Receipts = () => {
 
     // Add the final total row
     rows.push(
-      <tr key="final-total" role="row">
-        <td role="cell" colSpan="4" style={{ textAlign: "left" }}>Final Total:</td>
+      <tr key="final-total" role="row" className={styles.finalTotal}>
+        <td role="cell" colSpan="6" style={{ textAlign: "left", borderRight: "none" }}>Final Total:</td>
         <td role="cell">${finalTotal.toFixed(2)}</td>
       </tr>
     );

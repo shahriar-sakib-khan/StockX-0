@@ -187,7 +187,7 @@ const Exchange = () => {
                       <img src={brand.logo} alt={brand.name} className={styles.logo} />
                     )}
                   </td >
-                  <td role="cell" data-cell="Price: ">Tk{price.toFixed(2)}</td>
+                  <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>
                   <td role="cell" data-cell="Quantity: ">{count}</td>
                   <td role="cell" data-cell="Action: ">
                     <div className={styles.actionButtons}>
@@ -278,7 +278,7 @@ const Exchange = () => {
               name={brand.name}
               type={cylinder.type}
               picture={cylinder.image}
-              price={prices[brand.id]?.[cylinder.type] ?? "Undefined"}
+              price={prices[brand.id]?.[cylinder.type] ?? 0}
               stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
               activeSection={activeSection}
               onAdd={() => handleAddItem(brand.id, cylinder.type)}

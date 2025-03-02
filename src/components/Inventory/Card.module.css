@@ -20,7 +20,6 @@
 }
 
 .type{
-  /* border: 2px solid hsla(0, 0%, 0%, 0.1); */
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
   padding: 2px 20px;
@@ -32,41 +31,49 @@
 .type-20mm .type{
   background-color: hsl(122, 70%, 85%);
 }
+
+/* .type-20mm {
+  box-shadow: 4px 4px 8px hsl(122, 70%, 80%);
+}
+
+.type-20mm:hover {
+  box-shadow: 4px 4px 8px hsl(122, 70%, 65%);
+} */
+
 .type-22mm .type{
   background-color: hsl(215, 100%, 90%);
 }
 
-/* .stockCount {
-  font-size: 18px;
-  font-weight: bold;
-  color: #12a373;
+/* .type-22mm {
+  box-shadow: 4px 4px 8px hsl(215, 100%, 85%);
+}
+
+.type-22mm:hover {
+  box-shadow: 4px 4px 8px hsl(215, 100%, 70%);
 } */
 
 .stockCount {
-  /* background-color: hsl(120, 50%, 60%);
-  color: white; */
+  font-size: 1.1rem;
   font-weight: bold;
   color: hsl(215, 20%, 40%);
   background-color: hsl(0, 0%, 95%);
   border-top-left-radius: 7px ;
   padding: 5px;
-  font-size: 14px;
   position: absolute;
   top: 0px;
   left: 0px;
 }
 .image {
-  max-width: 80%;
+  max-width: 70%;
   border-radius: 4px;
+  padding-top: 15px;
 }
 
 .name, .type {
   font-size: 18px;
   font-weight: 600;
-  /* color: #333; */
   color: hsl(215, 20%, 40%);
-  margin-top: 5px;
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 
 .price {
@@ -78,7 +85,6 @@
 
 .controls {
   display: flex;
-  /* background-color: aqua; */
   justify-content: space-between;
   gap: 8px;
   width: 60%;

@@ -31,7 +31,7 @@ function Inventory() {
                 name={brand.name}
                 type={cylinder.type}
                 picture={cylinder.image}
-                price={prices[brand.id]?.[cylinder.type] ?? "Undefined"}
+                price={prices[brand.id]?.[cylinder.type] ?? brand.price}
                 stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
                 updateStock={updateStock}
               />
