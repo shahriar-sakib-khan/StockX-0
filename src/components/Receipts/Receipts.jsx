@@ -30,9 +30,9 @@ const Receipts = () => {
 
     const rows = Object.entries(items).flatMap(([id, cylinderTypes]) => {
       const brand = allBrands.find((brand) => brand.id === parseInt(id));
-
+      if (!brand) return [];
       return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
-        const price = prices[brand.id]?.[cylinderType] || 0;
+        const price = prices[brand?.id]?.[cylinderType] || 0;
         const totalPrice = price * count;
         finalTotal += totalPrice;
         serialNumber++;
