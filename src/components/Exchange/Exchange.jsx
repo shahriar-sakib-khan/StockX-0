@@ -174,9 +174,10 @@ const Exchange = () => {
         <tbody role="rowgroup">
           {Object.entries(items).flatMap(([id, cylinderTypes]) => {
             const brand = allBrands.find((brand) => brand.id === parseInt(id));
+            if (!brand) return [];
             return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
               serialCounter++;
-              const price = prices[brand.id]?.[cylinderType] || 0 ;
+              const price = prices[brand?.id]?.[cylinderType] || 0 ;
               return (
                 <tr key={`${id}-${cylinderType}`} role="row">
                   <td role="cell" data-cell="#: ">{serialCounter}.</td>
