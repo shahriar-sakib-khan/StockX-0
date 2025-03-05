@@ -172,7 +172,7 @@ const Exchange = () => {
         </thead>
         }
         <tbody role="rowgroup">
-          {Object.entries(items).flatMap(([id, cylinderTypes], index) => {
+          {Object.entries(items).flatMap(([id, cylinderTypes]) => {
             const brand = allBrands.find((brand) => brand.id === parseInt(id));
             return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
               serialCounter++;
@@ -193,14 +193,14 @@ const Exchange = () => {
                     <div className={styles.actionButtons}>
                       <button
                         className={styles.decrementButton}
-                        onClick={() => handleDecrementItem(id, cylinderType)}
+                        onClick={() => handleDecrementItem(brand.id, cylinderType)}
                         disabled={activeSection !== active}
                       >
                         -
                       </button>
                       <button
                         className={styles.removeButton}
-                        onClick={() => handleRemoveItem(id, cylinderType)}
+                        onClick={() => handleRemoveItem(brand.id, cylinderType)}
                         disabled={activeSection !== active}
                       >
                         Remove
