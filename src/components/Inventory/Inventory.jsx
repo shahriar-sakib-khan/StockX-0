@@ -18,6 +18,7 @@ function Inventory() {
 
   return (
 <div className={styles.inventoryContainer}>
+
   <nav className={styles.secondaryNavbar}>
     <ul className={styles.secondaryNavList}>
       <li className={styles.secondaryNavItems}><a href="#cylinders" className={styles.secondaryNavLink}>Cylinders</a></li>
@@ -44,8 +45,8 @@ function Inventory() {
                   price={prices[brand.id]?.[cylinder.type] ?? brand.price}
                   stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
                   updateStock={updateStock}
-                />
-              ))}
+                  />
+                ))}
             </div>
           ))}
       </div>
@@ -63,14 +64,14 @@ function Inventory() {
             <div key={brand.id} className={styles.brandContainer}>
               {brand.cylinders.map((cylinder, index) => (
                 <Card
-                  key={`${brand.id}-${cylinder.type}`}
-                  id={brand.id}
-                  name={brand.name}
-                  type={cylinder.type}
-                  picture={cylinder.image}
-                  price={prices[brand.id]?.[cylinder.type] ?? brand.price}
-                  stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
-                  updateStock={updateStock}
+                key={`${brand.id}-${cylinder.type}`}
+                id={brand.id}
+                name={brand.name}
+                type={cylinder.type}
+                picture={cylinder.image}
+                price={prices[brand.id]?.[cylinder.type] ?? brand.price}
+                stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
+                updateStock={updateStock}
                 />
               ))}
             </div>
@@ -90,14 +91,14 @@ function Inventory() {
             <div key={brand.id} className={styles.brandContainer}>
               {brand.cylinders.map((cylinder, index) => (
                 <Card
-                  key={`${brand.id}-${cylinder.type}`}
-                  id={brand.id}
-                  name={brand.name}
-                  type={cylinder.type}
-                  picture={cylinder.image}
-                  price={prices[brand.id]?.[cylinder.type] ?? brand.price}
-                  stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
-                  updateStock={updateStock}
+                key={`${brand.id}-${cylinder.type}`}
+                id={brand.id}
+                name={brand.name}
+                type={cylinder.type}
+                picture={cylinder.image}
+                price={prices[brand.id]?.[cylinder.type] ?? brand.price}
+                stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
+                updateStock={updateStock}
                 />
               ))}
             </div>
@@ -107,6 +108,7 @@ function Inventory() {
   ) : (
     <p>No brands selected</p>
   )}
+  <a href="#" className={styles.backToTopBtn}>⬆️</a>
 </div>
   )
 }

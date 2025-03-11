@@ -7,6 +7,43 @@ html {
   min-height: 100vh;
 }
 
+.backToTopBtn {
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  color: white;
+  animation-name: appear;
+  animation-timeline: scroll(y);
+}
+
+@keyframes appear {
+  0%{
+    opacity: 0;
+    display: none;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+  }
+  3%{
+    opacity: 0;
+    display: none;
+  }
+  3.5%{
+    opacity: 1;
+    display: block;
+  }
+  100%{
+    opacity: 1;
+    display: block;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+  }
+}
+
+
+
 .secondaryNavbar {
   padding: 1rem 0;
 }
