@@ -22,8 +22,8 @@ function Inventory() {
   <nav className={styles.secondaryNavbar}>
     <ul className={styles.secondaryNavList}>
       <li className={styles.secondaryNavItems}><a href="#cylinders" className={styles.secondaryNavLink}>Cylinders</a></li>
-      <li className={styles.secondaryNavItems}><a href="#item2" className={styles.secondaryNavLink}>Item2</a></li>
-      <li className={styles.secondaryNavItems}><a href="#item3" className={styles.secondaryNavLink}>Item3</a></li>
+      <li className={styles.secondaryNavItems}><a href="#regulators" className={styles.secondaryNavLink}>Regulators</a></li>
+      <li className={styles.secondaryNavItems}><a href="#stoves" className={styles.secondaryNavLink}>Stoves</a></li>
     </ul>
   </nav>
 
@@ -56,7 +56,7 @@ function Inventory() {
   )}
   {selectedBrands.length > 0 ? (
     <div className={styles.sectionHeader}>
-      <h2 id="item2">Second Type of Items</h2>
+      <h2 id="regulators">Regulators</h2>
       <div className={styles.grid}>
         {allBrands
           .filter(brand => selectedBrands.includes(brand.id))
@@ -83,7 +83,7 @@ function Inventory() {
   )}
     {selectedBrands.length > 0 ? (
     <div className={styles.sectionHeader}>
-      <h2 id="item3">Third Type of Items</h2>
+      <h2 id="stoves">Stoves</h2>
       <div className={styles.grid}>
         {allBrands
           .filter(brand => selectedBrands.includes(brand.id))

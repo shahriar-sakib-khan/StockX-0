@@ -10,22 +10,21 @@ const Receipts = () => {
 
   const navigate = useNavigate();
 
-  const renderTableHeader = () => {
+  const renderTableHeader = (isReceived) => {
     return (
       <tr role="row">
         <th role="cell">#</th>
         <th role="cell">Brand</th>
-        <th role="cell">Logo</th>
         <th role="cell">Type</th>
-        <th role="cell">Price</th>
+        {!isReceived && <th role="cell">Price</th>}
         <th role="cell">Quantity</th>
-        <th role="cell">Total Price</th>
+        {!isReceived && <th role="cell">Total Price</th>}
       </tr>
     );
   }
 
-  const renderTableRows = (items) => {
-    let finalTotal = 0;
+  const renderTableRows = (items, isReceived) => {
+    let finalPrice = 0;
     let serialNumber = 0;
 
     const rows = Object.entries(items).flatMap(([id, cylinderTypes]) => {
@@ -34,32 +33,27 @@ const Receipts = () => {
       return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
         const price = prices[brand.id]?.[cylinderType] || 0;
         const totalPrice = price * count;
-        finalTotal += totalPrice;
+        finalPrice += totalPrice;
         serialNumber++;
 
         return (
           <tr key={`${id}-${cylinderType}`} role="row">
             <td data-cell="#: " role="cell">{serialNumber}</td>
             <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
-            <td data-cell="Logo: " role="cell">
-              {brand && (
-                <img src={brand.logo} alt={brand.name} className={styles.logo} />
-              )}
-            </td>
             <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
-            <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>
+            {!isReceived && <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>}
             <td data-cell="Quantity: " role="cell">{count}</td>
-            <td data-cell="Total Price: " role="cell">${totalPrice.toFixed(2)}</td>
+            {!isReceived && <td data-cell="Total Price: " role="cell">Tk {totalPrice.toFixed(2)}</td>}
           </tr>
         );
       });
     });
 
     // Add the final total row
-    rows.push(
-      <tr key="final-total" role="row" className={styles.finalTotal}>
-        <td role="cell" colSpan="6" style={{ textAlign: "left", borderRight: "none" }}>Final Total:</td>
-        <td role="cell">${finalTotal.toFixed(2)}</td>
+    if(!isReceived) rows.push(
+      <tr key="final-price" role="row" className={styles.finalPrice}>
+        <td role="cell" colSpan="5" style={{ textAlign: "left", borderRight: "none" }}>Final Price:</td>
+        <td role="cell">Tk {finalPrice.toFixed(2)}</td>
       </tr>
     );
 
@@ -72,8 +66,8 @@ const Receipts = () => {
       <div className={styles.delivered}>
         <table className={styles.tableContainer} role="table">
           <caption role="caption">Delivered Items</caption>
-          <thead role="rowgroup">{renderTableHeader()}</thead>
-          <tbody role="rowgroup">{renderTableRows(deliveredItems)}</tbody>
+          <thead role="rowgroup">{renderTableHeader(false)}</thead>
+          <tbody role="rowgroup">{renderTableRows(deliveredItems, false)}</tbody>
         </table>
       </div>
       }
@@ -81,8 +75,8 @@ const Receipts = () => {
       <div className={styles.received}>
         <table className={styles.tableContainer} role="table">
           <caption role="caption">Received Items</caption>
-          <thead role="rowgroup">{renderTableHeader()}</thead>
-          <tbody role="rowgroup">{renderTableRows(receivedItems)}</tbody>
+          <thead role="rowgroup">{renderTableHeader(true)}</thead>
+          <tbody role="rowgroup">{renderTableRows(receivedItems,true)}</tbody>
         </table>
       </div>
       }

@@ -15,6 +15,11 @@ html {
   color: white;
   animation-name: appear;
   animation-timeline: scroll(y);
+  transition: transform 0.2s ease;
+}
+
+.backToTopBtn:hover {
+  transform: translateY(-4px);
 }
 
 @keyframes appear {
@@ -41,7 +46,6 @@ html {
     right: 5%;
   }
 }
-
 
 
 .secondaryNavbar {
