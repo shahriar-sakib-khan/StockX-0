@@ -111,7 +111,7 @@ function Inventory() {
   ) : (
     <p>No brands selected</p>
   )}
-  <a href="#" className={styles.backToTopBtn}>⬆️</a>
+  <a href="#" className={styles.backToTopBtn}>⬆</a>
 </div>
   )
 }

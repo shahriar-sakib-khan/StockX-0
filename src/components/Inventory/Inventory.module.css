@@ -11,8 +11,11 @@ html {
   font-size: 2rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 8px;
-  color: white;
+  border-radius: 100px;
+  padding-inline: 12px;
+  border: 2px solid gray;
+  color: gray;
+  background-color: hsl(0, 0%, 95%);
   animation-name: appear;
   animation-timeline: scroll(y);
   transition: transform 0.2s ease;
