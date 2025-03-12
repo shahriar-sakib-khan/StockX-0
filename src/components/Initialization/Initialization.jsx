@@ -23,55 +23,55 @@ function Initialization() {
   }
 
   return (
-    <>
-      <div className={styles.initializationContainer}>
-        <h2>Initialization</h2>
+    <div className={styles.wrapper}>
+      <h1 className={styles.heading}>Enter initial prices and stock values</h1>
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
-          {selectedBrands.map((id) => {
-            const brand = allBrands.find(b => b.id === id);
+          <div className={styles.forms}>
+            {selectedBrands.map((id) => {
+              const brand = allBrands.find(b => b.id === id);
 
-            return (
-              brand && (
-                <div key={brand.id} className={styles.brandSection}>
-                  <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />
-                  <h3>{brand.name}</h3>
-                  {brand.cylinders.map((cylinder) => (
-                    <div key={cylinder.type} className={styles.cylinderSection}>
-                      {/* <img src={cylinder.image} alt={cylinder.type} className={styles.cylinderImage} /> */}
-                        <h4 className={styles[`type-${cylinder.type}`]}>{cylinder.type}</h4>
-                        <div className={styles.Input}>
-                          <input
-                            type="number"
-                            value={prices[brand.id]?.[cylinder.type] || ""}
-                            onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setPrices)}
-                            min="0"
-                            required
-                            />
-                            <label>Price:</label>
+                return (
+                  brand && (
+                    <div key={brand.id} className={styles.brandSection}>
+                      <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />
+                      <h2>{brand.name}</h2>
+                      {brand.cylinders.map((cylinder) => (
+                        <div key={cylinder.type} className={styles.cylinderSection}>
+                          {/* <img src={cylinder.image} alt={cylinder.type} className={styles.cylinderImage} /> */}
+                            <h3 className={styles[`type-${cylinder.type}`]}>{cylinder.type}</h3>
+                            <div className={styles.Input}>
+                              <input
+                                type="number"
+                                value={prices[brand.id]?.[cylinder.type] || ""}
+                                onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setPrices)}
+                                min="0"
+                                required
+                                />
+                                <label>Price:</label>
+                            </div>
+                            <div className={styles.Input}>
+                              <input
+                                type="number"
+                                value={stockCount[brand.id]?.[cylinder.type] || ""}
+                                onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setStockCount)}
+                                min="0"
+                                required
+                                />
+                                <label>Stock:</label>
+                            </div>
                         </div>
-                        <div className={styles.Input}>
-                          <input
-                            type="number"
-                            value={stockCount[brand.id]?.[cylinder.type] || ""}
-                            onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setStockCount)}
-                            min="0"
-                            required
-                            />
-                            <label>Stock:</label>
-                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )
-            );
-          })}
-          <div style={{display: "flex", justifyContent: "space-between"}}>
+                  )
+                );
+            })}
+          </div>
+          <div className={styles.buttons}>
             <button className={styles.button} onClick={() => navigate(-1)}>Go Back</button>
             <button className={styles.button} onClick={handleSubmit}>Done</button>
           </div>
         </form>
-      </div>
-    </>
+    </div>
   )
 }
 
