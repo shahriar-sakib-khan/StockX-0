@@ -32,39 +32,38 @@ function Selection() {
 
   return (
     <>
-      <div className={styles.titleSection}>
-        <div className={styles.titleSubmit}>
-          <h2 className={styles.title}>Selection Page</h2>
-          <button
-            className={styles.submitBtn}
-            onClick={() => handleSubmit(isSubmitDisabled)}
-            disabled={isSubmitDisabled}
-            data-tool-tip={"Select brands to proceed"}
-          >Submit</button>
+      <div className={styles.wrapper}>
+        <div className={styles.titleSection}>
+          <div className={styles.titleSubmit}>
+            <h2 className={styles.title}>Selection Page</h2>
+            <button
+              className={styles.submitBtn}
+              onClick={() => handleSubmit(isSubmitDisabled)}
+              disabled={isSubmitDisabled}
+              data-tool-tip={"Select brands to proceed"}
+            >Submit</button>
+          </div>
+          <div className={styles.selectCount}>
+            <button className={styles.selectAllBtn} onClick={toggleSelect}>
+              {selectedBrands.length === allBrands.length ? 'Deselect All' : 'Select All'}
+            </button>
+            {/* button functionality still not added */}
+            <span className={styles.counter}>Selected: {selectedBrands.length} / {allBrands.length}</span>
+          </div>
         </div>
-        <div className={styles.selectCount}>
-          <button className={styles.selectAllBtn} onClick={toggleSelect}>
-            {selectedBrands.length === allBrands.length ? 'Deselect All' : 'Select All'}
-          </button>
-          {/* button functionality still not added */}
-          <span className={styles.counter}>Selected: {selectedBrands.length} / {allBrands.length}</span>
-        </div>
-      </div>
-      <ul className={styles.listContainer}>
-        {allBrands.map((brand => (
-          <Card 
+        <ul className={styles.listContainer}>
+          {allBrands.map((brand => (
+            <Card 
             key={brand.id}
             id={brand.id}
             name={brand.name}
             logo={brand.logo}
             isSelected={selectedBrands.includes(brand.id)}
             onSelect={() => toggleBrand(brand.id)}
-          />
-        )))}
-      </ul>
-      {/* <div className={styles.submit}>
-        <button className={styles.submitBtn} onClick={handleSubmit}>Submit</button>
-      </div> */}
+            />
+          )))}
+        </ul>
+      </div>
     </>
   );
 }

@@ -1,53 +1,54 @@
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .titleSection {
-  margin: 20px 35px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  font-size: 1rem;
 }
 
 .titleSubmit {
-  /* background-color: aqua; */
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding-inline: 0.625em;
   position: relative;
 }
 
 .selectCount {
-  /* background-color: burlywood; */
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  width: 100%;
+  padding: 0.625em;
 }
 
 .title {
   color: hsl(215, 20%, 40%);
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .counter {
   color: hsl(215, 20%, 40%);
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.125rem;
+  font-weight: 700;
 }
 
 .submitBtn,
 .selectAllBtn {
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  /* background-color: hsl(208, 100%, 60%); */
-  background-color: hsl(210, 80%, 35%);
-  color: white;
   font-size: 1rem;
-  /* font-weight: 600; */
-  padding: 5px 10px 27px;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.1875em;
+  color: white;
+  background-color: hsl(210, 80%, 35%);
+  padding: 0.315em 0.625em;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
@@ -97,9 +98,9 @@
 .listContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 25px;
-  margin: 0 50px;
-  padding: 20px 35px;
+  font-size: 1rem;
+  gap: 1.5em;
+  padding-inline: 1em;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -107,11 +108,10 @@
 
 @media (max-width: 680px) {
   .titleSection {
-    margin: 5px;
+    margin-top: 0px;
   }
   
   .titleSubmit {
-    width: 100%;
     padding: 0;
   }
   
@@ -120,22 +120,19 @@
   }
   
   .title {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
   
   .counter {
-    font-size: .90rem;
+    font-size: 1rem;
   }
   
   .submitBtn,
   .selectAllBtn {
-    font-size: .9rem;
-    padding: 0px 10px;
+    font-size: .8rem;
   }
   
   .listContainer {
-    gap: 10px;
-    margin: 0px;
-    padding: 10px;
+    font-size: 0.5rem;
   }
 }

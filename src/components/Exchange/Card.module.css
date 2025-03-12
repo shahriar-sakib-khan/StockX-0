@@ -25,7 +25,7 @@
   color: hsl(215, 20%, 40%);
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  padding: 0 15px;
+  padding-inline: 0.9375em;
   position: absolute;
   font-weight: 600;
   bottom: 0;
@@ -34,8 +34,6 @@
 
 .type-20mm .type{
   background-color: hsl(122, 70%, 85%);
-  /* border: 2px solid hsl(122, 70%, 65%); */
-  /* border-bottom: transparent; */
 }
 .type-22mm .type{
   background-color: hsl(215, 100%, 90%);
@@ -48,8 +46,8 @@
   color: hsl(215, 20%, 40%);
   background-color: hsl(0, 0%, 95%);
   border-top-left-radius: 7px ;
-  padding: 5px;
-  font-size: 14px;
+  padding: 0.3125em;
+  font-size: 0.875rem;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -58,7 +56,7 @@
 .image {
   max-width: 65%;
   height: auto;
-  border-radius: 4px;
+  margin-block: 0;
 }
 
 .name {
@@ -75,19 +73,19 @@
 }
 
 .plusBtn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 2em;
+  height: 2em;
   background-color: #f0f0f0;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #333;
+  font-weight: 600;
   border: none;
+  border-radius: 50%;
   cursor: pointer;
-  margin-bottom: 5px;
   transition: background-color 0.2s ease;
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 0.625em;
+  right: 0.95em;
 }
 
 .plusBtn:hover {
@@ -117,9 +115,9 @@
   right: -110%;
   background: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 6px 10px 8px;
+  padding: 0.375em 0.625em 0.5em;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 0.75rem;
   white-space: nowrap;
   transform: scale(0);
   transition: transform ease-out 150ms,
@@ -141,22 +139,35 @@
     margin: 2px 5px;
   }
 
+  .stockCount {
+    font-size: 0.7rem;
+  }
+
+  .image {
+    max-width: 55%;
+    margin-block: 1rem 0.5rem;
+  }
+
   .name {
     font-size: 0.75rem;
     font-weight: 600;
     color: #333;
-    margin-bottom: 0;
+    margin-block: 0;
   }
 
   .plusBtn {
-    width: 25px;
-    height: 25px;
-    padding: 2px 2px 5px;
-    font-size: 16px;
+    top: 0.7em;
+    right: 0.4em;  
+    font-size: 0.9rem;
   }
 
   .price {
     font-size: 0.75rem;
     margin-top: 0;
+  }
+
+  .type {
+    left: 16%;
+    font-size: 0.85rem;
   }
 }

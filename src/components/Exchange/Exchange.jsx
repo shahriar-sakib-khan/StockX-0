@@ -259,6 +259,8 @@ const Exchange = () => {
       </div>
         
       <div className={styles.buttonContainer}>
+        <button className={styles.deliveredBtn}>Delivered</button>
+        <button className={styles.receivedBtn}>Received</button>
         <button
           className={styles.nextBtn}
           onClick={() => handleNext(isNextDisabled)}
