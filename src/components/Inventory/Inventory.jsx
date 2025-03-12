@@ -25,6 +25,9 @@ function Inventory() {
       <li className={styles.secondaryNavItems}><a href="#regulators" className={styles.secondaryNavLink}>Regulators</a></li>
       <li className={styles.secondaryNavItems}><a href="#stoves" className={styles.secondaryNavLink}>Stoves</a></li>
     </ul>
+    <ul className={styles.secondaryNavList}>
+      <li className={styles.secondaryNavItems}><a href="/empty-cylinders" className={styles.secondaryNavLink}>Empty Cylinders</a></li>
+    </ul>
   </nav>
 
   {selectedBrands.length > 0 ? (

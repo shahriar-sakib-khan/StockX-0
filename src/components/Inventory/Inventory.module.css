@@ -49,7 +49,9 @@ html {
 
 
 .secondaryNavbar {
-  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  padding-block: 1rem;
 }
 
 .secondaryNavList {
