@@ -13,7 +13,7 @@ html {
   text-decoration: none;
   border-radius: 100px;
   padding-inline: 12px;
-  border: 2px solid gray;
+  border: 2px solid lightgray;
   color: gray;
   background-color: hsl(0, 0%, 95%);
   animation-name: appear;
@@ -71,11 +71,11 @@ html {
   padding: 0.5em 1em;
   border-radius: 8px;
   background-color: transparent;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .secondaryNavLink:hover {
-  background-color: hsl(0, 3%, 90%);
+  background-color: hsl(0, 0%, 95%);
 }
 
 h2 {

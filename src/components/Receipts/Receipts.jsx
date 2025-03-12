@@ -82,6 +82,7 @@ const Receipts = () => {
       }
 
       <button className={styles.backBtn} onClick={() => navigate(-1)}>Previous</button>
+      <button className={styles.printBtn} onClick={() => navigate("/exchange-history")}>Print</button>
     </div>
   );
 };

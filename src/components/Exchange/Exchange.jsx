@@ -165,7 +165,7 @@ const Exchange = () => {
             <th role="cell">Brand</th>
             <th role="cell">Type</th>
             <th role="cell">Logo</th>
-            <th role="cell">Price</th>
+            {(active !== "received") && <th role="cell">Price</th>}
             <th role="cell">Quantity</th>
             <th role="cell">Action</th>
           </tr>
@@ -188,7 +188,7 @@ const Exchange = () => {
                       <img src={brand.logo} alt={brand.name} className={styles.logo} />
                     )}
                   </td >
-                  <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>
+                  {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
                   <td role="cell" data-cell="Quantity: ">{count}</td>
                   <td role="cell" data-cell="Action: ">
                     <div className={styles.actionButtons}>

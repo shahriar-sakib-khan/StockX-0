@@ -8,84 +8,83 @@
 }
 
 .tableContainer {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: hsl(0, 0%, 95%);
-}
+  & {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: hsl(0, 0%, 95%);
+  }
+  
+  & caption {
+    padding: 1rem;
+    color: hsl(214, 20%, 40%);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+  }
 
-.tableContainer caption {
-  text-align: center;
-  padding: 1rem;
-}
+  & td {
+    text-align: center;
+  }
+  
+  & th {
+    text-align: center;
+    text-wrap: nowrap;
+    padding: 1rem;
+  }
+  
+  & thead th:not(:last-of-type) {
+    border-right: 2px solid hsl(190, 80%, 40%);
+  }
+  
+  & tbody td:nth-of-type(2) {
+    text-align: left;
+    text-wrap: nowrap;
+  }
 
-.tableContainer td {
-  text-align: center;
-}
-
-.tableContainer tbody td:nth-of-type(2),
-.tableContainer th {
-  text-align: left;
-  text-wrap: nowrap;
-}
-
-.tableContainer th {
-  padding: 1rem;
-}
-
-.tableContainer tbody td {
-  padding: 0.5rem 1rem;
-}
-
-.tableContainer thead th:not(:last-of-type) {
-  border-right: 2px solid hsl(190, 80%, 40%);
-}
-
-.tableContainer tbody td:not(:last-of-type) {
-  border-right: 2px solid hsl(0, 0%, 100%);
-}
-
-.tableContainer:has(.finalPrice) tbody td:last-of-type {
-  text-align: left;
-}
-
-
-.tableContainer caption {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: hsl(214, 20%, 40%);
-}
-
-.tableContainer thead th{
-  color: white;
-  letter-spacing: 0.1rem;
-  /* background-color: hsl(0 0% 0% / 0.5); */
-  background-color: hsl(190, 80%, 35%);
-}
-
-.tableContainer tbody tr:nth-of-type(even) {
-  background-color: hsl(0 0% 0% / 0.07);
-}
-
-.tableContainer tbody tr {
-  color: hsl(214, 20%, 40%);
-  font-weight: 500;
-}
-/* 
-.tableContainer tbody tr:nth-last-of-type(2) {
-  border-bottom: 3px solid hsl(0, 0%, 75%);
-} */
-
-.tableContainer tbody tr:last-of-type {
-  border-bottom: 3px solid hsl(190, 80%, 35%);
-}
-
-.type-20mm {
-  background-color: hsl(122, 71%, 85%);
-}
-
-.type-22mm {
-  background-color: hsl(215, 100%, 90%);
+  & tbody td {
+    padding: 0.5rem 1rem;
+  }
+  
+  & tbody td:not(:last-of-type) {
+    border-right: 2px solid hsl(0, 0%, 100%);
+  }
+  
+  &:has(.finalPrice) tbody td:last-of-type {
+    text-align: left;
+  }
+  
+  & thead th{
+    color: white;
+    letter-spacing: 0.1rem;
+    /* background-color: hsl(0 0% 0% / 0.5); */
+    background-color: hsl(190, 80%, 35%);
+  }
+  
+  & tbody tr:nth-of-type(even) {
+    background-color: hsl(0 0% 0% / 0.07);
+  }
+  
+  & tbody tr {
+    color: hsl(214, 20%, 40%);
+    font-weight: 500;
+  }
+/*   
+  & tbody tr:nth-last-of-type(2) {
+    border-bottom: 3px solid hsl(0, 0%, 75%);
+  } */
+  
+  & tbody tr:last-of-type {
+    border-bottom: 3px solid hsl(190, 80%, 35%);
+  }
+  
+  & .type-20mm {
+    background-color: hsl(122, 71%, 85%);
+  }
+  
+  & .type-22mm {
+    background-color: hsl(215, 100%, 90%);
+  }
 }
 
 .backBtn {
@@ -112,6 +111,33 @@
 }
 
 .backBtn:active {
+  background-color: hsl(210, 85%, 55%);
+}
+
+.printBtn {
+  display: block;
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+  /* background-color: hsl(208, 100%, 60%); */
+  background-color: hsl(210, 80%, 35%);
+  color: white;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 5px 15px 27px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+}
+
+.printBtn:hover {
+  /* background-color: hsl(208, 100%, 70%); */
+  background-color: hsl(210, 85%, 45%);
+}
+
+.printBtn:active {
   background-color: hsl(210, 85%, 55%);
 }
 
