@@ -14,75 +14,44 @@
 
 .section {
   flex: 1;
-  padding: 20px;
-  border: 3px solid lightgray;
-  /* border-radius: 8px; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 50vh;
-  cursor: pointer;
+  padding: 0px;
+  border: 3px solid hsl(0, 0%, 85%);
+  border-radius: 8px;
+  height: 53vh;
+  width: 48%;
   box-shadow: 5px 5px 10px hsl(0, 0%, 90%);
+  transition: 0.3s ease all;
   position: relative;
+}
+
+.section:not(.active):hover {
+  cursor: pointer;
+  border-color: hsl(0, 0%, 70%);
 }
 
 .active {
   transition: 0.3s ease all;
   border: 3px solid hsl(122, 40%, 45%);
-  /* box-shadow: 5px 5px 10px hsl(0, 0%, 90%); */
-  /* box-shadow: inset 0 0 0 2px hsl(122, 40%, 50%); */
 }
 
 .sectionTitles {
   color: hsl(215, 20%, 40%);
   font-size: 1.25rem;
   margin-top: 0;
-  margin-bottom: 20px;
-  padding: 8px 0;
+  margin-bottom: 0;
+  padding: 10px 0;
   border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: hsl(0, 0%, 95%);
   /* background-color: #ff3c78; */
   /* box-shadow: 5px 5px 10px hsl(0, 0%, 90%); */
   transition: 0.3s ease all;
-  z-index: 1;
-}
-
-.section {
-  flex: 1;
-  padding: 0px;
-  border: 3px solid hsl(0, 0%, 85%);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 53vh;
-  cursor: pointer;
-  box-shadow: 5px 5px 10px hsl(0, 0%, 90%);
-  position: relative;
-  transition: 0.3s ease all;
-  width: 48%;
-
-}
-
-.section:not(.active):hover {
-  border-color: hsl(0, 0%, 70%);
-}
-
-.section.active{
-  border: 3px solid hsl(122, 40%, 45%);
-}
-
-.sectionTitles {
-  color: hsl(215, 20%, 40%);
-  font-size: 1.25rem;
-  margin-top: 0;
-  padding: 10px 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  transition: 0.3s ease all;
   position: relative;
   z-index: 1;
-  background-color: hsl(0, 0%, 95%);
-  margin-bottom: 0;
 }
 
 .sectionTitles::after {
@@ -101,7 +70,7 @@
   transition: transform 200ms ease-in-out;
 }
 
-.section.active .sectionTitles::after {
+.active .sectionTitles::after {
   transform: scaleY(1);
   transform-origin: top;
 }
@@ -115,67 +84,67 @@
 }
 
 .tableContainer {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  background-color: hsl(0, 0%, 99%);
+  & {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background-color: hsl(0, 0%, 99%);
+  }
+  
+  & tbody td:nth-of-type(2),
+  & th {
+    text-align: left;
+    padding: 0.8rem 1rem;
+  }
+  
+  & td:not(.price) {
+    text-wrap: nowrap;
+    text-align: center;
+    padding: 0.6rem 0.75rem;
+  }
+  
+  & thead th {
+    letter-spacing: 0.1rem;
+    border-right: 2px solid hsl(0, 0%, 83%);
+  } 
+  
+  & thead tr{
+    background-color: lightgray;
+    color: white;
+    position: sticky;
+    top: 0;
+  }
+  
+  & tbody tr:nth-of-type(even) {
+    background-color: hsl(0 0% 0% / 0.05);
+  }
+  
+  & tbody tr {
+    color: hsl(214, 20%, 40%);
+    font-weight: 500;
+  }
 }
 
-.tableContainer tbody td:nth-of-type(2),
-.tableContainer th {
-  text-align: left;
-  padding: 0.8rem 1rem;
-}
-
-.tableContainer td {
-  text-wrap: nowrap;
-  text-align: center;
-  padding: 0.6rem 1rem;
-}
-
-.tableContainer thead th {
-  letter-spacing: 0.1rem;
-  border-right: 2px solid hsl(0, 0%, 83%);
-} 
-
-.active .tableContainer th{
+.active .tableContainer{
+  & th{
   color: white;
-  background-color: #009879;
-  transition: all 1s ease;
-}
+    background-color: #009879;
+    transition: all 1s ease;
+  }
 
-.tableContainer thead tr{
-  background-color: lightgray;
-  color: white;
-  position: sticky;
-  top: 0;
-}
+  & thead th {
+    border-right: 2px solid hsl(167, 100%, 35%);
+  }
 
-.tableContainer tbody tr:nth-of-type(even) {
-  background-color: hsl(0 0% 0% / 0.05);
-}
+  & .type-20mm {
+    background-color: hsl(122, 71%, 85%);
+    transition: 1s;
+  }
 
-.tableContainer tbody tr {
-  color: hsl(214, 20%, 40%);
-  font-weight: 500;
-}
-
-.active .tableContainer thead th:not(:last-of-type) {
-  border-right: 2px solid hsl(167, 100%, 35%);
-}
-
-/* .active .tableContainer tbody td:not(:last-of-type) {
-  border-right: 2px solid hsl(0, 0%, 90%);
-} */
-
-.active .type-20mm {
-  background-color: hsl(122, 71%, 85%);
-  transition: 1s;
-}
-
-.active .type-22mm {
-  background-color: hsl(215, 100%, 90%);
-  transition: 1s;
+  & .type-22mm {
+    background-color: hsl(215, 100%, 90%);
+    transition: 1s;
+  }
 }
 
 .logo {

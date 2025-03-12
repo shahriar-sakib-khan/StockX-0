@@ -4,5 +4,7 @@ export {default as Register} from './Login/Register';
 export {default as Selection} from './Selection/Selection';
 export {default as Initialization} from './Initialization/Initialization';
 export {default as Inventory} from './Inventory/Inventory';
+export {default as EmptyCylinders} from './EmptyCylinders/EmptyCylinders';
 export {default as Exchange} from './Exchange/Exchange';
 export {default as Receipts} from './Receipts/Receipts';
+export {default as ExchangeHistory} from './ExchangeHistory/ExchangeHistory';

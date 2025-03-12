@@ -1,8 +1,8 @@
 .receiptContainer {
   display: flex;
   justify-content: space-evenly;
-  gap: 2%;
-  padding: 0 5%px;
+  gap: 2rem;
+  padding: 0 5%;
   flex-wrap: wrap;
   position: relative;
 }
@@ -13,17 +13,27 @@
   background-color: hsl(0, 0%, 95%);
 }
 
-.tableContainer caption,
-.tableContainer td {
+.tableContainer caption {
   text-align: center;
   padding: 1rem;
+}
+
+.tableContainer td {
+  text-align: center;
 }
 
 .tableContainer tbody td:nth-of-type(2),
 .tableContainer th {
   text-align: left;
-  padding: 1rem;
   text-wrap: nowrap;
+}
+
+.tableContainer th {
+  padding: 1rem;
+}
+
+.tableContainer tbody td {
+  padding: 0.5rem 1rem;
 }
 
 .tableContainer thead th:not(:last-of-type) {
@@ -32,6 +42,10 @@
 
 .tableContainer tbody td:not(:last-of-type) {
   border-right: 2px solid hsl(0, 0%, 100%);
+}
+
+.tableContainer:has(.finalPrice) tbody td:last-of-type {
+  text-align: left;
 }
 
 
@@ -57,15 +71,13 @@
   color: hsl(214, 20%, 40%);
   font-weight: 500;
 }
+/* 
+.tableContainer tbody tr:nth-last-of-type(2) {
+  border-bottom: 3px solid hsl(0, 0%, 75%);
+} */
 
 .tableContainer tbody tr:last-of-type {
-  border-top: 2px solid hsl(0 0% 0% / 0.2);
   border-bottom: 3px solid hsl(190, 80%, 35%);
-}
-
-.logo {
-  max-width: 100px;
-  height: auto;
 }
 
 .type-20mm {
