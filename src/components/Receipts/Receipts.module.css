@@ -1,10 +1,32 @@
+.receipt {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.dateContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+.date {
+  color: hsl(214, 20%, 40%);
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 5px 5px -4px gray;
+  border-inline: 3px solid hsl(190, 80%, 40%);
+}
+
 .receiptContainer {
   display: flex;
   justify-content: space-evenly;
   gap: 2rem;
   padding: 0 5%;
   flex-wrap: wrap;
-  position: relative;
 }
 
 .tableContainer {

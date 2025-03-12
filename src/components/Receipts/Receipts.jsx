@@ -10,6 +10,14 @@ const Receipts = () => {
 
   const navigate = useNavigate();
 
+  const date = new Date();
+  const day = date.getDate().toString().padStart(2, 0);
+  const month = (date.getMonth()+1).toString().padStart(2, 0);
+  const year = date.getFullYear();
+  const hour = (date.getHours() % 12 || 12).toString();
+  const meridiem = (date.getHours() >= 12) ? "PM" : "AM";
+  const minute = date.getMinutes().toString().padStart(2, 0);
+
   const renderTableHeader = (isReceived) => {
     return (
       <tr role="row">
@@ -61,28 +69,35 @@ const Receipts = () => {
   };
 
   return (
-    <div className={styles.receiptContainer}>
-      { Object.keys(deliveredItems).length > 0 &&
-      <div className={styles.delivered}>
-        <table className={styles.tableContainer} role="table">
-          <caption role="caption">Delivered Items</caption>
-          <thead role="rowgroup">{renderTableHeader(false)}</thead>
-          <tbody role="rowgroup">{renderTableRows(deliveredItems, false)}</tbody>
-        </table>
+    <div className={styles.receipt}>
+      <div className={styles.dateContainer}>
+        <div className={styles.date}>
+          Date: <span>{day}-{month}-{year}</span><br></br>
+          Time: <span>{hour}:{minute} {meridiem}</span>
+        </div>
+        <button className={styles.backBtn} onClick={() => navigate("/exchange")}>Previous</button>
+        <button className={styles.printBtn} onClick={() => navigate("/exchange-history")}>Print</button>
       </div>
-      }
-      { Object.keys(receivedItems).length > 0 &&
-      <div className={styles.received}>
-        <table className={styles.tableContainer} role="table">
-          <caption role="caption">Received Items</caption>
-          <thead role="rowgroup">{renderTableHeader(true)}</thead>
-          <tbody role="rowgroup">{renderTableRows(receivedItems,true)}</tbody>
-        </table>
+      <div className={styles.receiptContainer}>
+        { Object.keys(deliveredItems).length > 0 &&
+        <div className={styles.delivered}>
+          <table className={styles.tableContainer} role="table">
+            <caption role="caption">Delivered Items</caption>
+            <thead role="rowgroup">{renderTableHeader(false)}</thead>
+            <tbody role="rowgroup">{renderTableRows(deliveredItems, false)}</tbody>
+          </table>
+        </div>
+        }
+        { Object.keys(receivedItems).length > 0 &&
+        <div className={styles.received}>
+          <table className={styles.tableContainer} role="table">
+            <caption role="caption">Received Items</caption>
+            <thead role="rowgroup">{renderTableHeader(true)}</thead>
+            <tbody role="rowgroup">{renderTableRows(receivedItems,true)}</tbody>
+          </table>
+        </div>
+        }
       </div>
-      }
-
-      <button className={styles.backBtn} onClick={() => navigate(-1)}>Previous</button>
-      <button className={styles.printBtn} onClick={() => navigate("/exchange-history")}>Print</button>
     </div>
   );
 };
