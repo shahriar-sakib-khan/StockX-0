@@ -260,14 +260,22 @@ const Exchange = () => {
       </div>
         
       <div className={styles.buttonContainer}>
-        <Button variant="outline" className={styles.deliveredBtn}>Delivered</Button>
+        <Button
+          variant="outline"
+          className={styles.deliveredBtn}
+          onClick={() => handleSelectSection("delivered")}
+        >Delivered</Button>
         <Button
           className={styles.nextBtn}
           onClick={() => handleNext(isNextDisabled)}
           disabled={isNextDisabled}
           data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
         >Next</Button>
-        <Button variant="outline" className={styles.receivedBtn}>Received</Button>
+        <Button
+          variant="outline"
+          className={styles.receivedBtn}
+          onClick={() => handleSelectSection("received")}
+        >Received</Button>
       </div>
 
       <div className={styles.bottomScrollable}>
@@ -290,7 +298,6 @@ const Exchange = () => {
           ))
         )}
       </div>
-
     </div>
   );
 };
