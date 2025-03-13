@@ -48,7 +48,7 @@ h1 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(12.5em, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
   gap: 1em;
   margin-bottom: 4em;
 }
@@ -103,7 +103,7 @@ h1 {
   }
 }
 
-@media (max-width: 680px) {
+@media (width <= 680px) {
   .grid {
     gap: 0.5rem;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -111,5 +111,11 @@ h1 {
   
   .backToTopBtn {
     font-size: 1.5em;
+  }
+}
+
+@media (width <= 400px) {
+  .wrapper {
+    width: 95%;
   }
 }
