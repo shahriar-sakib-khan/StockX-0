@@ -7,8 +7,8 @@
 
 .dateContainer {
   display: flex;
-  justify-content: center;
-  position: relative;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
 }
 
@@ -109,60 +109,6 @@
   }
 }
 
-.backBtn {
-  display: block;
-  height: 25px;
-  border-radius: 5px;
-  border: none;
-  /* background-color: hsl(208, 100%, 60%); */
-  background-color: hsl(210, 80%, 35%);
-  color: white;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 5px 15px 27px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  position: absolute;
-  top: 3%;
-  left: 3%;
-}
-
-.backBtn:hover {
-  /* background-color: hsl(208, 100%, 70%); */
-  background-color: hsl(210, 85%, 45%);
-}
-
-.backBtn:active {
-  background-color: hsl(210, 85%, 55%);
-}
-
-.printBtn {
-  display: block;
-  height: 25px;
-  border-radius: 5px;
-  border: none;
-  /* background-color: hsl(208, 100%, 60%); */
-  background-color: hsl(210, 80%, 35%);
-  color: white;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 5px 15px 27px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  position: absolute;
-  top: 3%;
-  right: 3%;
-}
-
-.printBtn:hover {
-  /* background-color: hsl(208, 100%, 70%); */
-  background-color: hsl(210, 85%, 45%);
-}
-
-.printBtn:active {
-  background-color: hsl(210, 85%, 55%);
-}
-
 @media (max-width: 769px) {
   .receiptContainer {
     padding-top: 10%;
@@ -198,11 +144,5 @@
   .tableContainer td::before {
     content: attr(data-cell);
     font-weight: 700;
-  }
-
-  .backBtn {
-    width: 6em;
-    top: 10px;
-    right: 70%;
   }
 }

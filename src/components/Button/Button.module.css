@@ -1,0 +1,68 @@
+.large {
+  font-size: 1.2rem;
+}
+
+.normal {
+  font-size: 1rem;
+}
+
+.small {
+  font-size: 0.8rem
+}
+
+.button {
+  font-weight: 500;
+  border: none;
+  border-radius: 0.1875em;
+  padding: 0.315em 0.625em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.primary {
+  background-color: hsl(210, 80%, 35%);
+  color: white;
+}
+
+.primary:not(.disabled):hover {
+  background-color: hsl(210, 85%, 45%);
+}
+
+.primary:not(.disabled):active {
+  background-color: hsl(210, 85%, 55%);
+}
+
+.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.outline {
+  background-color: transparent;
+  border: 2px solid #007bff;
+  color: #007bff;
+}
+
+.danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
+@media (width < 680px) {
+  .large {
+    font-size: 1rem;
+  }
+
+  .normal {
+    font-size: 0.8rem;
+  }
+
+  .small {
+    font-size: 0.6rem;
+  }
+}

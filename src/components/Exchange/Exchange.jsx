@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import allBrands from "../../assets/list_of_brands";
 import Card from "./Card";
+import Button from "../Button/Button";
 import styles from "./Exchange.module.css";
 
 const Exchange = () => {

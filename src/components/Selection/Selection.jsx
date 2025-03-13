@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/list_of_brands';
 import Card from './Card';
+import Button from '../Button/Button';
 import styles from './Selection.module.css';
 
 function Selection() {
@@ -36,18 +37,21 @@ function Selection() {
         <div className={styles.titleSection}>
           <div className={styles.titleSubmit}>
             <h2 className={styles.title}>Selection Page</h2>
-            <button
+            <Button
               className={styles.submitBtn}
               onClick={() => handleSubmit(isSubmitDisabled)}
               disabled={isSubmitDisabled}
-              data-tool-tip={"Select brands to proceed"}
-            >Submit</button>
+              data-tool-tip={"Select a brand to proceed"}
+            >
+              Submit
+            </Button>
           </div>
           <div className={styles.selectCount}>
-            <button className={styles.selectAllBtn} onClick={toggleSelect}>
+            <Button
+              onClick={toggleSelect}
+            >
               {selectedBrands.length === allBrands.length ? 'Deselect All' : 'Select All'}
-            </button>
-            {/* button functionality still not added */}
+            </Button>
             <span className={styles.counter}>Selected: {selectedBrands.length} / {allBrands.length}</span>
           </div>
         </div>

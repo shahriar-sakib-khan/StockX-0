@@ -1,5 +1,6 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/list_of_brands";
+import Button from "../Button/Button";
 import styles from "./Receipts.module.css";
 
 const Receipts = () => {
@@ -71,12 +72,12 @@ const Receipts = () => {
   return (
     <div className={styles.receipt}>
       <div className={styles.dateContainer}>
+        <Button onClick={() => navigate(-1)}>Previous</Button>
         <div className={styles.date}>
           Date: <span>{day}-{month}-{year}</span><br></br>
           Time: <span>{hour}:{minute} {meridiem}</span>
         </div>
-        <button className={styles.backBtn} onClick={() => navigate("/exchange")}>Previous</button>
-        <button className={styles.printBtn} onClick={() => navigate("/exchange-history")}>Print</button>
+        <Button onClick={() => navigate("/exchange-history")}>Print</Button>
       </div>
       <div className={styles.receiptContainer}>
         { Object.keys(deliveredItems).length > 0 &&
