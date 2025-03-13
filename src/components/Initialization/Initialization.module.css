@@ -38,7 +38,7 @@
   font-size: 1.5rem;
   color: hsl(214, 20%, 40%);
   padding: 0.25em 0.5em;
-  margin-bottom:0.625em;
+  margin-block:0.625em;
   text-align: left;
 }
 
@@ -114,31 +114,6 @@ input::-webkit-inner-spin-button {
   margin-block: 1.5rem;
 }
 
-.button {
-  font-size: 1rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 0.1875em;
-  color: white;
-  background-color: hsl(210, 80%, 35%);
-  padding: 0.315em 0.625em;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.button:hover {
-  background-color: hsl(210, 85%, 45%);
-}
-
-.button:active {
-  background-color: hsl(210, 85%, 55%);
-}
-
-.button:disabled {
-  background-color: lightgray;
-  cursor: not-allowed;
-}
-
 @media (width < 708px) {
   .heading {
     font-size: 1.25rem;
@@ -154,6 +129,7 @@ input::-webkit-inner-spin-button {
   }
   
   .brandSection h2 {
+    margin-top: 0;
     font-size: 1.125rem;
   }
   

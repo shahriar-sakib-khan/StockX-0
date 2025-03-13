@@ -32,12 +32,12 @@ function Card({ id, name, type, picture, price, stock, updateStock }) {
         <span className={styles.stockCount}>Stock: {stock}</span>
         <img src={picture} alt={name} className={styles.image} />
         <h2 className={styles.name}>{name}</h2>
-        <span className={styles.type}>{type}</span>
         <p className={styles.price}>Price: {price}</p>
         <div className={styles.controls}>
           <button onClick={() => openModal("DECREASE")} className={styles.minusBtn} disabled={stock === 0}>-</button>
           <button onClick={() => openModal("INCREASE")} className={styles.plusBtn}>+</button>
         </div>
+        <span className={styles.type}>{type}</span>
       </div>
 
       <Modal 

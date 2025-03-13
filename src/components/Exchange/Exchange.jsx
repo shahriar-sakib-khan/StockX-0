@@ -260,14 +260,14 @@ const Exchange = () => {
       </div>
         
       <div className={styles.buttonContainer}>
-        <button className={styles.deliveredBtn}>Delivered</button>
-        <button className={styles.receivedBtn}>Received</button>
-        <button
+        <Button variant="outline" className={styles.deliveredBtn}>Delivered</Button>
+        <Button
           className={styles.nextBtn}
           onClick={() => handleNext(isNextDisabled)}
           disabled={isNextDisabled}
           data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
-        >Next</button>
+        >Next</Button>
+        <Button variant="outline" className={styles.receivedBtn}>Received</Button>
       </div>
 
       <div className={styles.bottomScrollable}>

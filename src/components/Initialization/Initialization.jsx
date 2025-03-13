@@ -1,5 +1,6 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
 import allBrands from "../../assets/list_of_brands";
+import Button from "../Button/Button";
 import styles from './Initialization.module.css';
 
 function Initialization() {
@@ -67,8 +68,8 @@ function Initialization() {
             })}
           </div>
           <div className={styles.buttons}>
-            <button className={styles.button} onClick={() => navigate(-1)}>Go Back</button>
-            <button className={styles.button} onClick={handleSubmit}>Done</button>
+            <Button onClick={() => navigate(-1)}>Go Back</Button>
+            <Button onClick={handleSubmit}>Done</Button>
           </div>
         </form>
     </div>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import Button from '../Button/Button';
 import styles from './Modal.module.css';
 
 function Modal({ isOpen, onClose, onSubmit, modalType, stock }) {
@@ -52,8 +53,8 @@ function Modal({ isOpen, onClose, onSubmit, modalType, stock }) {
         {showWarning && (
           <div className={styles.warningContainer}>
             <div className={styles.warningBubble}>
-              Entered amount is greater than stock.
-              Proceeding will set the stock to 0.
+              Entered amount is greater than available stock.
+              Proceeding will set stock to 0.
             </div>
           </div>
         )}
@@ -71,8 +72,14 @@ function Modal({ isOpen, onClose, onSubmit, modalType, stock }) {
           className={`${styles.noArrows} ${showWarning ? styles.inputWarning : ""}`}
         />
         <div className={styles.modalButtons}>
-          <button onClick={closeAndReset} className={styles.cancelBtn}>Cancel</button>
-          <button onClick={handleSubmit} className={styles.submitBtn}>Submit</button>
+          <Button
+            variant="cancel"
+            onClick={closeAndReset}
+          >Cancel</Button>
+          <Button
+            variant="submit"
+            onClick={handleSubmit}
+          >Submit</Button>
         </div>
       </div>
     </div>

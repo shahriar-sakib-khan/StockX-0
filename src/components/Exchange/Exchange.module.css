@@ -201,39 +201,9 @@
 
 .buttonContainer {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 0;
-  margin-bottom: 0;
-  position: relative;
-}
-
-.nextBtn {
-  display: block;
-  height: 25px;
-  border-radius: 5px;
-  border: none;
-  background-color: hsl(210, 80%, 35%);
-  color: white;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 5px 15px 27px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  z-index: 1;
-}
-
-.nextBtn:hover {
-  /* background-color: hsl(208, 100%, 70%); */
-  background-color: hsl(210, 85%, 45%);
-}
-
-.nextBtn:active {
-  background-color: hsl(210, 85%, 55%);
-}
-
-.nextBtn:disabled {
-  background-color: lightgray;
-  cursor: not-allowed;
+  justify-content: space-around;
+  margin-block: 5px 0;
+  padding-inline: 4em;
 }
 
 .nextBtn:disabled::after {
@@ -256,6 +226,7 @@
   z-index: 1;
   pointer-events: none;
 }
+
 .nextBtn:disabled:hover::after {
   bottom: 100%;
   right: 0%;

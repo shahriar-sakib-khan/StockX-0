@@ -12,31 +12,31 @@
 }
 
 .modal {
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 8px;
-  width: 300px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1em;
+  padding: 1.5em;
+  border-radius: 0.5em;
+  width: min(300px, 90%);
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .modal h3 {
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #333;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 1em;
 }
 
 input[type="number"] {
-  padding: 8px;
-  font-size: 16px;
+  padding: 0.5em;
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 0.25em;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 1em;
   text-align: center;
 }
 
@@ -56,35 +56,6 @@ input[type="number"]:not(.inputWarning):focus {
   justify-content: space-between;
 }
 
-.cancelBtn,
-.submitBtn {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.cancelBtn {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.cancelBtn:hover {
-  background-color: #ddd;
-}
-
-.submitBtn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.submitBtn:hover {
-  background-color: #45a049;
-}
-
-
 .warningContainer {
   display: flex;
   flex-direction: column;
@@ -94,9 +65,9 @@ input[type="number"]:not(.inputWarning):focus {
 .warningBubble {
   background-color: hsl(0, 80%, 60%);
   color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
   font-size: 0.9rem;
+  padding: 0.5em 0.75em;
+  border-radius: 0.5em;
   text-align: center;
   position: relative;
   width: fit-content;
@@ -111,11 +82,29 @@ input[type="number"]:not(.inputWarning):focus {
   top:100%;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 6px;
+  border-width: 0.375em;
   border-style: solid;
   border-color: hsl(0, 80%, 60%) transparent transparent transparent;
 }
 
 .inputWarning {
-  outline: 2px solid hsl(0, 80%, 60%);
+  outline: 1px solid hsl(0, 80%, 60%);
+}
+
+@media (width <= 680px) {
+  .modal {
+    font-size: 0.8rem;
+  }
+
+  .modal h3 {
+    font-size: 1rem;
+  }
+
+  input[type="number"] {
+    font-size: 0.9rem;
+  }
+
+  .warningBubble {
+    font-size: 0.75rem;
+  }
 }

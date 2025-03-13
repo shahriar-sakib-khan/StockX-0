@@ -72,12 +72,10 @@ const Receipts = () => {
   return (
     <div className={styles.receipt}>
       <div className={styles.dateContainer}>
-        <Button onClick={() => navigate(-1)}>Previous</Button>
         <div className={styles.date}>
           Date: <span>{day}-{month}-{year}</span><br></br>
           Time: <span>{hour}:{minute} {meridiem}</span>
         </div>
-        <Button onClick={() => navigate("/exchange-history")}>Print</Button>
       </div>
       <div className={styles.receiptContainer}>
         { Object.keys(deliveredItems).length > 0 &&
@@ -98,6 +96,10 @@ const Receipts = () => {
           </table>
         </div>
         }
+      </div>
+      <div className={styles.buttons}>
+        <Button onClick={() => navigate(-1)}>Previous</Button>
+        <Button onClick={() => navigate("/exchange-history")}>Print</Button>
       </div>
     </div>
   );
