@@ -71,7 +71,7 @@
   cursor: not-allowed;
 }
 
-@media (width < 680px) {
+@media (width <= 680px) {
   .large {
     font-size: 1rem;
   }

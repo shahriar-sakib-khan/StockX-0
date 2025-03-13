@@ -1,8 +1,19 @@
+.wrapper {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .exchangeContainer {
   display: flex;
   flex-direction: column;
   gap: 5px 10px;
-  padding: 10px 20px 0;
+  padding-block: 10px 0;
+}
+
+.nextButtonContainer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .sectionsContainer {
@@ -269,14 +280,18 @@
   background-color: hsl(215, 20%, 50%);
 }
 
-/* @supports (scrollbar-color: auto) {
-  * {
-    scrollbar-color: hsl(215, 20%, 60%) hsl(215, 20%, 90%);
-    scrollbar-width: thin;
+@media (width <= 768px) {
+  .hidden {
+    display: none;
   }
-} */
+  .buttonContainer {
+    display: flex;  
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
 
-@media (max-width: 1032px) {
+/* @media (max-width: 1032px) {
   .name {
     display: none;
   }
@@ -328,4 +343,4 @@
     background-color: white;
   }
 
-}
+} */

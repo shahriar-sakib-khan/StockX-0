@@ -7,7 +7,8 @@ import styles from "./Exchange.module.css";
 
 const Exchange = () => {
   const { selectedBrands, stockCount, setStockCount, prices } = useOutletContext();
-  const [activeSection, setActiveSection] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [activeSection, setActiveSection] = useState("delivered");
   const navigate = useNavigate();
 
   const [deliveredItems, setDeliveredItems] = useState(() => {
@@ -25,6 +26,12 @@ const Exchange = () => {
   useEffect(() => {
     localStorage.setItem("receivedItems", JSON.stringify(receivedItems));
   }, [receivedItems]);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const updateStock = (id, cylinderType, newStock) => {
     setStockCount((prevStocks) => ({
@@ -234,69 +241,65 @@ const Exchange = () => {
   const isNextDisabled = !(Object.keys(deliveredItems).length > 0) && !(Object.keys(receivedItems).length > 0);
 
   return (
-    <div className={styles.exchangeContainer}>
-      <div className={styles.sectionsContainer}>
-        {/* Delivered Section */}
-        <div
-          className={`${styles.section} ${
-            activeSection === "delivered" ? styles.active : ""
-          }`}
-          onClick={() => handleSelectSection("delivered")}
-        >
-          <h3 className={styles.sectionTitles}>Delivered</h3>
-          <div className={styles.itemList}>{renderItemList(deliveredItems, "delivered")}</div>
+    <div className={styles.wrapper}>
+      <div className={styles.exchangeContainer}>
+        <div className={styles.nextButtonContainer}>
+          <Button
+              className={styles.nextBtn}
+              onClick={() => handleNext(isNextDisabled)}
+              disabled={isNextDisabled}
+              data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
+          >Next</Button>
         </div>
-
-        {/* Received Section */}
-        <div
-          className={`${styles.section} ${
-            activeSection === "received" ? styles.active : ""
-          }`}
-          onClick={() => handleSelectSection("received")}
-        >
-          <h3 className={styles.sectionTitles}>Received</h3>
-          <div className={styles.itemList}>{renderItemList(receivedItems, "received")}</div>
+        <div className={styles.sectionsContainer}>
+          {/* Delivered Section */}
+          <div
+            className={`${styles.section} ${activeSection === "delivered" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "delivered" ? styles.hidden : ""}`}
+            onClick={() => handleSelectSection("delivered")}
+          >
+            <h3 className={styles.sectionTitles}>Delivered</h3>
+            <div className={styles.itemList}>{renderItemList(deliveredItems, "delivered")}</div>
+          </div>
+          {/* Received Section */}
+          <div
+            className={`${styles.section} ${activeSection === "received" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "received" ? styles.hidden : ""}`}
+            onClick={() => handleSelectSection("received")}
+          >
+            <h3 className={styles.sectionTitles}>Received</h3>
+            <div className={styles.itemList}>{renderItemList(receivedItems, "received")}</div>
+          </div>
         </div>
-      </div>
-        
-      <div className={styles.buttonContainer}>
-        <Button
-          variant="outline"
-          className={styles.deliveredBtn}
-          onClick={() => handleSelectSection("delivered")}
-        >Delivered</Button>
-        <Button
-          className={styles.nextBtn}
-          onClick={() => handleNext(isNextDisabled)}
-          disabled={isNextDisabled}
-          data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
-        >Next</Button>
-        <Button
-          variant="outline"
-          className={styles.receivedBtn}
-          onClick={() => handleSelectSection("received")}
-        >Received</Button>
-      </div>
-
-      <div className={styles.bottomScrollable}>
-        {[
-          ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
-          ...allBrands.filter((brand) => !selectedBrands.includes(brand.id)),
-        ].map((brand) =>
-          brand.cylinders.map((cylinder) => (
-            <Card
-              key={`${brand.id}-${cylinder.type}`}
-              id={brand.id}
-              name={brand.name}
-              type={cylinder.type}
-              picture={cylinder.image}
-              price={prices[brand.id]?.[cylinder.type] ?? 0}
-              stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
-              activeSection={activeSection}
-              onAdd={() => handleAddItem(brand.id, cylinder.type)}
-            />
-          ))
-        )}
+      
+        {windowWidth < 768 && (
+        <div className={styles.buttonContainer}>
+          <Button
+            variant="outline"
+            className={styles.deliveredBtn}
+            onClick={() => handleSelectSection(activeSection === "delivered" ? "received" : "delivered")}
+          >
+            {activeSection === "delivered" ? "Received" : "Delivered"}
+          </Button>
+        </div>)}
+        <div className={styles.bottomScrollable}>
+          {[
+            ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
+            ...allBrands.filter((brand) => !selectedBrands.includes(brand.id)),
+          ].map((brand) =>
+            brand.cylinders.map((cylinder) => (
+              <Card
+                key={`${brand.id}-${cylinder.type}`}
+                id={brand.id}
+                name={brand.name}
+                type={cylinder.type}
+                picture={cylinder.image}
+                price={prices[brand.id]?.[cylinder.type] ?? 0}
+                stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
+                activeSection={activeSection}
+                onAdd={() => handleAddItem(brand.id, cylinder.type)}
+              />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

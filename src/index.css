@@ -1,5 +1,6 @@
-* {
+*, *::before, *::after {
   font-family: system-ui, Arial, Helvetica, sans-serif;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
