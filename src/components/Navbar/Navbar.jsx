@@ -10,6 +10,8 @@ function Navbar() {
 
   const handleNavClick = () => setMenuOpen(false);
 
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
   const renderNavLink = (path, label) => (
     <li>
       <NavLink
@@ -25,28 +27,31 @@ function Navbar() {
   );
   
   return (
-    <nav className={isSpecialPage ? styles.specialNavbar : styles.navbar}>
-      <div className={isSpecialPage ? styles.specialLogo : styles.logo}>StockX</div>
-      <div>
+    <div className={styles.navContainer}>
+      <div className={`${styles.wrapper} ${isSpecialPage ? styles.special : ""}`}>
+        <a href="#">
+          <span className={`${styles.logo} ${isSpecialPage ? styles.specialLogo : ""}`}>StockX</span>
+        </a>
         {!isSpecialPage && (
           <>
-            <div className={styles.menu} onClick={() => setMenuOpen(!menuOpen)}>
-              <span></span>
-              <span></span>
-              <span></span>
+            <div className={styles.hamburger} onClick={toggleMenu}>
+            {/* &#9776;          &#x274C; */}
+              <span className={menuOpen ? styles.menuOpen : styles.menu}>&#9776;</span>
             </div>
-            <ul className={menuOpen ? styles.open : styles.notOpen}>
-              {/* <ul className={styles.navList}> */}
-              {renderNavLink("/", "Selection")}
-              {/* {renderNavLink("/initialization", "Initialization")} */}
-              {renderNavLink("/inventory", "Inventory")}
-              {renderNavLink("/exchange", "Exchange")}
-              {renderNavLink("/profile", "Profile")}
-            </ul>
+            <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
+              <ul className={styles.primaryNavItems}>
+                <li>{renderNavLink("/", "Selection")}</li>
+                <li>{renderNavLink("/inventory", "Inventory")}</li>
+                <li>{renderNavLink("/exchange", "Exchange")}</li>
+              </ul>
+              <ul className={styles.secondaryNavItems}>
+                <li>{renderNavLink("/profile", "Profile")}</li>
+              </ul>
+            </nav>
           </>
-        )}
+          )}
       </div>
-    </nav>
+    </div>
   )
 }
 

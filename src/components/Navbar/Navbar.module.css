@@ -1,43 +1,62 @@
-.navbar{
-  min-height: 70px;
+.body {
+  overflow-x: hidden;
+}
+
+.navContainer {
   background-color: hsl(210, 30%, 20%);
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;  
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  border-radius: 8px;
+  min-height: 4.375em;
   position: relative;
+
+  &.special {
+    min-height: 6.25em;
+    justify-content: center;
+  }
 }
 
-.specialNavbar {
-  height: 100px;
-  background-color: hsl(210, 30%, 20%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  border-radius: 8px;
-}
-
-.logo {
-  color: white;
-  font-size: 1.6rem;
-  font-weight: bold;
+.wrapper > a {
   text-decoration: none;
-  cursor: pointer;
 }
 
-.specialLogo {
+.logo{
+  font-size: 2rem;
   color: hsl(210, 40%, 95%);
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+  
+  &.specialLogo {
+    font-size: 2.5rem;
+  }
+}
+
+.hamburger {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 700;
+  display: none;
   cursor: pointer;
 }
 
-nav ul {
+.navbar{
+  flex-grow: 1;
   display: flex;
-  gap: 20px;
+  align-items: center;
+}
+
+.primaryNavItems {
+  margin: 0 auto;
+  gap: 1.2em;
+  display: flex;
+}
+
+.navbar > ul {
   list-style: none;
 }
 
@@ -81,25 +100,6 @@ nav ul {
   border-bottom: 3px solid hsl(215, 80%, 50%);
 }
 
-nav .menu {
-  display: none;
-  position: absolute;
-  top: 1.5rem;
-  right: 1rem;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 1.75rem;
-  height: 1.5rem;
-}
-
-nav .menu span {
-  height: 0.2rem;
-  width: 100%;
-  background-color: white;
-  border-radius: 0.2rem;
-}
-
-
 body::-webkit-scrollbar {
   width: .5rem;
 }
@@ -120,52 +120,45 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
-/* media querry for small devices */
-@media (max-width: 680px) {
+@media (width <= 680px) {
+  .navbar {
+    background-color: hsl(210, 29%, 20%, 0.95);
+    backdrop-filter: blur(1rem);
+    position: fixed;
+    inset: 0 0 0 30%;
+    z-index: 1000;
 
-  .navbar{
-    min-height: 70px;
-  }
-  
-  .specialNavbar {
-    height: 85px;
-  }
-  
-  .logo {
-    padding-top: 8px;
-  }
-  
-  .specialLogo {
-    font-size: 2rem;
-  }
-
-  nav .menu {
-    display: flex;
-    cursor: pointer;
-  }
-
-  nav {
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
+    padding: min(20vh, 10rem) 2em 1rem;
+    transform: translateX(100%);
+    transition: transform 0.2s ease-out;
+
+    & > .primaryNavItems {
+      margin: 0;
+      flex-grow: 1;
+      flex-direction: column;
+      gap: 1.5em;
+      margin-bottom: 1.5em;
+    }
   }
 
-  nav ul {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 1rem;
+  .navbar.open {
+    transform: translateX(0%);
   }
 
-  nav ul.open {
-      display: flex;
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 1.25rem;
+    right: 1rem;
+    z-index: 9999;
   }
 
-  nav ul li {
-    width: 100%;
-    text-align: center;
-  }
-
-  nav ul li a {
-    margin: 0.2rem 0.5rem;
+  .active {
+    padding-top: 0;
+    border-bottom: none;
+    font-weight: 700;
+    border-right: 3px solid hsl(215, 80%, 50%);
   }
 }
