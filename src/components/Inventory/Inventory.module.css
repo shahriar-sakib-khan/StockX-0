@@ -2,9 +2,62 @@ html {
   scroll-behavior: smooth;
 }
 
-.inventoryContainer {
-  padding: 0 24px;
-  min-height: 100vh;
+.wrapper {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.secondaryNavbar {
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  padding-block: 1em;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.secondaryNavList {
+  display: flex;
+  margin: 0;
+  list-style: none;
+}
+
+.secondaryNavLink {
+  color: hsl(214, 20%, 40%);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.secondaryNavLink:hover {
+  background-color: hsl(0, 0%, 95%);
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(214, 20%, 40%);
+  margin-bottom: 0.67em;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(12.5em, 100%), 1fr));
+  gap: 1em;
+  margin-bottom: 4em;
+}
+
+.noBrands {
+  font-size: 1.5rem;
+  color: #888;
+  text-align: center;
+  margin-top: 0px;
 }
 
 .backToTopBtn {
@@ -12,7 +65,7 @@ html {
   font-weight: 600;
   text-decoration: none;
   border-radius: 100px;
-  padding-inline: 12px;
+  padding-inline: 0.415em;
   border: 2px solid lightgray;
   color: gray;
   background-color: hsl(0, 0%, 95%);
@@ -50,79 +103,13 @@ html {
   }
 }
 
-
-.secondaryNavbar {
-  display: flex;
-  justify-content: space-between;
-  padding-block: 1rem;
-}
-
-.secondaryNavList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.secondaryNavLink {
-  color: hsl(214, 20%, 40%);
-  font-size: 1.125rem;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.5em 1em;
-  border-radius: 8px;
-  background-color: transparent;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.secondaryNavLink:hover {
-  background-color: hsl(0, 0%, 95%);
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: hsl(214, 20%, 40%);
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
-  gap: 1rem;
-  margin-bottom: 4rem;
-}
-
-.brandContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  border-radius: 10px;
-}
-
-p {
-  font-size: 1.5rem;
-  color: #888;
-  text-align: center;
-  margin-top: 0px;
-}
-
-
-
 @media (max-width: 680px) {
-  .inventoryContainer {
-    padding: 0px;
-  }
-  
   .grid {
     gap: 0.5rem;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    margin-top: 10px;
   }
   
-  p {
-    font-size: 1.5rem;
-    margin-top: 20px;
+  .backToTopBtn {
+    font-size: 1.5em;
   }
-  
 }
