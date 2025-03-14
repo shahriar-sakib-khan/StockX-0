@@ -125,7 +125,7 @@ body::-webkit-scrollbar-thumb:hover {
     background-color: hsl(210, 29%, 20%, 0.95);
     backdrop-filter: blur(1rem);
     position: fixed;
-    inset: 0 0 0 30%;
+    inset: 0 0 0 40%;
     z-index: 1000;
 
     flex-direction: column;

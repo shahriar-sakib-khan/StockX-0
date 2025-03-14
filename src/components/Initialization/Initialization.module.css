@@ -7,7 +7,8 @@
 .heading {
   font-size: 1.5rem;
   color: hsl(214, 20%, 40%);
-  margin-bottom: 1.5em;
+  margin-block: 1em;
+  text-align: left;
 }
 
 .forms {

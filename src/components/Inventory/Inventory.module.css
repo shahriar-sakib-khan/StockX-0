@@ -104,6 +104,18 @@ h1 {
 }
 
 @media (width <= 680px) {
+  .secondaryNavbar {
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: 1.125rem;
+  }
+
+  .secondaryNavLink {
+    font-size: 1rem;
+  }
+
   .grid {
     gap: 0.5rem;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

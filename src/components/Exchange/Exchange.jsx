@@ -8,6 +8,7 @@ import styles from "./Exchange.module.css";
 const Exchange = () => {
   const { selectedBrands, stockCount, setStockCount, prices } = useOutletContext();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [activeCategory, setActiveCategory] = useState("cylinders");
   const [activeSection, setActiveSection] = useState("delivered");
   const navigate = useNavigate();
 
@@ -243,18 +244,35 @@ const Exchange = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.exchangeContainer}>
-        <div className={styles.nextButtonContainer}>
-          <Button
-              className={styles.nextBtn}
-              onClick={() => handleNext(isNextDisabled)}
-              disabled={isNextDisabled}
-              data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
-          >Next</Button>
+        <div className={styles.secondaryNavbar}>
+          <ul className={styles.secondaryNavList}>
+            {["cylinders", "regulators","stoves"].map((category) => (
+              <li key={category} className={styles.secondaryNavItems}>
+                <Button
+                  variant="light"
+                  className={`${styles.secondaryNavLink} ${activeCategory === category ? styles.activeBtn : ""}`}
+                  onClick={() => setActiveCategory(category)}
+                >
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </Button>
+              </li>
+            ))}
+          </ul>
+          <ul className={styles.secondaryNavList}>
+            <li className={styles.secondaryNavItems}>
+              <Button
+                className={styles.nextBtn}
+                onClick={() => handleNext(isNextDisabled)}
+                disabled={isNextDisabled}
+                data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
+              >Next</Button>
+            </li>
+          </ul>
         </div>
         <div className={styles.sectionsContainer}>
           {/* Delivered Section */}
           <div
-            className={`${styles.section} ${activeSection === "delivered" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "delivered" ? styles.hidden : ""}`}
+            className={`${styles.section} ${styles.delivered} ${activeSection === "delivered" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "delivered" ? styles.hidden : ""}`}
             onClick={() => handleSelectSection("delivered")}
           >
             <h3 className={styles.sectionTitles}>Delivered</h3>
@@ -262,7 +280,7 @@ const Exchange = () => {
           </div>
           {/* Received Section */}
           <div
-            className={`${styles.section} ${activeSection === "received" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "received" ? styles.hidden : ""}`}
+            className={`${styles.section} ${styles.received} ${activeSection === "received" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "received" ? styles.hidden : ""}`}
             onClick={() => handleSelectSection("received")}
           >
             <h3 className={styles.sectionTitles}>Received</h3>

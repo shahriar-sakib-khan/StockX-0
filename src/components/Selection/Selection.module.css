@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: space-between;
   font-size: 1rem;
+  margin-top: 1em;
 }
 
 .titleSubmit {
@@ -73,17 +74,13 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   font-size: 1rem;
   gap: 1.5em;
-  padding-inline: 1em;
+  padding: 1em;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 
 @media (max-width: 680px) {
-  .titleSection {
-    margin-top: 0px;
-  }
-  
   .titleSubmit {
     padding: 0;
   }

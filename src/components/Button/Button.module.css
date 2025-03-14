@@ -28,13 +28,25 @@
   background-color: hsl(210, 85%, 45%);
 }
 
-.primary:not(.disabled):active {
+.primary:not(.disabled):active,
+.primary:not(.disabled):focus {
   background-color: hsl(210, 85%, 55%);
 }
 
 .secondary {
   background-color: #6c757d;
   color: white;
+}
+
+.light {
+  color: hsl(214, 20%, 40%);
+  background-color: hsl(0, 0%, 100%);
+}
+
+.light:not(.disabled):hover,
+.light:not(.disabled):active,
+.light:not(.disabled):focus {
+  background-color: hsl(0, 0%, 90%);
 }
 
 .cancel {

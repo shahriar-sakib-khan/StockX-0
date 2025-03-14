@@ -2,24 +2,34 @@
   width: 90%;
   max-width: 1280px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 .exchangeContainer {
   display: flex;
   flex-direction: column;
-  gap: 5px 10px;
-  padding-block: 10px 0;
+  gap: 0.3125em 0.625em;
+  padding-block: 0.625em 0;
+  height: 90svh;
 }
 
-.nextButtonContainer {
+.secondaryNavbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  padding-block: 0.5em;
+  flex-wrap: wrap;
+  gap: 1em;
 }
 
+.secondaryNavList {
+  display: flex;
+  list-style: none;
+}
 .sectionsContainer {
   display: flex;
-  gap: 20px;
+  gap: 1.2em;
   text-align: center;
+  padding-inline: 1em;
 }
 
 .section {
@@ -30,11 +40,10 @@
   padding: 0;
   border: 3px solid hsl(0, 0%, 85%);
   border-radius: 8px;
-  height: 53vh;
+  height: 53svh;
   width: 48%;
   box-shadow: 5px 5px 10px hsl(0, 0%, 90%);
   transition: 0.3s ease all;
-  position: relative;
 }
 
 .section:not(.active):hover {
@@ -210,14 +219,7 @@
   cursor: not-allowed;
 }
 
-.buttonContainer {
-  display: flex;
-  justify-content: space-around;
-  margin-block: 5px 0;
-  padding-inline: 4em;
-}
-
-.nextBtn:disabled::after {
+/* .nextBtn:disabled::after {
   content: attr(data-tool-tip);
   font-weight: 500;
   display: block;
@@ -242,7 +244,7 @@
   bottom: 100%;
   right: 0%;
   transform: scale(1);
-}
+} */
 
 .bottomScrollable {
   display: grid;
@@ -250,7 +252,7 @@
   overflow-x: auto;
   justify-content: left;
   overscroll-behavior-inline: contain;
-
+  margin-top: auto;
   /* fade at the sides */
   /* -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, black 2%, black 98%, rgba(0, 0, 0, 0) 99%);
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, black 2%, black 98%, rgba(0, 0, 0, 0) 99%); */
@@ -281,14 +283,46 @@
 }
 
 @media (width <= 768px) {
-  .hidden {
-    display: none;
+  .sectionsContainer {
+    width: 200%;
   }
+
+  .sectionsContainer:has(.delivered.hidden) {
+    transform: translateX(-50%);
+    transition: transform 0.2s ease;
+    
+  }
+  
+  .sectionsContainer:has(.received.hidden) {
+    transform: translateX(0%);
+    transition: transform 0.2s ease;
+    
+  }
+  
+  .section {
+    height: 50svh;
+  }
+  
   .buttonContainer {
     display: flex;  
     justify-content: center;
     margin-top: 10px;
   }
+}
+
+@media (width < 510px) {
+  .sectionTitles {
+    font-size: 1rem;
+  }
+
+  .tableContainer thead {
+    font-size: 0.9rem;
+  }
+
+  .tableContainer tbody {
+    font-size: 0.8rem;
+  }
+
 }
 
 /* @media (max-width: 1032px) {

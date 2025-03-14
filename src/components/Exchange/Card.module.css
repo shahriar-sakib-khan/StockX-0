@@ -52,7 +52,7 @@
   color: #888;
   align-self: flex-start;
   padding-inline-start: 1em;
-  margin-block: 0.5em;
+  margin-block: 0 0.5em;
 }
 
 .type{
@@ -129,7 +129,7 @@
   transform: scale(1);
 }
 
-@media (max-width: 680px) {
+@media (width < 768px) {
   .card, .stockCount {
     font-size: 0.8rem;
   }
