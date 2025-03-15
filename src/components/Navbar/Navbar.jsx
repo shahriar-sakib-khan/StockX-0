@@ -6,7 +6,8 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useLocation();
-  const isSpecialPage = (location.pathname === "/") || (location.pathname === "/initialization");
+  const isSpecialPage = false
+  //(location.pathname === "/selection") || (location.pathname === "/initialization")
 
   const handleNavClick = () => setMenuOpen(false);
 
@@ -40,7 +41,8 @@ function Navbar() {
             </div>
             <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
               <ul className={styles.primaryNavItems}>
-                <li>{renderNavLink("/", "Selection")}</li>
+                <li>{renderNavLink("/", "Dashboard")}</li>
+                <li>{renderNavLink("/selection", "Selection")}</li>
                 <li>{renderNavLink("/inventory", "Inventory")}</li>
                 <li>{renderNavLink("/exchange", "Exchange")}</li>
               </ul>
