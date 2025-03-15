@@ -1,3 +1,5 @@
+//This list is outdated and does not take into account the two variations of cylinders
+
 import brand1  from "./images/brands/1.png";
 import brand2  from "./images/brands/2.png";
 import brand3  from "./images/brands/3.png";

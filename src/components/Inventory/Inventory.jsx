@@ -1,8 +1,8 @@
 import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/list_of_brands';
 import Card from './Card';
-import stoveImg from "../../assets/images/Stove.jpeg"
-import regulatorImg from "../../assets/images/Regulator.jpg"
+import regulators from '../../assets/regulator_list';
+import stoves from '../../assets/stove_list';
 import styles from './Inventory.module.css';
 
 function Inventory() {
@@ -61,22 +61,18 @@ function Inventory() {
       <div className={styles.main}>
         <h1 id="regulators">Regulators</h1>
         <div className={styles.grid}>
-        {allBrands
-            .filter(brand => selectedBrands.includes(brand.id))
-            .map(brand => (
-                brand.cylinders.map((cylinder) => (
+        {regulators.map((regulator) => (
                   <Card
-                    key={"regulator"}
-                    id={"regulator"}
-                    name={"Regulator"}
+                    key={`regulator-${regulator.id}`}
+                    id={regulator.id}
+                    name={regulator.name}
                     cardType={"regulator"}
-                    picture={regulatorImg}
-                    price={500}
-                    stock={50}
+                    picture={regulator.image}
+                    price={regulator.price}
+                    stock={regulator.stock}
                     updateStock={updateStock}
                   />
-                ))
-            ))}
+        ))}
         </div>
       </div>
     ) : (
@@ -86,21 +82,17 @@ function Inventory() {
       <div className={styles.main}>
         <h1 id="stoves">Stoves</h1>
         <div className={styles.grid}>
-        {allBrands
-            .filter(brand => selectedBrands.includes(brand.id))
-            .map(brand => (
-                brand.cylinders.map((cylinder) => (
+        {stoves.map((stove) => (
                   <Card
-                    key={"stove"}
-                    id={"stove"}
-                    name={"Stove"}
+                    key={`stove-${stove.id}`}
+                    id={stove.id}
+                    name={stove.name}
                     cardType={"stove"}
-                    picture={stoveImg}
-                    price={2000}
-                    stock={10}
+                    picture={stove.image}
+                    price={stove.price}
+                    stock={stove.stock}
                     updateStock={updateStock}
                   />
-                ))
             ))}
         </div>
       </div>
