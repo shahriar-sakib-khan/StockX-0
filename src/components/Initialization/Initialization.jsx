@@ -25,8 +25,12 @@ function Initialization() {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.heading}>Enter initial prices and stock values</h1>
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+          <div className={styles.buttons}>
+            <Button onClick={() => navigate(-1)}>Go Back</Button>
+            <Button onClick={handleSubmit}>Done</Button>
+          </div>
+          <h1 className={styles.heading}>Enter initial prices and stock values</h1>
           <div className={styles.forms}>
             {selectedBrands.map((id) => {
               const brand = allBrands.find(b => b.id === id);
@@ -66,10 +70,6 @@ function Initialization() {
                   )
                 );
             })}
-          </div>
-          <div className={styles.buttons}>
-            <Button onClick={() => navigate(-1)}>Go Back</Button>
-            <Button onClick={handleSubmit}>Done</Button>
           </div>
         </form>
     </div>

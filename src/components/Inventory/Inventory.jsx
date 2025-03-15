@@ -1,6 +1,8 @@
 import { useOutletContext } from 'react-router-dom';
 import allBrands from '../../assets/list_of_brands';
 import Card from './Card';
+import stoveImg from "../../assets/images/Stove.jpeg"
+import regulatorImg from "../../assets/images/Regulator.jpg"
 import styles from './Inventory.module.css';
 
 function Inventory() {
@@ -30,7 +32,7 @@ function Inventory() {
     </div>
 
     {selectedBrands.length > 0 ? (
-      <div className={styles.sectionHeader}>
+      <div className={styles.main}>
         <h1 id="cylinders">Cylinders</h1>
         <div className={styles.grid}>
           {allBrands
@@ -42,6 +44,7 @@ function Inventory() {
                     id={brand.id}
                     name={brand.name}
                     type={cylinder.type}
+                    cardType={"cylinder"}
                     picture={cylinder.image}
                     price={prices[brand.id]?.[cylinder.type] ?? brand.price}
                     stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
@@ -55,7 +58,7 @@ function Inventory() {
       <p className={styles.noBrands}>No brands selected</p>
     )}
     {selectedBrands.length > 0 ? (
-      <div className={styles.sectionHeader}>
+      <div className={styles.main}>
         <h1 id="regulators">Regulators</h1>
         <div className={styles.grid}>
         {allBrands
@@ -63,13 +66,13 @@ function Inventory() {
             .map(brand => (
                 brand.cylinders.map((cylinder) => (
                   <Card
-                    key={`${brand.id}-${cylinder.type}`}
-                    id={brand.id}
-                    name={brand.name}
-                    type={cylinder.type}
-                    picture={cylinder.image}
-                    price={prices[brand.id]?.[cylinder.type] ?? brand.price}
-                    stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
+                    key={"regulator"}
+                    id={"regulator"}
+                    name={"Regulator"}
+                    cardType={"regulator"}
+                    picture={regulatorImg}
+                    price={500}
+                    stock={50}
                     updateStock={updateStock}
                   />
                 ))
@@ -80,7 +83,7 @@ function Inventory() {
       <p className={styles.noBrands}>No brands selected</p>
     )}
       {selectedBrands.length > 0 ? (
-      <div className={styles.sectionHeader}>
+      <div className={styles.main}>
         <h1 id="stoves">Stoves</h1>
         <div className={styles.grid}>
         {allBrands
@@ -88,13 +91,13 @@ function Inventory() {
             .map(brand => (
                 brand.cylinders.map((cylinder) => (
                   <Card
-                    key={`${brand.id}-${cylinder.type}`}
-                    id={brand.id}
-                    name={brand.name}
-                    type={cylinder.type}
-                    picture={cylinder.image}
-                    price={prices[brand.id]?.[cylinder.type] ?? brand.price}
-                    stock={stockCount[brand.id]?.[cylinder.type] ?? brand.stock}
+                    key={"stove"}
+                    id={"stove"}
+                    name={"Stove"}
+                    cardType={"stove"}
+                    picture={stoveImg}
+                    price={2000}
+                    stock={10}
                     updateStock={updateStock}
                   />
                 ))

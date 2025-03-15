@@ -3,6 +3,8 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import allBrands from "../../assets/list_of_brands";
 import Card from "./Card";
 import Button from "../Button/Button";
+import stoveImg from "../../assets/images/Stove.jpeg"
+import regulatorImg from "../../assets/images/Regulator.jpg"
 import styles from "./Exchange.module.css";
 
 const Exchange = () => {
@@ -299,7 +301,8 @@ const Exchange = () => {
           </Button>
         </div>)}
         <div className={styles.bottomScrollable}>
-          {[
+          { activeCategory == "cylinders" &&
+          [
             ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
             ...allBrands.filter((brand) => !selectedBrands.includes(brand.id)),
           ].map((brand) =>
@@ -310,6 +313,44 @@ const Exchange = () => {
                 name={brand.name}
                 type={cylinder.type}
                 picture={cylinder.image}
+                price={prices[brand.id]?.[cylinder.type] ?? 0}
+                stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
+                activeSection={activeSection}
+                onAdd={() => handleAddItem(brand.id, cylinder.type)}
+              />
+            ))
+          )}
+
+          { activeCategory == "regulators" &&
+          [
+            ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
+            ...allBrands.filter((brand) => !selectedBrands.includes(brand.id)),
+          ].map((brand) =>
+            brand.cylinders.map((cylinder) => (
+              <Card
+                key={`${brand.id}-${cylinder.type}`}
+                id={brand.id}
+                name={"Regulator"}
+                picture={regulatorImg}
+                price={prices[brand.id]?.[cylinder.type] ?? 0}
+                stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
+                activeSection={activeSection}
+                onAdd={() => handleAddItem(brand.id, cylinder.type)}
+              />
+            ))
+          )}
+
+          { activeCategory == "stoves" &&
+          [
+            ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
+            ...allBrands.filter((brand) => !selectedBrands.includes(brand.id)),
+          ].map((brand) =>
+            brand.cylinders.map((cylinder) => (
+              <Card
+                key={`${brand.id}-${cylinder.type}`}
+                id={brand.id}
+                name={"Stove"}
+                picture={stoveImg}
                 price={prices[brand.id]?.[cylinder.type] ?? 0}
                 stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
                 activeSection={activeSection}

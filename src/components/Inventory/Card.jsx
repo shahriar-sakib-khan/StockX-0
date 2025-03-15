@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from './Modal';
 import styles from './Card.module.css';
 
-function Card({ id, name, type, picture, price, stock, updateStock }) {
+function Card({ id, name, type, cardType, picture, price, stock, updateStock }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
 
@@ -33,10 +33,12 @@ function Card({ id, name, type, picture, price, stock, updateStock }) {
         <img src={picture} alt={name} className={styles.image} />
         <h2 className={styles.name}>{name}</h2>
         <p className={styles.price}>Price: {price}</p>
-        <div className={styles.controls}>
+        {(cardType === "cylinder") && 
+          <div className={styles.controls}>
           <button onClick={() => openModal("DECREASE")} className={styles.minusBtn} disabled={stock === 0}>-</button>
           <button onClick={() => openModal("INCREASE")} className={styles.plusBtn}>+</button>
         </div>
+        }
         <span className={styles.type}>{type}</span>
       </div>
 

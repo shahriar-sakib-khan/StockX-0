@@ -4,6 +4,9 @@
 
 .navContainer {
   background-color: hsl(210, 30%, 20%);
+  position: sticky;
+  top: 0;
+  z-index: 1100;
 }
 
 .wrapper {
