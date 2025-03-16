@@ -65,67 +65,94 @@ const Exchange = () => {
     setActiveSection(section);
   };
 
-  const handleAddItem = (id, cylinderType) => {
+  const handleAddItem = (id, productType, cylinderType) => {
     if (!activeSection) return;
 
+    const isCylinder = productType === "cylinder";
+    const currentStock = isCylinder ? stockCount.cylinder?.[id]?.[cylinderType] || 0
+                                    : stockCount[productType]?.[id] || 0;
+
     if (activeSection === "delivered") {
-      if((stockCount[id]?.[cylinderType] || 0) === 0)
-        return;
+      if(currentStock === 0) return;
 
       setDeliveredItems((prev) => ({
         ...prev,
-        [id]: {
-          ...(prev[id] || {}),
-          [cylinderType]: (prev[id]?.[cylinderType] || 0) + 1,
+        [productType]: {
+          ...(prev[productType] || {}),
+          [id]: isCylinder 
+            ? { ...(prev[productType]?.[id] || {}), [cylinderType]: (prev[productType]?.[id]?.[cylinderType] || 0) + 1 }
+            : (prev[productType]?.[id] || 0) + 1
         }
       }));
 
-      const newStock = Math.max((stockCount[id]?.[cylinderType] || 0) - 1, 0);
-      updateStock(id, cylinderType, newStock);
+      const newStock = Math.max(currentStock - 1, 0);
+      updateStock(id, productType, cylinderType, newStock);
 
     } else {
       setReceivedItems((prev) => ({
         ...prev,
-        [id]: {
-          ...(prev[id] || {}),
-          [cylinderType]: (prev[id]?.[cylinderType] || 0) + 1,
+        [productType]: {
+          [id]: isCylinder 
+            ? { ...(prev[productType]?.[id] || {}), [cylinderType]: (prev[productType]?.[id]?.[cylinderType] || 0) + 1 }
+            : (prev[productType]?.[id] || 0) + 1
         }
       }));
     }
   };
 
-  const handleDecrementItem = (id, cylinderType) => {
+  const handleDecrementItem = (id, productType, cylinderType) => {
     if (!activeSection) return;
+
+    const isCylinder = productType === "cylinder";
 
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
         const updated = { ...prev };
 
-        if (updated[id]?.[cylinderType] > 1) {
-          updated[id][cylinderType] -= 1;
+        if(isCylinder) {
+          if(updated[productType]?.[id]?.[cylinderType] > 1) {
+            updated[productType][id][cylinderType] -= 1;
+          } else {
+            delete updated[productType][id][cylinderType];
+            if(Object.keys(updated[productType][id]).length === 0) {
+              delete updated[productType][id];
+            }
+          }
         } else {
-          delete updated[id][cylinderType];
-          if(Object.keys(updated[id]).length === 0) {
-            delete updated[id];
+          if(updated[productType]?.[id] > 1) {
+            updated[productType][id] -= 1;
+          } else {
+            delete updated[productType][id];
           }
         }
         
-        const newStock = Math.max((stockCount[id]?.[cylinderType] || 0) + 1, 0);
-        updateStock(id, cylinderType, newStock);
-
+        const newStock = Math.max(
+          (isCylinder ? stockCount.cylinder?.[id]?.[cylinderType] : stockCount[productType]?.[id]) + 1,
+           0);
+        
+        updateStock(id, productType, cylinderType, newStock);
         return updated;
       });
       
     } else {
       setReceivedItems((prev) => {
         const updated = { ...prev };
-        if (updated[id]?.[cylinderType] > 1) {
-          updated[id][cylinderType] -= 1;
-        } else {
-          delete updated[id][cylinderType];
 
-          if(Object.keys(updated[id]).length === 0) {
-            delete updated[id];
+        if(isCylinder) {
+          if (updated[productType]?.[id]?.[cylinderType] > 1) {
+            updated[productType][id][cylinderType] -= 1;
+          } else {
+            delete updated[productType][id][cylinderType];
+
+            if(Object.keys(updated[productType]?.[id]).length === 0) {
+              delete updated[productType][id];
+            }
+          }
+        } else {
+          if (updated[productType]?.[id] > 1) {
+            updated[productType][id] -= 1;
+          } else {
+            delete updated[productType][id];
           }
         }
         return updated;
@@ -134,29 +161,34 @@ const Exchange = () => {
   };
 
   
-  const handleRemoveItem = (id, cylinderType) => {
+  const handleRemoveItem = (id, productType, cylinderType) => {
     if (!activeSection) return;
+
+    const isCylinder = productType === "cylinder";
     
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
         const updated = { ...prev };
-        const removedCount = updated[id]?.[cylinderType] || 0;
+        let removedCount = 0;
 
-        if(cylinderType) {
-          delete updated[id]?.[cylinderType];
-          if(Object.keys(updated[id] || {}).length === 0) {
-            delete updated[id];
+        if(isCylinder) {
+          removedCount = updated[productType]?.[id]?.[cylinderType] || 0;
+          delete updated[productType]?.[id]?.[cylinderType];
+          if(Object.keys(updated[productType]?.[id] || {}).length === 0) {
+            delete updated[productType][id];
           }
-        }
-        else {
-          delete updated[id];
+        } else {
+          removedCount = updated[productType]?.[id] || 0;
+          delete updated[productType][id];
         }
 
-        setStockCount((prevStocks) => ({
-          ...prevStocks,
-          [id]: {
-            ...(prevStocks[id] || {}),
-            [cylinderType]: (prevStocks[id]?.[cylinderType] || 0) + removedCount,
+        setStockCount((prev) => ({
+          ...prev,
+          [productType]: { 
+            ...(prev[productType] || {} ),
+            [id]: productType === "cylinder"
+              ? { ...(prev[productType]?.[id] || {}), [cylinderType]: (prev[productType]?.[id]?.[cylinderType] || 0) + removedCount}
+              : (prev[productType]?.[id] || 0) + removedCount,
           },
         }));
 
@@ -166,15 +198,16 @@ const Exchange = () => {
     } else {
       setReceivedItems((prev) => {
         const updated = { ...prev };
-        if(cylinderType) {
-          delete updated[id]?.[cylinderType];
-          if(Object.keys(updated[id] || {}).length === 0) {
-            delete updated[id];
+
+        if(isCylinder) {
+          delete updated[productType]?.[id]?.[cylinderType];
+          if(Object.keys(updated[productType]?.[id] || {}).length === 0) {
+            delete updated[productType][id];
           }
+        } else {
+          delete updated[productType][id];
         }
-        else {
-          delete updated[id];
-        }
+
         return updated;
       });
     }
@@ -201,6 +234,7 @@ const Exchange = () => {
           {Object.entries(items).flatMap(([id, cylinderTypes]) => {
             const brand = allBrands.find((brand) => brand.id === parseInt(id));
             if (!brand) return [];
+            
             return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
               serialCounter++;
               const price = prices[brand?.id]?.[cylinderType] || 0 ;
@@ -308,6 +342,11 @@ const Exchange = () => {
         {windowWidth < 768 && (
         <div className={styles.buttonContainer}>
           <Button
+          onClick={() => {console.log(deliveredItems); console.log(receivedItems)}}
+          >
+            print
+          </Button>
+          <Button
             variant="outline"
             className={styles.deliveredBtn}
             onClick={() => handleSelectSection(activeSection === "delivered" ? "received" : "delivered")}
@@ -327,11 +366,12 @@ const Exchange = () => {
                 id={brand.id}
                 name={brand.name}
                 type={cylinder.type}
+                cardType={"cylinder"}
                 picture={cylinder.image}
                 price={prices?.cylinder?.[brand.id]?.[cylinder.type] ?? brand.price}
                 stock={selectedBrandsList.includes(brand) ? stockCount?.cylinder?.[brand.id]?.[cylinder.type] ?? brand.stock : null}
                 activeSection={activeSection}
-                onAdd={() => handleAddItem(brand.id, cylinder.type)}
+                onAdd={() => handleAddItem(brand.id, "cylinder", cylinder.type)}
               />
             ))
           )}
@@ -342,11 +382,12 @@ const Exchange = () => {
                 key={`regulator-${regulator.id}`}
                 id={regulator.id}
                 name={regulator.name}
+                cardType={"regulator"}
                 picture={regulator.image}
                 price={prices?.regulator?.[regulator.id] ?? regulator.price}
                 stock={stockCount?.regulator?.[regulator.id] ?? regulator.stock}
                 activeSection={activeSection}
-                onAdd={() => handleAddItem(regulator.id)}
+                onAdd={() => handleAddItem(regulator.id, "regulator")}
               />
           ))}
 
@@ -356,11 +397,12 @@ const Exchange = () => {
                 key={`stove-${stove.id}`}
                 id={stove.id}
                 name={stove.name}
+                cardType={"stove"}
                 picture={stove.image}
                 price={prices?.stove?.[stove.id] ?? stove.price}
                 stock={stockCount?.stove?.[stove.id] ?? stove.stock}
                 activeSection={activeSection}
-                onAdd={() => handleAddItem(stove.id)}
+                onAdd={() => handleAddItem(stove.id, "stove")}
               />
           ))}
         </div>
