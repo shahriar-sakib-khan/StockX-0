@@ -25,6 +25,12 @@
   display: flex;
   list-style: none;
 }
+
+.activeBtn {
+  color: white;
+  background-color: #009879;
+}
+
 .sectionsContainer {
   display: flex;
   gap: 1.2em;

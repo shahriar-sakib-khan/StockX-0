@@ -3,8 +3,8 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import allBrands from "../../assets/Lists/list_of_brands";
 import regulators from "../../assets/Lists/regulator_list";
 import stoves from "../../assets/Lists/stove_list";
-import Card from "./Card";
 import Button from "../Button/Button";
+import Card from "./Card";
 import styles from "./Exchange.module.css";
 
 const Exchange = () => {

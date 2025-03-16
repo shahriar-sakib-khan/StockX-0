@@ -35,7 +35,7 @@ html {
   padding: 0.5em 1em;
   border-radius: 0.25em;
   background-color: transparent;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.1s ease;
 }
 
 .secondaryNavLink:hover{
