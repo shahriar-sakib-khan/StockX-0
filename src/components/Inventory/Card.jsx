@@ -17,10 +17,10 @@ function Card({ id, name, type, cardType, picture, price, stock, updateStock }) 
 
   const handleStockChange = (value) => {
     if(modalType === "INCREASE") {
-      updateStock(id, type, stock + value);
+      updateStock(id, cardType, type, stock + value);
     }
     else if(modalType === "DECREASE" && stock - value >= 0) {
-      updateStock(id, type, stock - value);
+      updateStock(id, cardType, type, stock - value);
     }
   }
 
@@ -28,17 +28,15 @@ function Card({ id, name, type, cardType, picture, price, stock, updateStock }) 
 
   return (
     <>
-      <div className={`${styles.card} ${styles[typeClassName]}`}>
+      <div className={`${styles.card} ${cardType === "cylinder" ? styles[typeClassName] : ""}`}>
         <span className={styles.stockCount}>Stock: {stock}</span>
         <img src={picture} alt={name} className={styles.image} />
         <h2 className={styles.name}>{name}</h2>
-        <p className={styles.price}>Price: {price}</p>
-        {(cardType === "cylinder") && 
-          <div className={styles.controls}>
+        <p className={styles.price}>Price: Tk {price}</p>
+        <div className={styles.controls}>
           <button onClick={() => openModal("DECREASE")} className={styles.minusBtn} disabled={stock === 0}>-</button>
           <button onClick={() => openModal("INCREASE")} className={styles.plusBtn}>+</button>
         </div>
-        }
         <span className={styles.type}>{type}</span>
       </div>
 

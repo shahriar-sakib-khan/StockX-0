@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
-import allBrands from '../../assets/list_of_brands';
+import allBrands from '../../assets/Lists/list_of_brands';
 import Card from './Card';
 import Button from '../Button/Button';
 import styles from './Selection.module.css';

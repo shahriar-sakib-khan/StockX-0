@@ -6,8 +6,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useLocation();
-  const isSpecialPage = false
-  //(location.pathname === "/selection") || (location.pathname === "/initialization")
+  const isSpecialPage = (location.pathname === "/login") || (location.pathname === "/register")
 
   const handleNavClick = () => setMenuOpen(false);
 
@@ -28,7 +27,7 @@ function Navbar() {
   );
   
   return (
-    <div className={styles.navContainer}>
+    <div className={styles.navContainer} id="primary-navbar">
       <div className={`${styles.wrapper} ${isSpecialPage ? styles.special : ""}`}>
         <a href="#">
           <span className={`${styles.logo} ${isSpecialPage ? styles.specialLogo : ""}`}>StockX</span>
@@ -41,13 +40,13 @@ function Navbar() {
             </div>
             <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
               <ul className={styles.primaryNavItems}>
-                <li>{renderNavLink("/", "Dashboard")}</li>
-                <li>{renderNavLink("/selection", "Selection")}</li>
-                <li>{renderNavLink("/inventory", "Inventory")}</li>
-                <li>{renderNavLink("/exchange", "Exchange")}</li>
+                {renderNavLink("/", "Dashboard")}
+                {renderNavLink("/selection", "Selection")}
+                {renderNavLink("/inventory", "Inventory")}
+                {renderNavLink("/exchange", "Exchange")}
               </ul>
               <ul className={styles.secondaryNavItems}>
-                <li>{renderNavLink("/profile", "Profile")}</li>
+                {renderNavLink("/profile", "Profile")}
               </ul>
             </nav>
           </>

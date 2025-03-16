@@ -1,11 +1,11 @@
 import styles from "./Card.module.css";
 
-function Card({ name, type, picture, price, stock, activeSection, onAdd }) {
+function Card({ name, type, cardType, picture, price, stock, activeSection, onAdd }) {
   const typeClassName = `type-${type}`;
   const isButtonDisabled = !activeSection || (activeSection === "delivered" && (parseInt(stock) === 0 || stock === null));
 
   return (
-    <div className={`${styles.card} ${styles[typeClassName]}`}>
+    <div className={`${styles.card} ${cardType === "cylinder" ? styles[typeClassName] : ""}`}>
       {typeof stock === "number" && <div className={styles.stockCount}>Stock: {stock}</div>}
       <button
         className={styles.plusBtn}

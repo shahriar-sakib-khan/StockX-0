@@ -1,5 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
-import allBrands from "../../assets/list_of_brands";
+import allBrands from "../../assets/Lists/list_of_brands";
+import regulators from "../../assets/Lists/regulator_list";
+import stoves from "../../assets/Lists/stove_list";
 import Button from "../Button/Button";
 import styles from './Initialization.module.css';
 
@@ -7,14 +9,16 @@ function Initialization() {
   const { selectedBrands, stockCount, setStockCount, prices, setPrices } = useOutletContext();
   const navigate = useNavigate();
 
-  const handleChange = (id, type, value, setter) => {
+  const handleChange = (id, productType, cylinderType, value, setter) => {
     const newValue = parseFloat(value);
 
     setter((prev) => ({
       ...prev,
-      [id]: { 
-        ...(prev[id] || {} ),
-        [type]: newValue,
+      [productType]: { 
+        ...(prev[productType] || {} ),
+        [id]: productType === "cylinder"
+          ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue}
+          : newValue,
       },
     }));
   };
@@ -34,8 +38,7 @@ function Initialization() {
           <div className={styles.forms}>
             {selectedBrands.map((id) => {
               const brand = allBrands.find(b => b.id === id);
-
-                return (
+              return (
                   brand && (
                     <div key={brand.id} className={styles.brandSection}>
                       <img src={brand.logo} alt={brand.name} className={styles.brandLogo} />
@@ -48,7 +51,7 @@ function Initialization() {
                               <input
                                 type="number"
                                 value={prices[brand.id]?.[cylinder.type] || ""}
-                                onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setPrices)}
+                                onChange={(e) => handleChange(brand.id, "cylinder", cylinder.type, e.target.value, setPrices)}
                                 min="0"
                                 required
                                 />
@@ -58,7 +61,7 @@ function Initialization() {
                               <input
                                 type="number"
                                 value={stockCount[brand.id]?.[cylinder.type] || ""}
-                                onChange={(e) => handleChange(brand.id, cylinder.type, e.target.value, setStockCount)}
+                                onChange={(e) => handleChange(brand.id, "cylinder", cylinder.type, e.target.value, setStockCount)}
                                 min="0"
                                 required
                                 />
@@ -70,7 +73,10 @@ function Initialization() {
                   )
                 );
             })}
+
+            
           </div>
+          
         </form>
     </div>
   )

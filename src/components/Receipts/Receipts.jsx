@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
-import allBrands from "../../assets/list_of_brands";
+import allBrands from "../../assets/Lists/list_of_brands";
 import Button from "../Button/Button";
 import styles from "./Receipts.module.css";
 

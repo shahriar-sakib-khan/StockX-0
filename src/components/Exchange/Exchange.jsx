@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import allBrands from "../../assets/list_of_brands";
+import allBrands from "../../assets/Lists/list_of_brands";
+import regulators from "../../assets/Lists/regulator_list";
+import stoves from "../../assets/Lists/stove_list";
 import Card from "./Card";
 import Button from "../Button/Button";
-import regulators from "../../assets/regulator_list";
-import stoves from "../../assets/stove_list";
 import styles from "./Exchange.module.css";
 
 const Exchange = () => {
@@ -36,12 +36,27 @@ const Exchange = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const updateStock = (id, cylinderType, newStock) => {
-    setStockCount((prevStocks) => ({
-      ...prevStocks,
-      [id]: {
-        ...(prevStocks[id] || {} ),
-        [cylinderType]: newStock,
+  // const updateStock = (id, cylinderType, newStock) => {
+  //   setStockCount((prevStocks) => ({
+  //     ...prevStocks,
+  //     [id]: {
+  //       ...(prevStocks[id] || {} ),
+  //       [cylinderType]: newStock,
+  //     },
+  //   }));
+  // };
+
+  
+  const updateStock = (id, productType, cylinderType, value) => {
+    const newValue = parseFloat(value);
+
+    setStockCount((prev) => ({
+      ...prev,
+      [productType]: { 
+        ...(prev[productType] || {} ),
+        [id]: productType === "cylinder"
+          ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue}
+          : newValue,
       },
     }));
   };
@@ -313,8 +328,8 @@ const Exchange = () => {
                 name={brand.name}
                 type={cylinder.type}
                 picture={cylinder.image}
-                price={prices[brand.id]?.[cylinder.type] ?? 0}
-                stock={selectedBrandsList.includes(brand) ? stockCount[brand.id]?.[cylinder.type] ?? 0 : null}
+                price={prices?.cylinder?.[brand.id]?.[cylinder.type] ?? brand.price}
+                stock={selectedBrandsList.includes(brand) ? stockCount?.cylinder?.[brand.id]?.[cylinder.type] ?? brand.stock : null}
                 activeSection={activeSection}
                 onAdd={() => handleAddItem(brand.id, cylinder.type)}
               />
@@ -328,8 +343,8 @@ const Exchange = () => {
                 id={regulator.id}
                 name={regulator.name}
                 picture={regulator.image}
-                price={regulator.price}
-                stock={regulator.stock}
+                price={prices?.regulator?.[regulator.id] ?? regulator.price}
+                stock={stockCount?.regulator?.[regulator.id] ?? regulator.stock}
                 activeSection={activeSection}
                 onAdd={() => handleAddItem(regulator.id)}
               />
@@ -342,8 +357,8 @@ const Exchange = () => {
                 id={stove.id}
                 name={stove.name}
                 picture={stove.image}
-                price={stove.price}
-                stock={stove.stock}
+                price={prices?.stove?.[stove.id] ?? stove.price}
+                stock={stockCount?.stove?.[stove.id] ?? stove.stock}
                 activeSection={activeSection}
                 onAdd={() => handleAddItem(stove.id)}
               />

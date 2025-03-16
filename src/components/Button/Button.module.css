@@ -85,14 +85,14 @@
 
 @media (width <= 680px) {
   .large {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .normal {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .small {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
   }
 }
