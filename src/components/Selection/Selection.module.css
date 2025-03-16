@@ -99,5 +99,6 @@
   
   .listContainer {
     font-size: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 }

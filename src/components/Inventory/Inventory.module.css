@@ -18,7 +18,7 @@ html {
   position: sticky;
   top: 4.38em;
   background-color: white;
-  z-index: 1100;
+  z-index: 1000;
 }
 
 .secondaryNavList {
@@ -35,7 +35,7 @@ html {
   padding: 0.5em 1em;
   border-radius: 0.25em;
   background-color: transparent;
-  transition: background-color 0.1s ease;
+  transition: background-color color 0.1s ease;
 }
 
 .secondaryNavLink:hover{
