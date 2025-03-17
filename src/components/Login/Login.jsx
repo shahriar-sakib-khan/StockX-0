@@ -9,7 +9,7 @@ function Login() {
       <form 
         onSubmit={(event) => {
           event.preventDefault();
-          navigate('/');
+          navigate('/dashboard');
         }}
       >
         <button>Submit</button>

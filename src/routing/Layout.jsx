@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 
 function Layout() {
@@ -27,9 +27,11 @@ function Layout() {
     localStorage.setItem("prices", JSON.stringify(prices));
   }, [prices]);
 
+  const isSpecialPage = (location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
+
   return(
     <>
-      <Navbar />
+      {!isSpecialPage && <Navbar />}
       <main id="main">
         <Outlet context={{selectedBrands, setSelectedBrands, stockCount, setStockCount, prices, setPrices}}/>
       </main>

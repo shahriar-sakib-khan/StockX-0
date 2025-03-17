@@ -6,7 +6,8 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useLocation();
-  const isSpecialPage = (location.pathname === "/login") || (location.pathname === "/register")
+  const isSpecialPage = false;
+  //(location.pathname === "/login") || (location.pathname === "/register") || (location.pathname === "/recovery");
 
   const handleNavClick = () => setMenuOpen(false);
 

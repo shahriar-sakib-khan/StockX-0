@@ -1,6 +1,7 @@
 export {default as Login} from './Login/Login';
-export {default as Profile} from './Profile/Profile';
 export {default as Register} from './Login/Register';
+export {default as Recovery} from './Login/Recovery';
+export {default as Profile} from './Profile/Profile';
 export {default as Dashboard} from './Dashboard/Dashboard';
 export {default as Selection} from './Selection/Selection';
 export {default as Initialization} from './Initialization/Initialization';
