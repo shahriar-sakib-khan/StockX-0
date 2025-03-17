@@ -31,8 +31,9 @@ function Layout() {
 
   return(
     <>
-      {!isSpecialPage && <Navbar />}
-      <main id="main">
+      {/* {!isSpecialPage && <Navbar />} */}
+      <Navbar />
+       <main id="main">
         <Outlet context={{selectedBrands, setSelectedBrands, stockCount, setStockCount, prices, setPrices}}/>
       </main>
     </>

@@ -1,5 +1,7 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/Lists/list_of_brands";
+import regulators from "../../assets/Lists/regulator_list";
+import stoves from "../../assets/Lists/stove_list";
 import Button from "../Button/Button";
 import styles from "./Receipts.module.css";
 
@@ -36,25 +38,51 @@ const Receipts = () => {
     let finalPrice = 0;
     let serialNumber = 0;
 
-    const rows = Object.entries(items).flatMap(([id, cylinderTypes]) => {
-      const brand = allBrands.find((brand) => brand.id === parseInt(id));
-      if (!brand) return [];
-      return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
-        const price = prices[brand?.id]?.[cylinderType] || 0;
-        const totalPrice = price * count;
-        finalPrice += totalPrice;
-        serialNumber++;
-
-        return (
-          <tr key={`${id}-${cylinderType}`} role="row">
-            <td data-cell="#: " role="cell">{serialNumber}</td>
-            <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
-            <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
-            {!isReceived && <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>}
-            <td data-cell="Quantity: " role="cell">{count}</td>
-            {!isReceived && <td data-cell="Total Price: " role="cell">Tk {totalPrice.toFixed(2)}</td>}
-          </tr>
-        );
+    const rows = Object.entries(items).flatMap(([productType, productData]) => {
+      return Object.entries(productData).map(([id, itemDetails]) => {
+        
+        if(productType === "cylinder") {
+          const brand = allBrands.find((brand) => brand.id === parseInt(id));
+          if (!brand) return [];
+          return Object.entries(itemDetails).map(([cylinderType, count]) => {
+            serialNumber++;
+            const price = prices[productType]?.[brand?.id]?.[cylinderType] || 0;
+            const totalPrice = price * count;
+            finalPrice += totalPrice;
+            
+            return (
+              <tr key={`${id}-${cylinderType}`} role="row">
+                <td data-cell="#: " role="cell">{serialNumber}</td>
+                <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
+                <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
+                {!isReceived && <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>}
+                <td data-cell="Quantity: " role="cell">{count}</td>
+                {!isReceived && <td data-cell="Total Price: " role="cell">Tk {totalPrice.toFixed(2)}</td>}
+              </tr>
+            );
+          });
+        } else {
+          const brand = productType === "regulator"
+            ? regulators.find((brand) => brand.id === parseInt(id))
+            : stoves.find((brand) => brand.id === parseInt(id));
+          
+          const count = itemDetails;
+          const price = prices[productType]?.[brand?.id] || 0;
+          const totalPrice = price * count;
+          finalPrice += totalPrice;
+          serialNumber++;
+          
+          return (
+            <tr key={`${id}-${productType}`} role="row">
+              <td data-cell="#: " role="cell">{serialNumber}</td>
+              <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
+              <td data-cell="Type: " role="cell" className={`${styles[`type-${productType}`]}`}>Null</td>
+              {!isReceived && <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>}
+              <td data-cell="Quantity: " role="cell">{count}</td>
+              {!isReceived && <td data-cell="Total Price: " role="cell">Tk {totalPrice.toFixed(2)}</td>}
+            </tr>
+          );
+        }
       });
     });
 
