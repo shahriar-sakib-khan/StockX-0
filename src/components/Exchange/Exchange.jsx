@@ -92,6 +92,7 @@ const Exchange = () => {
       setReceivedItems((prev) => ({
         ...prev,
         [productType]: {
+          ...(prev[productType] || {}),
           [id]: isCylinder 
             ? { ...(prev[productType]?.[id] || {}), [cylinderType]: (prev[productType]?.[id]?.[cylinderType] || 0) + 1 }
             : (prev[productType]?.[id] || 0) + 1
@@ -213,6 +214,11 @@ const Exchange = () => {
     }
   };
 
+  const handleClearLists = () => {
+    setDeliveredItems({});
+    setReceivedItems({});
+  }
+
   const renderItemList = (items, active) => {
     let serialCounter = 0;
     return (
@@ -223,7 +229,7 @@ const Exchange = () => {
             <th role="cell">#</th>
             <th role="cell">Brand</th>
             <th role="cell">Type</th>
-            <th role="cell">Logo</th>
+            {/* <th role="cell">Logo</th> */}
             {(active !== "received") && <th role="cell">Price</th>}
             <th role="cell">Quantity</th>
             <th role="cell">Action</th>
@@ -231,45 +237,89 @@ const Exchange = () => {
         </thead>
         }
         <tbody role="rowgroup">
-          {Object.entries(items).flatMap(([id, cylinderTypes]) => {
-            const brand = allBrands.find((brand) => brand.id === parseInt(id));
-            if (!brand) return [];
-            
-            return Object.entries(cylinderTypes).map(([cylinderType, count]) => {
-              serialCounter++;
-              const price = prices[brand?.id]?.[cylinderType] || 0 ;
-              return (
-                <tr key={`${id}-${cylinderType}`} role="row">
-                  <td role="cell" data-cell="#: ">{serialCounter}.</td>
-                  <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"}</td>
-                  <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td>
-                  <td role="cell" data-cell="Logo: ">
-                    {brand && (
-                      <img src={brand.logo} alt={brand.name} className={styles.logo} />
-                    )}
-                  </td >
-                  {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
-                  <td role="cell" data-cell="Quantity: ">{count}</td>
-                  <td role="cell" data-cell="Action: ">
-                    <div className={styles.actionButtons}>
-                      <button
-                        className={styles.decrementButton}
-                        onClick={() => handleDecrementItem(brand.id, cylinderType)}
-                        disabled={activeSection !== active}
-                      >
-                        -
-                      </button>
-                      <button
-                        className={styles.removeButton}
-                        onClick={() => handleRemoveItem(brand.id, cylinderType)}
-                        disabled={activeSection !== active}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
+          {Object.entries(items).flatMap(([productType, productData]) => {
+            return Object.entries(productData).flatMap(([id, typesOrCount]) => {
+              
+              if(productType === "cylinder") {
+                const brand = allBrands.find((brand) => brand.id === parseInt(id));
+                if (!brand) return [];
+                return Object.entries(typesOrCount).map(([cylinderType, count]) => {
+                  serialCounter++;
+                  const price = prices[productType]?.[brand?.id]?.[cylinderType] || 0 ;
+                  return (
+                    <tr key={`${id}-${cylinderType}`} role="row">
+                      <td role="cell" data-cell="#: ">{serialCounter}.</td>
+                      <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"}</td>
+                      <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td>
+                      {/* <td role="cell" data-cell="Logo: ">
+                        {brand && (
+                          <img src={brand.logo} alt={brand.name} className={styles.logo} />
+                        )}
+                      </td > */}
+                      {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
+                      <td role="cell" data-cell="Quantity: ">{count}</td>
+                      <td role="cell" data-cell="Action: ">
+                        <div className={styles.actionButtons}>
+                          <button
+                            className={styles.decrementButton}
+                            onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
+                            disabled={activeSection !== active}
+                          >
+                            -
+                          </button>
+                          <button
+                            className={styles.removeButton}
+                            onClick={() => handleRemoveItem(brand.id, productType, cylinderType)}
+                            disabled={activeSection !== active}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                });
+              } else {
+                  const brand = productType === "regulator"
+                    ? regulators.find((brand) => brand.id === parseInt(id))
+                    : stoves.find((brand) => brand.id === parseInt(id));
+                  
+                const count = typesOrCount;
+                serialCounter++;
+                const price = prices[productType]?.[brand?.id] || 0 ;
+                return (
+                  <tr key={`${id}-${productType}`} role="row">
+                    <td role="cell" data-cell="#: ">{serialCounter}.</td>
+                    <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"}</td>
+                    <td role="cell" data-cell="Type: " className={styles[`type-${productType}`]}>Null</td>
+                    {/* <td role="cell" data-cell="Logo: ">
+                      {brand && (
+                        <img src={brand.logo} alt={brand.name} className={styles.logo} />
+                      )}
+                    </td > */}
+                    {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
+                    <td role="cell" data-cell="Quantity: ">{count}</td>
+                    <td role="cell" data-cell="Action: ">
+                      <div className={styles.actionButtons}>
+                        <button
+                          className={styles.decrementButton}
+                          onClick={() => handleDecrementItem(brand.id, productType)}
+                          disabled={activeSection !== active}
+                        >
+                          -
+                        </button>
+                        <button
+                          className={styles.removeButton}
+                          onClick={() => handleRemoveItem(brand.id, productType)}
+                          disabled={activeSection !== active}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              }
             });
           })}
         </tbody>
@@ -277,7 +327,6 @@ const Exchange = () => {
     );
   };
   
-
   const selectedBrandsList = allBrands.filter((brand) => 
     selectedBrands.includes(brand.id)
   );
@@ -342,7 +391,7 @@ const Exchange = () => {
         {windowWidth < 768 && (
         <div className={styles.buttonContainer}>
           <Button
-          onClick={() => {console.log(deliveredItems); console.log(receivedItems)}}
+            onClick={() => {console.log(deliveredItems); console.log(receivedItems)}}
           >
             print
           </Button>
@@ -352,6 +401,11 @@ const Exchange = () => {
             onClick={() => handleSelectSection(activeSection === "delivered" ? "received" : "delivered")}
           >
             {activeSection === "delivered" ? "Received" : "Delivered"}
+          </Button>
+          <Button
+            onClick={handleClearLists}
+          >
+            Clear Lists
           </Button>
         </div>)}
         <div className={styles.bottomScrollable}>
