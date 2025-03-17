@@ -17,7 +17,7 @@ function Initialization() {
       [productType]: { 
         ...(prev[productType] || {} ),
         [id]: productType === "cylinder"
-          ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue}
+          ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue }
           : newValue,
       },
     }));
@@ -27,11 +27,17 @@ function Initialization() {
     navigate("/inventory");
   }
 
+  const handleClearValues = () => {
+    setPrices({});
+    setStockCount({});
+  }
+
   return (
     <div className={styles.wrapper}>
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
           <div className={styles.buttons}>
             <Button onClick={() => navigate(-1)}>Go Back</Button>
+            <Button onClick={handleClearValues}>Reset</Button>
             <Button onClick={handleSubmit}>Done</Button>
           </div>
           <h1 className={styles.heading}>Enter initial prices and stock values</h1>
@@ -50,7 +56,7 @@ function Initialization() {
                             <div className={styles.Input}>
                               <input
                                 type="number"
-                                value={prices[brand.id]?.[cylinder.type] || ""}
+                                value={prices["cylinder"]?.[brand.id]?.[cylinder.type] || ""}
                                 onChange={(e) => handleChange(brand.id, "cylinder", cylinder.type, e.target.value, setPrices)}
                                 min="0"
                                 required
@@ -60,7 +66,7 @@ function Initialization() {
                             <div className={styles.Input}>
                               <input
                                 type="number"
-                                value={stockCount[brand.id]?.[cylinder.type] || ""}
+                                value={stockCount["cylinder"]?.[brand.id]?.[cylinder.type] || ""}
                                 onChange={(e) => handleChange(brand.id, "cylinder", cylinder.type, e.target.value, setStockCount)}
                                 min="0"
                                 required

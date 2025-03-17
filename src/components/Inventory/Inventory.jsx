@@ -51,16 +51,6 @@ function Inventory() {
     }
   }, [scrollPadding]);
 
-  // const updateStock = (id, cylinderType, newStock) => {
-  //   setStockCount(prevStocks => ({
-  //     ...prevStocks,
-  //     [id]: {
-  //       ...(prevStocks[id] || {}),
-  //       [cylinderType]: newStock
-  //     }
-  //   }));
-  // }
-
   const updateStock = (id, productType, cylinderType, value) => {
     const newValue = parseFloat(value);
 
