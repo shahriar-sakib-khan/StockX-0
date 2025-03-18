@@ -5,6 +5,7 @@ import Card from './Card';
 import Button from '../Button/Button';
 import styles from './Selection.module.css';
 
+
 function Selection() {
   const { selectedBrands, setSelectedBrands } = useOutletContext();
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function Selection() {
   const isSubmitDisabled = !(selectedBrands.length > 0);
 
   return (
+    <>
     <div className={styles.wrapper}>
       <div className={styles.titleSection}>
         <div className={styles.titleSubmit}>
@@ -67,6 +69,7 @@ function Selection() {
         )))}
       </ul>
     </div>
+    </>
   );
 }
 

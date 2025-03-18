@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 
 function Layout() {
@@ -31,9 +31,8 @@ function Layout() {
 
   return(
     <>
-      {/* {!isSpecialPage && <Navbar />} */}
       <Navbar />
-       <main id="main">
+      <main id="main">
         <Outlet context={{selectedBrands, setSelectedBrands, stockCount, setStockCount, prices, setPrices}}/>
       </main>
     </>

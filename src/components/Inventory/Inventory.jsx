@@ -5,6 +5,7 @@ import Card from './Card';
 import regulators from '../../assets/Lists/regulator_list';
 import stoves from '../../assets/Lists/stove_list';
 import styles from './Inventory.module.css';
+import Navbar from "../Navbar/Navbar";
 
 function Inventory() {
   const { selectedBrands, stockCount, setStockCount, prices } = useOutletContext();
