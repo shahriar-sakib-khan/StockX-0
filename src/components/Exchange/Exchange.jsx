@@ -390,23 +390,23 @@ const Exchange = () => {
       
         {windowWidth < 768 && (
         <div className={styles.buttonContainer}>
-          <Button
+          {/* <Button
             onClick={() => {console.log(deliveredItems); console.log(receivedItems)}}
           >
             print
-          </Button>
+          </Button> */}
           <Button
             variant="outline"
-            className={styles.deliveredBtn}
+            className={`${styles.deliveredBtn} ${styles[activeSection]}`}
             onClick={() => handleSelectSection(activeSection === "delivered" ? "received" : "delivered")}
           >
-            {activeSection === "delivered" ? "Received" : "Delivered"}
+            {activeSection === "delivered" ? "Go to Received ->" : "<- Go to Delivered"}
           </Button>
-          <Button
+          {/* <Button
             onClick={handleClearLists}
           >
             Clear Lists
-          </Button>
+          </Button> */}
         </div>)}
         <div className={styles.bottomScrollable}>
           { activeCategory == "cylinders" &&

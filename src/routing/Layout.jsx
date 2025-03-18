@@ -27,7 +27,7 @@ function Layout() {
     localStorage.setItem("prices", JSON.stringify(prices));
   }, [prices]);
 
-  const isSpecialPage = (location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
+  // const isSpecialPage = (location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
 
   return(
     <>

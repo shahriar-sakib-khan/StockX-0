@@ -86,7 +86,6 @@ const Receipts = () => {
       });
     });
 
-    // Add the final total row
     if(!isReceived) rows.push(
       <tr key="final-price" role="row" className={styles.finalPrice}>
         <td role="cell" colSpan="5" style={{ textAlign: "left", borderRight: "none" }}>Final Price:</td>

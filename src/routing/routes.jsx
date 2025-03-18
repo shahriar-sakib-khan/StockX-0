@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Login,Profile, Register, Recovery, Dashboard, Selection, Initialization, Inventory, EmptyCylinders, Exchange, Receipts, ExchangeHistory } from '../components';
+import { Login, Profile, Register, Recovery, Dashboard, Shop, Selection, Initialization, Inventory, EmptyCylinders, Exchange, Receipts, ExchangeHistory } from '../components';
 import Layout from "./Layout";
 // import ErrorPage from "./ErrorPage";
 // import PrivateRoutes from "./PrivateRoutes";
@@ -11,13 +11,14 @@ const router = createBrowserRouter([
     // errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Login /> },
-      { path: 'initialization', element: <Initialization /> },
       { path: 'profile', element: <Profile /> },
       { path: 'register', element: <Register /> },
       { path: 'Recovery', element: <Recovery /> },
+      { path: 'initialization', element: <Initialization /> },
       { path: 'dashboard', element: <Dashboard /> },
+      { path: 'shop', element: <Shop /> },
       { path: 'selection', element: <Selection /> },
-      { path: 'inventory', element: <Inventory /> },  
+      { path: 'inventory', element: <Inventory /> },
       { path: 'empty-cylinders', element: <EmptyCylinders /> },
       { path: 'exchange', element: <Exchange /> },
       { path: 'receipts', element: <Receipts /> },

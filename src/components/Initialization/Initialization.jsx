@@ -37,7 +37,7 @@ function Initialization() {
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
           <div className={styles.buttons}>
             <Button onClick={() => navigate(-1)}>Go Back</Button>
-            <Button onClick={handleClearValues}>Reset</Button>
+            {/* <Button onClick={handleClearValues}>Reset</Button> */}
             <Button onClick={handleSubmit}>Done</Button>
           </div>
           <h1 className={styles.heading}>Enter initial prices and stock values</h1>

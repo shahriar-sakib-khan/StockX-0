@@ -311,8 +311,14 @@
   
   .buttonContainer {
     display: flex;  
-    justify-content: center;
-    margin-top: 10px;
+    margin-top: 0.625em;
+    margin-inline: 0.625em;
+    &:has(:not(.received)) {
+      justify-content: flex-end;
+    }
+    &.received {
+      justify-content: flex-start;
+    }
   }
 }
 
