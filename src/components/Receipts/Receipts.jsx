@@ -21,12 +21,21 @@ const Receipts = () => {
   const meridiem = (date.getHours() >= 12) ? "PM" : "AM";
   const minute = date.getMinutes().toString().padStart(2, 0);
 
+  const isEmpty = (obj) => {
+    return Object.values(obj).every(value => {
+      if (typeof value === 'object' && value !== null) {
+        return isEmpty(value) || Object.keys(value).length === 0;
+      }
+      return value === 0;
+    });
+  };
+
   const renderTableHeader = (isReceived) => {
     return (
       <tr role="row">
         <th role="cell">#</th>
         <th role="cell">Brand</th>
-        <th role="cell">Type</th>
+        {/* <th role="cell">Type</th> */}
         {!isReceived && <th role="cell">Price</th>}
         <th role="cell">Quantity</th>
         {!isReceived && <th role="cell">Total Price</th>}
@@ -53,8 +62,8 @@ const Receipts = () => {
             return (
               <tr key={`${id}-${cylinderType}`} role="row">
                 <td data-cell="#: " role="cell">{serialNumber}</td>
-                <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
-                <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td>
+                <td data-cell="Brand: " role="cell"><span>{brand?.name || "Unknown"} <span className={styles[`type-${cylinderType}`]}>{cylinderType}</span></span></td>
+                {/* <td data-cell="Type: " role="cell" className={`${styles[`type-${cylinderType}`]}`}>{cylinderType}</td> */}
                 {!isReceived && <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>}
                 <td data-cell="Quantity: " role="cell">{count}</td>
                 {!isReceived && <td data-cell="Total Price: " role="cell">Tk {totalPrice.toFixed(2)}</td>}
@@ -76,7 +85,6 @@ const Receipts = () => {
             <tr key={`${id}-${productType}`} role="row">
               <td data-cell="#: " role="cell">{serialNumber}</td>
               <td data-cell="Brand: " role="cell">{brand?.name || "Unknown"}</td>
-              <td data-cell="Type: " role="cell" className={`${styles[`type-${productType}`]}`}>Null</td>
               {!isReceived && <td data-cell="Price: " role="cell">Tk{price.toFixed(2)}</td>}
               <td data-cell="Quantity: " role="cell">{count}</td>
               {!isReceived && <td data-cell="Total Price: " role="cell">Tk {totalPrice.toFixed(2)}</td>}
@@ -88,7 +96,7 @@ const Receipts = () => {
 
     if(!isReceived) rows.push(
       <tr key="final-price" role="row" className={styles.finalPrice}>
-        <td role="cell" colSpan="5" style={{ textAlign: "left", borderRight: "none" }}>Final Price:</td>
+        <td role="cell" colSpan="4" style={{ textAlign: "left", borderRight: "none" }}>Final Price:</td>
         <td role="cell">Tk {finalPrice.toFixed(2)}</td>
       </tr>
     );
@@ -109,7 +117,7 @@ const Receipts = () => {
         </div>
       </div>
       <div className={styles.receiptContainer}>
-        { Object.keys(deliveredItems).length > 0 &&
+        { !isEmpty(deliveredItems) &&
         <div className={styles.delivered}>
           <table className={styles.tableContainer} role="table">
             <caption role="caption">Delivered Items</caption>
@@ -118,7 +126,7 @@ const Receipts = () => {
           </table>
         </div>
         }
-        { Object.keys(receivedItems).length > 0 &&
+        { !isEmpty(receivedItems) &&
         <div className={styles.received}>
           <table className={styles.tableContainer} role="table">
             <caption role="caption">Received Items</caption>

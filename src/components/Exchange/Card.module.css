@@ -130,9 +130,8 @@
 }
 
 @media (width < 768px) {
-  .card, .stockCount {
-    font-size: 0.8rem;
-  }
+  .card, .stockCount { font-size: 0.8rem; }
+  .type { font-size: 0.85rem; }
 
   .name, .price {
     font-size: 0.8rem;
@@ -145,7 +144,4 @@
     font-size: 0.9rem;
   }
 
-  .type {
-    font-size: 0.85rem;
-  }
 }

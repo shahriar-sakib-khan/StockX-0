@@ -103,49 +103,50 @@ const Exchange = () => {
 
   const handleDecrementItem = (id, productType, cylinderType) => {
     if (!activeSection) return;
-
+  
     const isCylinder = productType === "cylinder";
-
+  
     if (activeSection === "delivered") {
       setDeliveredItems((prev) => {
-        const updated = { ...prev };
-
-        if(isCylinder) {
-          if(updated[productType]?.[id]?.[cylinderType] > 1) {
+        const updated = JSON.parse(JSON.stringify(prev));
+  
+        if (isCylinder) {
+          if (updated[productType]?.[id]?.[cylinderType] > 1) {
             updated[productType][id][cylinderType] -= 1;
           } else {
             delete updated[productType][id][cylinderType];
-            if(Object.keys(updated[productType][id]).length === 0) {
+  
+            if (Object.keys(updated[productType][id] || {}).length === 0) {
               delete updated[productType][id];
             }
           }
         } else {
-          if(updated[productType]?.[id] > 1) {
+          if (updated[productType]?.[id] > 1) {
             updated[productType][id] -= 1;
           } else {
             delete updated[productType][id];
           }
         }
-        
+  
         const newStock = Math.max(
           (isCylinder ? stockCount.cylinder?.[id]?.[cylinderType] : stockCount[productType]?.[id]) + 1,
-           0);
-        
+          0
+        );
+  
         updateStock(id, productType, cylinderType, newStock);
         return updated;
       });
-      
     } else {
       setReceivedItems((prev) => {
-        const updated = { ...prev };
-
-        if(isCylinder) {
+        const updated = JSON.parse(JSON.stringify(prev));
+  
+        if (isCylinder) {
           if (updated[productType]?.[id]?.[cylinderType] > 1) {
             updated[productType][id][cylinderType] -= 1;
           } else {
             delete updated[productType][id][cylinderType];
-
-            if(Object.keys(updated[productType]?.[id]).length === 0) {
+  
+            if (Object.keys(updated[productType]?.[id] || {}).length === 0) {
               delete updated[productType][id];
             }
           }
@@ -160,6 +161,7 @@ const Exchange = () => {
       });
     }
   };
+  
 
   
   const handleRemoveItem = (id, productType, cylinderType) => {
@@ -214,11 +216,6 @@ const Exchange = () => {
     }
   };
 
-  const handleClearLists = () => {
-    setDeliveredItems({});
-    setReceivedItems({});
-  }
-
   const renderItemList = (items, active) => {
     let serialCounter = 0;
     return (
@@ -228,11 +225,11 @@ const Exchange = () => {
           <tr role="row">
             <th role="cell">#</th>
             <th role="cell">Brand</th>
-            <th role="cell">Type</th>
+            {/* <th role="cell">Type</th> */}
             {/* <th role="cell">Logo</th> */}
             {(active !== "received") && <th role="cell">Price</th>}
             <th role="cell">Quantity</th>
-            <th role="cell">Action</th>
+            <th role="cell"></th>
           </tr>
         </thead>
         }
@@ -249,24 +246,33 @@ const Exchange = () => {
                   return (
                     <tr key={`${id}-${cylinderType}`} role="row">
                       <td role="cell" data-cell="#: ">{serialCounter}.</td>
-                      <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"}</td>
-                      <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td>
+                      <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"} <span className={styles[`type-${cylinderType}`]}>{cylinderType}</span></td>
+                      {/* <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td> */}
                       {/* <td role="cell" data-cell="Logo: ">
                         {brand && (
                           <img src={brand.logo} alt={brand.name} className={styles.logo} />
                         )}
                       </td > */}
                       {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
-                      <td role="cell" data-cell="Quantity: ">{count}</td>
+                      <td role="cell" data-cell="Quantity: ">
+                        <span className={styles.quantity}>
+                          {count}
+                            <button
+                              className={styles.decrementButton}
+                              onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
+                              disabled={activeSection !== active}
+                            >-</button>
+                        </span>
+                      </td>
                       <td role="cell" data-cell="Action: ">
                         <div className={styles.actionButtons}>
-                          <button
+                          {/* <button
                             className={styles.decrementButton}
                             onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
                             disabled={activeSection !== active}
                           >
                             -
-                          </button>
+                          </button> */}
                           <button
                             className={styles.removeButton}
                             onClick={() => handleRemoveItem(brand.id, productType, cylinderType)}
@@ -291,23 +297,31 @@ const Exchange = () => {
                   <tr key={`${id}-${productType}`} role="row">
                     <td role="cell" data-cell="#: ">{serialCounter}.</td>
                     <td role="cell" data-cell="Brand: ">{brand?.name || "Unknown"}</td>
-                    <td role="cell" data-cell="Type: " className={styles[`type-${productType}`]}>Null</td>
                     {/* <td role="cell" data-cell="Logo: ">
                       {brand && (
                         <img src={brand.logo} alt={brand.name} className={styles.logo} />
                       )}
                     </td > */}
                     {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
-                    <td role="cell" data-cell="Quantity: ">{count}</td>
+                    <td role="cell" data-cell="Quantity: ">
+                      <span className={styles.quantity}>
+                        {count}
+                        <button
+                              className={styles.decrementButton}
+                              onClick={() => handleDecrementItem(brand.id, productType)}
+                              disabled={activeSection !== active}
+                            >-</button>
+                      </span>
+                    </td>
                     <td role="cell" data-cell="Action: ">
                       <div className={styles.actionButtons}>
-                        <button
+                        {/* <button
                           className={styles.decrementButton}
                           onClick={() => handleDecrementItem(brand.id, productType)}
                           disabled={activeSection !== active}
                         >
                           -
-                        </button>
+                        </button> */}
                         <button
                           className={styles.removeButton}
                           onClick={() => handleRemoveItem(brand.id, productType)}
@@ -339,7 +353,21 @@ const Exchange = () => {
     }
   }
 
-  const isNextDisabled = !(Object.keys(deliveredItems).length > 0) && !(Object.keys(receivedItems).length > 0);
+  const isEmpty = (obj) => {
+    return Object.values(obj).every(value => {
+      if (typeof value === 'object' && value !== null) {
+        return isEmpty(value) || Object.keys(value).length === 0;
+      }
+      return value === 0;
+    });
+  };
+  
+  const isNextDisabled = isEmpty(deliveredItems) && isEmpty(receivedItems);
+  
+  const handleClearLists = () => {
+    setDeliveredItems({});
+    setReceivedItems({});
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -347,6 +375,7 @@ const Exchange = () => {
         <div className={styles.secondaryNavbar}>
           <ul className={styles.secondaryNavList}>
             {["cylinders", "regulators","stoves"].map((category) => (
+              (activeSection !== "received" || category === "cylinders") &&
               <li key={category} className={styles.secondaryNavItems}>
                 <Button
                   variant="light"
@@ -398,9 +427,9 @@ const Exchange = () => {
           <Button
             variant="outline"
             className={`${styles.deliveredBtn} ${styles[activeSection]}`}
-            onClick={() => handleSelectSection(activeSection === "delivered" ? "received" : "delivered")}
+            onClick={() => {handleSelectSection(activeSection === "delivered" ? "received" : "delivered"); setActiveCategory("cylinders")}}
           >
-            {activeSection === "delivered" ? "Go to Received ->" : "<- Go to Delivered"}
+            {activeSection === "delivered" ? "Go to Received" : "Go to Delivered"}
           </Button>
           {/* <Button
             onClick={handleClearLists}

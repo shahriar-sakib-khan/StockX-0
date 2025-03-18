@@ -94,6 +94,12 @@
   & tbody tr:last-of-type {
     border-bottom: 3px solid hsl(190, 80%, 35%);
   }
+
+  
+  & .type-20mm, .type-22mm {
+    padding: 0.25em;
+    border-radius: 0.25em;
+  }
   
   & .type-20mm {
     background-color: hsl(122, 71%, 85%);
@@ -112,52 +118,29 @@
 }
 
 @media (width <= 745px) {
-  .date {
-    font-size: 0.9rem;
-  }
-  
-  .receiptContainer {
-    font-size: 0.8rem;
-  }
+  .date { font-size: 0.9rem; }
+  .receiptContainer { font-size: 0.8rem; }
 }
 
 @media (width <= 609px) {
-  .date {
-    font-size: 0.8rem;
-  }
+  .date { font-size: 0.8rem; }
 
   .tableContainer {
-    & {
-      border: 2px solid hsl(190, 80%, 35%);
-    }
-  
-    & th {
-      display: none;
-    }
-  
+    & { border: 2px solid hsl(190, 80%, 35%); }
+    & th { display: none; }
+
     & td {
       display: grid;
       grid-template-columns: 15ch auto;
       text-align: left;
     }
   
-    & caption {
-      font-size: 1.2rem;
-    }
-  
-    & tbody td:not(:last-of-type) {
-      border-right: none;
-    }
+    & caption { font-size: 1.2rem; }
+    & tbody td:not(:last-of-type) { border-right: none; }
+    & td:first-child { padding-top: 0.75em; }
+    & td:last-child { padding-bottom: 1.5em; }
+    & td:not(:first-child, :last-child) { padding-block: 0.125em; }
     
-    & td:first-child {
-      padding-top: 1em;
-    }
-    
-    & td:last-child {
-      padding-bottom: 2em;
-    }
-    
-  
     & td::before {
       content: attr(data-cell);
       font-weight: 700;
