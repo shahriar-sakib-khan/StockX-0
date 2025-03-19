@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { NavLink, useLocation} from "react-router-dom";
+import { NavLink, useLocation, useNavigate} from "react-router-dom";
 import styles from './Navbar.module.css';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   const location = useLocation();
   const isSpecialPage = (location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
 
@@ -32,9 +32,13 @@ function Navbar() {
     <div className={styles.navContainer} id="primary-navbar">
       <div className={`${styles.wrapper} ${isSpecialPage ? styles.special : ""}`}>
         <a href="#">
-          <span className={`${styles.logo} ${isSpecialPage ? styles.specialLogo : ""}`}>StockX</span>
+          <span className={`${styles.logo} ${isSpecialPage ? styles.specialLogo : ""}`  }> <button className={styles.header} onClick={ (e)=>{
+            e.preventDefault();
+            navigate('/dashboard');
+          }} >Stock-X</button>
+          </span>
         </a>
-        {!isSpecialPage && (
+        {!isSpecialPage && false && (
           <>
             <div className={styles.hamburger} onClick={toggleMenu}>
             {/* &#9776;          &#x274C;       &#10005; */}

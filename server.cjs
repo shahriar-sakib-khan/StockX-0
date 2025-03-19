@@ -27,7 +27,7 @@ const ClientSchema = new mongoose.Schema({
 const Client = mongoose.model("Client", ClientSchema);
 
 // Checking if the server is running
-app.listen(5000, () => console.log("Yeeppi!! Server is running on port 5000"));  
+app.listen(5000, () => console.log("Yeeppi!! Server is running on port 5000"));
 
 // Pings the server to keep it awake always in render
 setInterval(() => {

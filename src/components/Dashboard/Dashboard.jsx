@@ -1,12 +1,14 @@
 import React from "react";
 import style from './Dashboard.module.css'
+import { useNavigate } from "react-router-dom";
+
 
 export default function Dashboard(){
+    const navigate = useNavigate();
     return(
         <>
             <div className={style.body}>
                 <div className={style.container}>
-                    <div className={style.header}>Stock-X</div>
                     
                     <div className={style.div1}>
                         <div className={style.receipt}>
@@ -16,19 +18,44 @@ export default function Dashboard(){
                     </div>
                     
                     <div className={style.div2}>
-                        <div className={style.buy}>Buy</div>
-                        <div className={style.sell}>Sell</div>
+                        <button className={style.buy}>Buy</button>
+                        <button className={style.sell}>Sell</button>
                     </div>
-                    <div className={style.div3}>
-                        <div>Selection</div>
-                        <div>Inventory</div>
-                        <div>Shop</div>
-                        <div>History</div>
-                        <div>Profile</div>
-                        <div>Exchange</div>
-                        <div>Log out</div>
-                        <div>8</div>
-                        <div>9</div>
+                    <div className={style.div3} >
+                        <button  onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/selection");
+                        }}>Selection</button>
+                        
+                        <button onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/inventory");
+                        }}>Inventory</button>
+
+                        <button onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/exchange");
+                        }}>Exchange</button>
+
+                        <button onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/profile");
+                        }}>Profile</button>
+
+                        <button onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/shop");
+                        }}>Shop</button>
+
+                        <button onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/exchange-history");
+                        }}>History</button>
+
+                        <button onClick={(e)=>{
+                            e.preventDefault();
+                            navigate("/");
+                        }}>Log out</button>
                     </div>
                 </div>
             </div>

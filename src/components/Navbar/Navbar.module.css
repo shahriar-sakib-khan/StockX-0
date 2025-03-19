@@ -2,6 +2,15 @@
   overflow-x: hidden;
 }
 
+.header{
+  background: transparent;
+  font-size: 3rem;
+  border: none;
+  font-weight: bold;
+  font-family: sans-serif;
+  color: white;
+}
+
 .navContainer {
   background-color: hsl(210, 30%, 20%);
   height: 4.375em;

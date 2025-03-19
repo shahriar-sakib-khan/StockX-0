@@ -42,7 +42,7 @@ export default function Login() {
         if (foundClient) {
             localStorage.setItem("userId", foundClient._id); // Store only the user ID
             setUser(foundClient);  // (4) Store user data in context
-            navigate("/selection");
+            navigate("/dashboard");
         } else {
             alert("Invalid email or password!");
         }
