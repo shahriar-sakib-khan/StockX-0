@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { NavLink, useLocation, useNavigate} from "react-router-dom";
-import styles from './Navbar.module.css';
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import styles from "./Navbar.module.css";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const isSpecialPage = false;
-  //(location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
+  const noNavbar =
+    location.pathname === "/" ||
+    location.pathname === "/register" ||
+    location.pathname === "/recovery";
 
   const handleNavClick = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -25,17 +27,20 @@ function Navbar() {
       </NavLink>
     </li>
   );
-  
+
   const navigateToHomepage = (e) => {
     e.preventDefault();
-    navigate('./dashboard')
-  }
+    navigate("./dashboard");
+  };
 
   // ☰ = &#9776;
   // ✖
 
   return (
-    <div className={styles.navContainer} id="primary-navbar">
+    <div
+      className={`${styles.navContainer} ${noNavbar ? styles.noNavbar : ""}`}
+      id="primary-navbar"
+    >
       <div className={styles.wrapper}>
         <span className={styles.logo} onClick={navigateToHomepage}>
           StockX
@@ -60,7 +65,7 @@ function Navbar() {
         </nav>
       </div>
     </div>
-  )
+  );
 }
 
 export default Navbar;

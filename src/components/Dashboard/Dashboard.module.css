@@ -1,131 +1,125 @@
-
-
-.body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
+.wrapper {
+    width: 90%;
+    max-width: 1280px;
+    margin: 0 auto;
 }
-
-
 
 .container{
-    background-color: rgb(234, 232, 232);
+    /* border: 1px solid lightgray; */
+    border-radius: 0.25em;
+    padding: 0.625em;
+    margin-block: 0.5em;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    /* max-width: 500px; */
-    gap: 20px;
-    padding: 10px;
+    gap: 1em;
 }
 
-.header{
-    background-color: hsl(209, 27%, 28%);
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    padding: 20px;
-}
-
-
-
-
-
-
-
-
-.div1{
-    height: 150px;
-    background-color: aqua;
+.dailySection{
+    color: hsl(214, 20%, 40%);
+    font-size: 1rem;
+    font-weight: 500;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
+    border: 1px solid lightgray;
+    border-radius: 0.25em;
+    padding: 0.5em;
+
+    .dailySales {
+        display: flex;
+        flex-direction: column;
+        padding-inline: 0.5em;
+        padding-bottom: 0.5em;
+    }
+
+    .dailySales > span:last-of-type {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
+    .amount_blue { color: hsl(220, 78%, 46%); }
+    .amount_red { color: hsl(3, 63%, 60%); }
+    .amount_green { color: hsl(124, 34%, 50%); }
+    .amount { font-weight: 700; }
+
+
+    .dailyInfo {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+        padding-inline: 0.5em;
+        padding-top: 0.5em;
+
+        & > * {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 1px;
+            background-color: lightgray;
+        }
+
+        /* .separator {
+            position: absolute;
+            height: 80%;
+            width: 1px;
+            top: 20%;
+            background-color: lightgray;
+        }
+
+        .separator:nth-child(2) {
+            left: 33.33%;
+        }
+
+        .separator:nth-child(4) {
+            right: 33.33%;
+        } */
+
+    }
 }
 
-.receipt{
-    background-color: #d5d4d4;
-    height: 50%;
-    width: 100%;
-}
-.receipt > p{
-    padding: 10px;
-}
-
-.info{
-    background-color: #b4b4b4;
-    height: 50%;
-    width: 100%;
-}
-
-
-
-
-
-
-
-
-
-.div2{
-    height: 100px;
-    background-color: rgb(232, 228, 236);
+.middleSection {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-radius: 10px;
-    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 0.25em;
+    padding: 0.5em;
+    gap: 0.5em;
+
+    & > * {
+        text-align: center;
+        padding: 1em;
+        background-color: hsl(0, 0%, 97%);
+        border-radius: 0.25em;
+        cursor: pointer;
+    }
 }
 
-.div2 > button{
-    background-color: rgb(207, 203, 198);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    margin: 10px;
-    border-radius: 10px;
-}
-
-/* .sell{
-    background-color: rgb(207, 203, 198);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    margin: 10px;
-    border-radius: 10px;
-} */
-
-
-
-
-
-
-
-
-
-
-.div3{
-    background-color: green;
+.navigationSection {
+    border: 1px solid lightgray;
+    border-radius: 0.25em;
     display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    height: max-content;
-    justify-content: space-between;
-    align-items: space-between;
-    padding: 20px;
-    border-radius: 10px;
-}
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 1em;
+    gap: 1em;
+    overflow: hidden;
 
-.div3 > button{
-    background-color: blanchedalmond;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    height: 200px;
-    width: 150px;
-    margin: 20px;
+    .navItem {
+        color: hsl(214, 20%, 40%);
+        font-weight: 700;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        text-decoration: none;
+        background-color: hsl(0, 0%, 95%);
+        border-radius: 0.25em;
+    }
 }

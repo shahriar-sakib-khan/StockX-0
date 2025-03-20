@@ -1,64 +1,97 @@
 import React from "react";
-import style from './Dashboard.module.css'
-import { useNavigate } from "react-router-dom";
+import styles from "./Dashboard.module.css";
+import { NavLink, useNavigate } from "react-router-dom";
 
+export default function Dashboard() {
+  const navigate = useNavigate();
 
-export default function Dashboard(){
-    const navigate = useNavigate();
-    return(
-        <>
-            <div className={style.body}>
-                <div className={style.container}>
-                    
-                    <div className={style.div1}>
-                        <div className={style.receipt}>
-                            <p>Todays sells: <br /> 0tk</p>
-                        </div>
-                        <div className={style.info}>Info</div>
-                    </div>
-                    
-                    <div className={style.div2}>
-                        <button className={style.buy}>Buy</button>
-                        <button className={style.sell}>Sell</button>
-                    </div>
-                    <div className={style.div3} >
-                        <button  onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/selection");
-                        }}>Selection</button>
-                        
-                        <button onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/inventory");
-                        }}>Inventory</button>
+  let sale = 0;
+  let expense = 0;
+  let due = 0;
+  let stock = 0;
 
-                        <button onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/exchange");
-                        }}>Exchange</button>
-
-                        <button onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/profile");
-                        }}>Profile</button>
-
-                        <button onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/shop");
-                        }}>Shop</button>
-
-                        <button onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/exchange-history");
-                        }}>History</button>
-
-                        <button onClick={(e)=>{
-                            e.preventDefault();
-                            navigate("/");
-                        }}>Log out</button>
-                    </div>
-                </div>
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.dailySection}>
+          <div className={styles.dailySales}>
+            <span>Todays sells:</span>
+            <span className={styles.amount_blue}>
+              Tk <span className={styles.amount}>{sale}</span>
+            </span>
+          </div>
+          <div className={styles.dailyInfo}>
+            <div>
+              <span>Today&apos;s Expenses</span>
+              <span className={styles.amount_red}>
+                Tk <span className={styles.amount}>{expense}</span>
+              </span>
             </div>
-        </>
-    )
+            {/* <div className={styles.separator}></div> */}
+            <div className={styles.dailyDues}>
+              <span>Today&apos;s Dues</span>
+              <span className={styles.amount_blue}>
+                Tk <span className={styles.amount}>{due}</span>
+              </span>
+            </div>
+            {/* <div className={styles.separator}></div> */}
+            <div>
+              <span>Stock count</span>
+              <span className={`${styles.amount} ${styles.amount_green}`}>
+                {stock}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.middleSection}>
+          <div className={styles.buy}>
+            <img src="images/buy.png" alt="" />
+            <span>Buy</span>
+          </div>
+          <div className={styles.sell}>
+            <img src="images/sell.png" alt="" />
+            <span>Sell</span>
+          </div>
+        </div>
+
+        <div className={styles.navigationSection}>
+          <NavLink to={"/selection"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>Selection</span>
+          </NavLink>
+
+          <NavLink to={"/inventory"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>Inventory</span>
+          </NavLink>
+
+          <NavLink to={"/exchange"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>Exchange</span>
+          </NavLink>
+
+          <NavLink to={"/shop"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>Shop</span>
+          </NavLink>
+
+          <NavLink to={"/exchange-history"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>History</span>
+          </NavLink>
+
+          <NavLink to={"/profile"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>Profile</span>
+          </NavLink>
+
+          <NavLink to={"/"} className={styles.navItem}>
+            {/* <img src="/images/buy.png" /> */}
+            <span>Log out</span>
+          </NavLink>
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -72,7 +72,7 @@ export default function Login() {
                     </div>
                 </form>
                 <div className={style.register}>
-                    <p>Don't have an account? </p>
+                    <p>Do not have an account?</p>
                     <button onClick={createAccount}>Register</button>
                 </div>
             </div>
