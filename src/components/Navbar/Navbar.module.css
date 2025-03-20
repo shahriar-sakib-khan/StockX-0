@@ -2,15 +2,6 @@
   overflow-x: hidden;
 }
 
-.header{
-  background: transparent;
-  font-size: 3rem;
-  border: none;
-  font-weight: bold;
-  font-family: sans-serif;
-  color: white;
-}
-
 .navContainer {
   background-color: hsl(210, 30%, 20%);
   height: 4.375em;
@@ -19,10 +10,6 @@
   z-index: 1100;
   display: flex;
   align-items: center;
-
-  &:has(.special) {
-    display: none;
-  }
 }
 
 .wrapper {
@@ -30,17 +17,9 @@
   max-width: 1280px;
   margin: 0 auto;  
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
-  
-  &.special {
-    min-height: 6.25em;
-    justify-content: center;
-  }
-}
-
-.wrapper > a {
-  text-decoration: none;
+  position: relative; 
 }
 
 .logo{
@@ -48,10 +27,38 @@
   color: hsl(210, 40%, 95%);
   font-weight: 700;
   cursor: pointer;
-  
-  &.specialLogo {
-    font-size: 2.5rem;
+}
+
+
+
+.navbar {
+  background-color: hsl(210, 29%, 20%, 0.95);
+  backdrop-filter: blur(1rem);
+  position: fixed;
+  /* inset: 0 0 0 min(40%, 1200px); */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(60%, 400px);
+  z-index: 1500;
+
+  flex-direction: column;
+  align-items: flex-start;
+  padding: min(20vh, 10rem) 2em 1rem;
+  transform: translateX(100%);
+  transition: transform 0.2s ease-out;
+
+  & > .primaryNavItems {
+    margin: 0;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 1.5em;
+    margin-bottom: 1.5em;
   }
+}
+
+.navbar.open {
+  transform: translateX(0%);
 }
 
 .hamburger {
@@ -60,12 +67,14 @@
   font-weight: 700;
   display: none;
   cursor: pointer;
+  display: block;
+  z-index: 9999;
 }
 
-.navbar{
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+.active {
+  padding-top: 0;
+  border-bottom: none;
+  font-weight: 700;
 }
 
 .primaryNavItems {
@@ -103,12 +112,12 @@
 }
 
 .navItem::after {
-  transform: scaleY(0);
+  transform: scaleX(0);
   transform-origin: top;
 }
 
 .navItem:not(.active):hover::after {
-  transform: scaleY(1);
+  transform: scaleX(1);
   transform-origin: bottom;
 }
 
@@ -135,48 +144,4 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background-color: hsl(215, 20%, 40%);
-}
-
-
-@media (width <= 905px) {
-  .navbar {
-    background-color: hsl(210, 29%, 20%, 0.95);
-    backdrop-filter: blur(1rem);
-    position: fixed;
-    inset: 0 0 0 40%;
-    z-index: 1500;
-
-    flex-direction: column;
-    align-items: flex-start;
-    padding: min(20vh, 10rem) 2em 1rem;
-    transform: translateX(100%);
-    transition: transform 0.2s ease-out;
-
-    & > .primaryNavItems {
-      margin: 0;
-      flex-grow: 1;
-      flex-direction: column;
-      gap: 1.5em;
-      margin-bottom: 1.5em;
-    }
-  }
-
-  .navbar.open {
-    transform: translateX(0%);
-  }
-
-  .hamburger {
-    display: block;
-    position: absolute;
-    top: 0.25rem;
-    right: 1rem;
-    z-index: 9999;
-  }
-
-  .active {
-    padding-top: 0;
-    border-bottom: none;
-    font-weight: 700;
-    border-right: 3px solid hsl(215, 80%, 50%);
-  }
 }

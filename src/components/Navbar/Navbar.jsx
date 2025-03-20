@@ -6,10 +6,10 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const isSpecialPage = (location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
+  const isSpecialPage = false;
+  //(location.pathname === "/") || (location.pathname === "/register") || (location.pathname === "/recovery");
 
   const handleNavClick = () => setMenuOpen(false);
-
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   const renderNavLink = (path, label) => (
@@ -26,37 +26,38 @@ function Navbar() {
     </li>
   );
   
+  const navigateToHomepage = (e) => {
+    e.preventDefault();
+    navigate('./dashboard')
+  }
+
+  // ☰ = &#9776;
+  // ✖
+
   return (
     <div className={styles.navContainer} id="primary-navbar">
-      <div className={`${styles.wrapper} ${isSpecialPage ? styles.special : ""}`}>
-        <a href="#">
-          <span className={`${styles.logo} ${isSpecialPage ? styles.specialLogo : ""}`  }> <button className={styles.header} onClick={ (e)=>{
-            e.preventDefault();
-            navigate('/dashboard');
-          }} >Stock-X</button>
+      <div className={styles.wrapper}>
+        <span className={styles.logo} onClick={navigateToHomepage}>
+          StockX
+        </span>
+        <div className={styles.hamburger} onClick={toggleMenu}>
+          <span className={menuOpen ? styles.menuOpen : styles.menu}>
+            {!menuOpen ? "☰" : "✖"}
           </span>
-        </a>
-        {!isSpecialPage && false && (
-          <>
-            <div className={styles.hamburger} onClick={toggleMenu}>
-            {/* &#9776;          &#x274C;       &#10005; */}
-              <span className={menuOpen ? styles.menuOpen : styles.menu}>{!menuOpen ? "☰" : "✖"}</span>
-            </div>
-            <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
-              <ul className={styles.primaryNavItems}>
-                {renderNavLink("/dashboard", "Dashboard")}
-                {renderNavLink("/shop", "Shop")}
-                {renderNavLink("/selection", "Selection")}
-                {renderNavLink("/inventory", "Inventory")}
-                {renderNavLink("/exchange", "Exchange")}
-                {renderNavLink("/exchange-history", "History")}
-              </ul>
-              <ul className={styles.secondaryNavItems}>
-                {renderNavLink("/profile", "Profile")}
-              </ul>
-            </nav>
-          </>
-          )}
+        </div>
+        <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
+          <ul className={styles.primaryNavItems}>
+            {renderNavLink("/dashboard", "Dashboard")}
+            {renderNavLink("/shop", "Shop")}
+            {renderNavLink("/selection", "Selection")}
+            {renderNavLink("/inventory", "Inventory")}
+            {renderNavLink("/exchange", "Exchange")}
+            {renderNavLink("/exchange-history", "History")}
+          </ul>
+          <ul className={styles.secondaryNavItems}>
+            {renderNavLink("/profile", "Profile")}
+          </ul>
+        </nav>
       </div>
     </div>
   )
