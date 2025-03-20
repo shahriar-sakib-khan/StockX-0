@@ -228,7 +228,7 @@ const Exchange = () => {
             {/* <th role="cell">Type</th> */}
             {/* <th role="cell">Logo</th> */}
             {(active !== "received") && <th role="cell">Price</th>}
-            <th role="cell">Quantity</th>
+            <th role="cell">Count</th>
             <th role="cell"></th>
           </tr>
         </thead>
@@ -254,32 +254,40 @@ const Exchange = () => {
                         )}
                       </td > */}
                       {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
-                      <td role="cell" data-cell="Quantity: ">
-                        <span className={styles.quantity}>
+                      <td role="cell" data-cell="Count: ">
+                        <span className={styles.Count}>
                           {count}
-                            <button
+                            {/* <button
                               className={styles.decrementButton}
                               onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
                               disabled={activeSection !== active}
-                            >-</button>
+                            >-</button> */}
                         </span>
                       </td>
                       <td role="cell" data-cell="Action: ">
                         <div className={styles.actionButtons}>
-                          {/* <button
+                          <button
                             className={styles.decrementButton}
                             onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
                             disabled={activeSection !== active}
                           >
                             -
-                          </button> */}
+                          </button>
                           <button
-                            className={styles.removeButton}
+                            className={`${styles.removeButton} ${windowWidth < 975 ?  styles.hidden : ""}`}
                             onClick={() => handleRemoveItem(brand.id, productType, cylinderType)}
                             disabled={activeSection !== active}
                           >
                             Remove
                           </button>
+                          <button
+                            className={`${styles.crossButton} ${windowWidth < 975 ? "" : styles.hidden}`}
+                            onClick={() => handleRemoveItem(brand.id, productType, cylinderType)}
+                            disabled={activeSection !== active}
+                          >
+                            ✖
+                          </button>
+                          
                         </div>
                       </td>
                     </tr>
@@ -303,33 +311,40 @@ const Exchange = () => {
                       )}
                     </td > */}
                     {(active !== "received") && <td role="cell" data-cell="Price: ">Tk {price.toFixed(2)}</td>}
-                    <td role="cell" data-cell="Quantity: ">
-                      <span className={styles.quantity}>
+                    <td role="cell" data-cell="Count: ">
+                      <span className={styles.Count}>
                         {count}
-                        <button
+                        {/* <button
                               className={styles.decrementButton}
                               onClick={() => handleDecrementItem(brand.id, productType)}
                               disabled={activeSection !== active}
-                            >-</button>
+                        >-</button> */}
                       </span>
                     </td>
                     <td role="cell" data-cell="Action: ">
                       <div className={styles.actionButtons}>
-                        {/* <button
+                        <button
                           className={styles.decrementButton}
                           onClick={() => handleDecrementItem(brand.id, productType)}
                           disabled={activeSection !== active}
                         >
                           -
-                        </button> */}
+                        </button>
                         <button
-                          className={styles.removeButton}
+                          className={`${styles.removeButton} ${windowWidth < 975 ?  styles.hidden : ""}`}
                           onClick={() => handleRemoveItem(brand.id, productType)}
                           disabled={activeSection !== active}
                         >
                           Remove
                         </button>
-                      </div>
+                        <button
+                            className={`${styles.crossButton} ${windowWidth < 975 ? "" : styles.hidden}`}
+                            onClick={() => handleRemoveItem(brand.id, productType)}
+                            disabled={activeSection !== active}
+                          >
+                            ✖
+                        </button>
+                    </div>
                     </td>
                   </tr>
                 );
@@ -401,7 +416,7 @@ const Exchange = () => {
         <div className={styles.sectionsContainer}>
           {/* Delivered Section */}
           <div
-            className={`${styles.section} ${styles.delivered} ${activeSection === "delivered" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "delivered" ? styles.hidden : ""}`}
+            className={`${styles.section} ${styles.delivered} ${activeSection === "delivered" ? styles.active : ""} ${windowWidth < 890 && activeSection !== "delivered" ? styles.hidden : ""}`}
             onClick={() => handleSelectSection("delivered")}
           >
             <h3 className={styles.sectionTitles}>Delivered</h3>
@@ -409,7 +424,7 @@ const Exchange = () => {
           </div>
           {/* Received Section */}
           <div
-            className={`${styles.section} ${styles.received} ${activeSection === "received" ? styles.active : ""} ${windowWidth < 768 && activeSection !== "received" ? styles.hidden : ""}`}
+            className={`${styles.section} ${styles.received} ${activeSection === "received" ? styles.active : ""} ${windowWidth < 890 && activeSection !== "received" ? styles.hidden : ""}`}
             onClick={() => handleSelectSection("received")}
           >
             <h3 className={styles.sectionTitles}>Received</h3>
@@ -417,7 +432,7 @@ const Exchange = () => {
           </div>
         </div>
       
-        {windowWidth < 768 && (
+        {windowWidth < 890 && (
         <div className={styles.buttonContainer}>
           {/* <Button
             onClick={() => {console.log(deliveredItems); console.log(receivedItems)}}
