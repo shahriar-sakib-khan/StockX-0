@@ -25,8 +25,6 @@ function Navbar() {
       </NavLink>
     </li>
   );
-
-  const ham = "&#9776;";
   
   return (
     <div className={styles.navContainer} id="primary-navbar">
@@ -38,7 +36,7 @@ function Navbar() {
           <>
             <div className={styles.hamburger} onClick={toggleMenu}>
             {/* &#9776;          &#x274C;       &#10005; */}
-              <span className={menuOpen ? styles.menuOpen : styles.menu}>&#9776;</span>
+              <span className={menuOpen ? styles.menuOpen : styles.menu}>{!menuOpen ? "☰" : "✖"}</span>
             </div>
             <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
               <ul className={styles.primaryNavItems}>
