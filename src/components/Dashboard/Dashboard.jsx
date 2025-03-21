@@ -44,18 +44,18 @@ export default function Dashboard() {
         </div>
 
         <div className={styles.middleSection}>
-          <div className={styles.buy}>
+          <NavLink to={"/statistics"}>
             <img src={images.img_buy} alt="" />
             <span>Buy</span>
-          </div>
-          <div className={styles.sell}>
+          </NavLink>
+          <NavLink to={"/statistics"}>
             <img src={images.img_sell} alt="" />
             <span>Sell</span>
-          </div>
-          <div>
+          </NavLink>
+          <NavLink to={"/statistics"}>
             <img src={images.img_due} alt="" />
             <span>Due</span>
-          </div>
+          </NavLink>
         </div>
 
         <div className={styles.navigationSection}>
@@ -69,7 +69,7 @@ export default function Dashboard() {
             <span>Inventory</span>
           </NavLink>
 
-          <NavLink to={"/exchange"} className={styles.navItem}>
+          <NavLink to={"/shop-selection"} className={styles.navItem}>
             <img src={images.img_exchange} />
             <span>Exchange</span>
           </NavLink>

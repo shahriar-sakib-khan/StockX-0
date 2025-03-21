@@ -4,9 +4,7 @@
     margin: 0 auto;
 }
 
-img {
-    width: 100%;
-}
+img { width: 100%; }
 
 .container{
     border-radius: 0.25em;
@@ -18,14 +16,14 @@ img {
 }
 
 .dailySection{
-    color: hsl(214, 20%, 40%);
-    font-size: 1.25rem;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     border: 1px solid lightgray;
     border-radius: 0.25em;
     padding: 0.5em;
+    color: hsl(214, 20%, 40%);
+    font-size: 1.125rem;
+    font-weight: 500;
 
     .dailySales {
         display: flex;
@@ -51,21 +49,12 @@ img {
         position: relative;
         padding-inline: 0.5em;
         padding-top: 0.5em;
+        border-top: 1px solid lightgray;
 
         & > * {
             display: flex;
             flex-direction: column;
             text-align: center;
-        }
-
-        &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            height: 1px;
-            background-color: lightgray;
         }
         
         .dailyDues {
@@ -76,7 +65,7 @@ img {
 }
 
 .middleSection {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     border: 1px solid lightgray;
@@ -85,6 +74,8 @@ img {
     gap: 0.5em;
 
     & > * {
+        color: hsl(214, 20%, 40%);
+        font-weight: 600;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -94,18 +85,19 @@ img {
         background-color: hsl(0, 0%, 97%);
         border-radius: 0.25em;
         cursor: pointer;
+        text-decoration: none;
     }
 
-    img {
-        max-width: 3em;
-    }
+    img { max-width: 3em; }
+
+    
 }
 
 .navigationSection {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     border-radius: 0.25em;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     padding: 0.5em;
     gap: 1em;
     overflow: hidden;
@@ -136,5 +128,8 @@ img {
     .dailySection { font-size: 0.8rem; }
     .dailySection > .dailySales > span:last-of-type { font-size: 1rem; }
     .middleSection { font-size: 0.8rem; }
-    .navigationSection { font-size: 0.7rem; }
+    .navigationSection {
+        font-size: 0.7rem;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
 }
