@@ -7,6 +7,7 @@ import shop from "./images/shop.png";
 import history from "./images/history.png";
 import profile from "./images/profile.png";
 import logout from "./images/logout.png";
+import due from "./images/due.png";
 
 const images = {
   img_buy: buy,
@@ -18,6 +19,7 @@ const images = {
   img_history: history,
   img_profile: profile,
   img_logout: logout,
+  img_due: due,
 };
 
 export default images;

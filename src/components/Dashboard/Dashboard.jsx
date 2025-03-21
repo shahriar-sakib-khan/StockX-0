@@ -28,14 +28,12 @@ export default function Dashboard() {
                 Tk <span className={styles.amount}>{expense}</span>
               </span>
             </div>
-            {/* <div className={styles.separator}></div> */}
             <div className={styles.dailyDues}>
               <span>Today&apos;s Dues</span>
               <span className={styles.amount_blue}>
                 Tk <span className={styles.amount}>{due}</span>
               </span>
             </div>
-            {/* <div className={styles.separator}></div> */}
             <div>
               <span>Stock count</span>
               <span className={`${styles.amount} ${styles.amount_green}`}>
@@ -53,6 +51,10 @@ export default function Dashboard() {
           <div className={styles.sell}>
             <img src={images.img_sell} alt="" />
             <span>Sell</span>
+          </div>
+          <div>
+            <img src={images.img_due} alt="" />
+            <span>Due</span>
           </div>
         </div>
 

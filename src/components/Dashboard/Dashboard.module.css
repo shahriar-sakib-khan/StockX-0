@@ -10,7 +10,7 @@ img {
 
 .container{
     border-radius: 0.25em;
-    padding: 0.625em;
+    padding-block: 0.625em;
     margin-block: 0.5em;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@ img {
 
 .dailySection{
     color: hsl(214, 20%, 40%);
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 500;
     display: flex;
     flex-direction: column;
@@ -46,9 +46,8 @@ img {
 
 
     .dailyInfo {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
         position: relative;
         padding-inline: 0.5em;
         padding-top: 0.5em;
@@ -68,29 +67,18 @@ img {
             height: 1px;
             background-color: lightgray;
         }
-
-        /* .separator {
-            position: absolute;
-            height: 80%;
-            width: 1px;
-            top: 20%;
-            background-color: lightgray;
+        
+        .dailyDues {
+            border-left: 1px solid lightgray;
+            border-right: 1px solid lightgray;
         }
-
-        .separator:nth-child(2) {
-            left: 33.33%;
-        }
-
-        .separator:nth-child(4) {
-            right: 33.33%;
-        } */
-
     }
 }
 
 .middleSection {
+    font-size: 1.25rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     border: 1px solid lightgray;
     border-radius: 0.25em;
     padding: 0.5em;
@@ -114,6 +102,7 @@ img {
 }
 
 .navigationSection {
+    font-size: 1.25rem;
     border-radius: 0.25em;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -143,6 +132,7 @@ img {
 
 
 @media (width < 680px) {
+    .wrapper { width: 96%; }
     .dailySection { font-size: 0.8rem; }
     .dailySection > .dailySales > span:last-of-type { font-size: 1rem; }
     .middleSection { font-size: 0.8rem; }
