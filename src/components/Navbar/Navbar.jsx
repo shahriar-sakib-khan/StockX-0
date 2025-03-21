@@ -28,11 +28,6 @@ function Navbar() {
     </li>
   );
 
-  const navigateToHomepage = (e) => {
-    e.preventDefault();
-    navigate("./dashboard");
-  };
-
   // ☰ = &#9776;
   // ✖
 
@@ -42,9 +37,9 @@ function Navbar() {
       id="primary-navbar"
     >
       <div className={styles.wrapper}>
-        <span className={styles.logo} onClick={navigateToHomepage}>
+        <NavLink to={"./dashboard"} className={styles.logo}>
           StockX
-        </span>
+        </NavLink>
         <div className={styles.hamburger} onClick={toggleMenu}>
           <span className={menuOpen ? styles.menuOpen : styles.menu}>
             {!menuOpen ? "☰" : "✖"}

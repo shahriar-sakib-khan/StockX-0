@@ -28,6 +28,7 @@
 
 .logo{
   font-size: 2rem;
+  text-decoration: none;
   color: hsl(210, 40%, 95%);
   font-weight: 700;
   cursor: pointer;
