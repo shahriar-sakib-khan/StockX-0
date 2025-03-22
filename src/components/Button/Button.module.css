@@ -22,15 +22,13 @@
 .primary {
   background-color: hsl(210, 80%, 35%);
   color: white;
+  
+  &:not(.disabled):hover,
+  &:not(.disabled):focus {
+    background-color: hsl(210, 85%, 45%);
+  }
 }
 
-.primary:not(.disabled):hover {
-  background-color: hsl(210, 85%, 45%);
-}
-
-.primary:not(.disabled):active{
-  background-color: hsl(210, 85%, 55%);
-}
 
 .secondary {
   background-color: #6c757d;
@@ -40,34 +38,39 @@
 .light {
   color: hsl(214, 20%, 40%);
   background-color: hsl(0, 0%, 100%);
-}
+  transition: 0.3s ease;
 
-.light:not(.disabled):hover {
-  background-color: hsl(0, 0%, 90%);
+  &:not(.disabled):hover,
+  &:not(.disabled):focus {
+    background-color: hsl(0, 0%, 90%);
+  }
 }
 
 .cancel {
   background-color: #f0f0f0;
   color: #333;
-}
 
-.cancel:hover {
-  background-color: #ddd;
+  &:hover,
+  &:focus {
+    background-color: #ddd;
+  }
 }
 
 .submit {
   background-color: #4caf50;
   color: white;
-}
 
-.submit:hover {
-  background-color: #45a049;
+  &:hover,
+  &:focus {
+    background-color: #45a049;
+  }
 }
 
 .outline {
-  background-color: transparent;
-  border: 2px solid #007bff;
   color: #007bff;
+  border: 2px solid #007bff;
+  background-color: transparent;
+  transition: 0.3s ease-in;
 }
 
 .danger {

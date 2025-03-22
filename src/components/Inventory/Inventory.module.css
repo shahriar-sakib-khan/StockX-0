@@ -47,10 +47,9 @@ html {
 .secondaryNavLink.active {
   color: white;
   background-color: hsl(168, 100%, 30%);
-  /* border: 2px solid red; */
 }
 
-h1 {
+.section > .header {
   font-size: 1.5rem;
   font-weight: 700;
   color: hsl(214, 20%, 40%);
@@ -73,17 +72,18 @@ h1 {
 }
 
 .backToTopBtn {
-  font-size: 2rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 100px;
-  padding-inline: 0.415em;
-  border: 2px solid lightgray;
-  color: gray;
-  background-color: hsl(0, 0%, 95%);
+  border-radius: 50%;
+  padding: 0.1em 0.2em;
+  background-color: hsl(168, 100%, 30%);
+  box-shadow: 2px 2px 5px hsl(0, 0%, 60%);
   animation-name: appear;
   animation-timeline: scroll(y);
   transition: transform 0.2s ease;
+
+  img {
+    width: 3em;
+    border-radius: 50%;
+  }
 }
 
 .backToTopBtn:hover {
