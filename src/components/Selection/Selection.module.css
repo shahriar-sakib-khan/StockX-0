@@ -31,13 +31,13 @@
 }
 
 .title {
-  color: hsl(215, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   font-size: 1.5rem;
   font-weight: 700;
 }
 
 .counter {
-  color: hsl(215, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   font-size: 1.125rem;
   font-weight: 700;
 }

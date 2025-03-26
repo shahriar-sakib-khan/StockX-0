@@ -12,7 +12,7 @@
 }
 
 .date {
-  color: hsl(214, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
@@ -40,7 +40,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     padding: 1em;
-    color: hsl(214, 20%, 40%);
+    color: var(--primary-font-clr-dark);
     text-align: center;
     text-transform: uppercase;
   }
@@ -87,7 +87,7 @@
   }
   
   & tbody tr {
-    color: hsl(214, 20%, 40%);
+    color: var(--primary-font-clr-dark);
     font-weight: 500;
   }
   

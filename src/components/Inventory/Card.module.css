@@ -21,7 +21,7 @@
 .stockCount {
   font-size: 1.1rem;
   font-weight: 700;
-  color: hsl(215, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   background-color: hsl(0, 0%, 95%);
   border-top-left-radius:0.4375em ;
   padding: 0.3em;
@@ -42,7 +42,7 @@
 .name, .type {
   font-size: 1.1rem;
   font-weight: 600;
-  color: hsl(215, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   margin: 0;
 }
 

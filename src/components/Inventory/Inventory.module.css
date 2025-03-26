@@ -9,17 +9,19 @@ html {
   margin: 0 auto;
 }
 
-.secondaryNavbar {
-  margin-top: 0.5em;
-  display: flex;
-  justify-content: space-between;
-  padding-block: 1em;
-  flex-wrap: wrap;
-  gap: 1em;
+.secondaryNavbar{
   position: sticky;
   top: 4.38em;
   background-color: white;
   z-index: 1000;
+}
+
+.secondaryNavbar > .wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 1em;
+  flex-wrap: wrap;
+  gap: 1.5em;
 }
 
 .secondaryNavList {
@@ -30,7 +32,7 @@ html {
 }
 
 .secondaryNavLink {
-  color: hsl(214, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   font-size: 1.125rem;
   font-weight: 600;
   text-decoration: none;
@@ -46,13 +48,13 @@ html {
 
 .secondaryNavLink.active {
   color: white;
-  background-color: hsl(168, 100%, 30%);
+  background-color: var(--accent-clr);
 }
 
 .section > .header {
   font-size: 1.5rem;
   font-weight: 700;
-  color: hsl(214, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   margin-bottom: 0.67em;
   text-align: center;
 }
@@ -72,9 +74,10 @@ html {
 }
 
 .backToTopBtn {
+  font-size: 0.75rem;
   border-radius: 50%;
   padding: 0.1em 0.2em;
-  background-color: hsl(168, 100%, 30%);
+  background-color: var(--accent-clr);
   box-shadow: 2px 2px 5px hsl(0, 0%, 60%);
   animation-name: appear;
   animation-timeline: scroll(y);
@@ -139,7 +142,6 @@ html {
 }
 
 @media (width <= 400px) {
-  .wrapper {
-    width: 95%;
-  }
+  .wrapper { width: 95%; }
+  .backToTopBtn { font-size: 0.5rem;}
 }

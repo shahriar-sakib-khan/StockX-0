@@ -29,7 +29,7 @@
 
 .activeBtn {
   color: white;
-  background-color: #009879;
+  background-color: var(--accent-clr);
 }
 
 .sectionsContainer {
@@ -66,7 +66,7 @@
 }
 
 .sectionTitles {
-  color: hsl(215, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   font-size: 1.25rem;
   margin-top: 0;
   margin-bottom: 0;
@@ -148,7 +148,7 @@
   }
   
   & tbody tr {
-    color: hsl(214, 20%, 40%);
+    color: var(--primary-font-clr-dark);
     font-weight: 500;
   }
 
@@ -167,7 +167,7 @@
 .active .tableContainer{
   & th{
   color: white;
-    background-color: #009879;
+    background-color: var(--accent-clr);
     transition: all 0.5s ease;
   }
 

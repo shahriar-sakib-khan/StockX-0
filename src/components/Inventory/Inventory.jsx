@@ -70,120 +70,123 @@ function Inventory() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <div className={styles.secondaryNavbar} id="secondary-navbar">
-        <ul className={styles.secondaryNavList}>
-          <li className={styles.secondaryNavItems}>
-            <a
-              href="#cylinders"
-              className={`${styles.secondaryNavLink} ${
-                activeSection === "cylinders" ? styles.active : ""
-              }`}
-            >
-              Cylinders
-            </a>
-          </li>
-          <li className={styles.secondaryNavItems}>
-            <a
-              href="#regulators"
-              className={`${styles.secondaryNavLink} ${
-                activeSection === "regulators" ? styles.active : ""
-              }`}
-            >
-              Regulators
-            </a>
-          </li>
-          <li className={styles.secondaryNavItems}>
-            <a
-              href="#stoves"
-              className={`${styles.secondaryNavLink} ${
-                activeSection === "stoves" ? styles.active : ""
-              }`}
-            >
-              Stoves
-            </a>
-          </li>
-        </ul>
-        <ul className={styles.secondaryNavList}>
-          <li className={styles.secondaryNavItems}>
-            <a href="/empty-cylinders" className={styles.secondaryNavLink}>
-              Empty Cylinders
-            </a>
-          </li>
-        </ul>
+        <div className={styles.wrapper}>
+          <ul className={styles.secondaryNavList}>
+            <li className={styles.secondaryNavItems}>
+              <a
+                href="#cylinders"
+                className={`${styles.secondaryNavLink} ${
+                  activeSection === "cylinders" ? styles.active : ""
+                }`}
+              >
+                Cylinders
+              </a>
+            </li>
+            <li className={styles.secondaryNavItems}>
+              <a
+                href="#regulators"
+                className={`${styles.secondaryNavLink} ${
+                  activeSection === "regulators" ? styles.active : ""
+                }`}
+              >
+                Regulators
+              </a>
+            </li>
+            <li className={styles.secondaryNavItems}>
+              <a
+                href="#stoves"
+                className={`${styles.secondaryNavLink} ${
+                  activeSection === "stoves" ? styles.active : ""
+                }`}
+              >
+                Stoves
+              </a>
+            </li>
+          </ul>
+          <ul className={styles.secondaryNavList}>
+            <li className={styles.secondaryNavItems}>
+              <a href="/empty-cylinders" className={styles.secondaryNavLink}>
+                Empty Cylinders
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-
-      {selectedBrands.length > 0 ? (
-        <section id="cylinders" className={styles.section}>
-          <h1 className={styles.header}>Cylinders</h1>
+      <div className={styles.wrapper}>
+        {selectedBrands.length > 0 ? (
+          <section id="cylinders" className={styles.section}>
+            <h1 className={styles.header}>Cylinders</h1>
+            <div className={styles.grid}>
+              {allBrands
+                .filter((brand) => selectedBrands.includes(brand.id))
+                .map((brand) =>
+                  brand.cylinders.map((cylinder) => (
+                    <Card
+                      key={`${brand.id}-${cylinder.type}`}
+                      id={brand.id}
+                      name={brand.name}
+                      type={cylinder.type}
+                      cardType={"cylinder"}
+                      picture={cylinder.image}
+                      price={
+                        prices?.cylinder?.[brand.id]?.[cylinder.type] ??
+                        brand.price
+                      }
+                      stock={
+                        stockCount?.cylinder?.[brand.id]?.[cylinder.type] ??
+                        brand.stock
+                      }
+                      updateStock={updateStock}
+                    />
+                  ))
+                )}
+            </div>
+          </section>
+        ) : (
+          <p className={styles.noBrands}>No brands selected</p>
+        )}
+        <section id="regulators" className={styles.section}>
+          <h1 className={styles.header}>Regulators</h1>
           <div className={styles.grid}>
-            {allBrands
-              .filter((brand) => selectedBrands.includes(brand.id))
-              .map((brand) =>
-                brand.cylinders.map((cylinder) => (
-                  <Card
-                    key={`${brand.id}-${cylinder.type}`}
-                    id={brand.id}
-                    name={brand.name}
-                    type={cylinder.type}
-                    cardType={"cylinder"}
-                    picture={cylinder.image}
-                    price={
-                      prices?.cylinder?.[brand.id]?.[cylinder.type] ??
-                      brand.price
-                    }
-                    stock={
-                      stockCount?.cylinder?.[brand.id]?.[cylinder.type] ??
-                      brand.stock
-                    }
-                    updateStock={updateStock}
-                  />
-                ))
-              )}
+            {regulators.map((regulator) => (
+              <Card
+                key={`regulator-${regulator.id}`}
+                id={regulator.id}
+                name={regulator.name}
+                cardType={"regulator"}
+                picture={regulator.image}
+                price={prices?.regulator?.[regulator.id] ?? regulator.price}
+                stock={stockCount?.regulator?.[regulator.id] ?? regulator.stock}
+                updateStock={updateStock}
+              />
+            ))}
           </div>
         </section>
-      ) : (
-        <p className={styles.noBrands}>No brands selected</p>
-      )}
-      <section id="regulators" className={styles.section}>
-        <h1 className={styles.header}>Regulators</h1>
-        <div className={styles.grid}>
-          {regulators.map((regulator) => (
-            <Card
-              key={`regulator-${regulator.id}`}
-              id={regulator.id}
-              name={regulator.name}
-              cardType={"regulator"}
-              picture={regulator.image}
-              price={prices?.regulator?.[regulator.id] ?? regulator.price}
-              stock={stockCount?.regulator?.[regulator.id] ?? regulator.stock}
-              updateStock={updateStock}
-            />
-          ))}
-        </div>
-      </section>
-      <section id="stoves" className={styles.section}>
-        <h1 className={styles.header}>Stoves</h1>
-        <div className={styles.grid}>
-          {stoves.map((stove) => (
-            <Card
-              key={`stove-${stove.id}`}
-              id={stove.id}
-              name={stove.name}
-              cardType={"stove"}
-              picture={stove.image}
-              price={prices?.stove?.[stove.id] ?? stove.price}
-              stock={stockCount?.stove?.[stove.id] ?? stove.stock}
-              updateStock={updateStock}
-            />
-          ))}
-        </div>
-      </section>
-      <a href="#" className={styles.backToTopBtn}>
-        {/* ⬆ */}
-        <img src={up_arrow} alt="" />
-      </a>
-    </div>
+        <section id="stoves" className={styles.section}>
+          <h1 className={styles.header}>Stoves</h1>
+          <div className={styles.grid}>
+            {stoves.map((stove) => (
+              <Card
+                key={`stove-${stove.id}`}
+                id={stove.id}
+                name={stove.name}
+                cardType={"stove"}
+                picture={stove.image}
+                price={prices?.stove?.[stove.id] ?? stove.price}
+                stock={stockCount?.stove?.[stove.id] ?? stove.stock}
+                updateStock={updateStock}
+              />
+            ))}
+          </div>
+        </section>
+        <a href="#" className={styles.backToTopBtn}>
+          {/* ⬆ */}
+          <img src={up_arrow} alt="" />
+        </a>
+      </div>
+    </>
   );
 }
 

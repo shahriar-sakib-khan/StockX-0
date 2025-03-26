@@ -36,7 +36,7 @@
 }
 
 .light {
-  color: hsl(214, 20%, 40%);
+  color: var(--primary-font-clr-dark);
   background-color: hsl(0, 0%, 100%);
   transition: 0.3s ease;
 

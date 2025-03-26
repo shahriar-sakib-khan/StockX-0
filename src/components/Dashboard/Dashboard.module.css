@@ -21,7 +21,7 @@ img { width: 100%; }
     border: 1px solid lightgray;
     border-radius: 0.25em;
     padding: 0.5em;
-    color: hsl(214, 20%, 40%);
+    color: var(--primary-font-clr-dark);
     font-size: 1.125rem;
     font-weight: 500;
 
@@ -29,7 +29,7 @@ img { width: 100%; }
         display: flex;
         flex-direction: column;
         padding-inline: 0.5em;
-        padding-bottom: 0.5em;
+        padding-block: 0.5em 1em;
     }
 
     .dailySales > span:last-of-type {
@@ -48,7 +48,8 @@ img { width: 100%; }
         grid-template-columns: 1fr 1fr 1fr;
         position: relative;
         padding-inline: 0.5em;
-        padding-top: 0.5em;
+        padding-block: 1em 0.5em;
+
         border-top: 1px solid lightgray;
 
         & > * {
@@ -74,7 +75,7 @@ img { width: 100%; }
     gap: 0.5em;
 
     & > * {
-        color: hsl(214, 20%, 40%);
+        color: var(--primary-font-clr-dark);
         font-weight: 600;
         display: flex;
         flex-direction: column;
@@ -97,13 +98,13 @@ img { width: 100%; }
     font-size: 1.125rem;
     border-radius: 0.25em;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     padding: 0.5em;
     gap: 1em;
     overflow: hidden;
 
     .navItem {
-        color: hsl(214, 20%, 40%);
+        color: var(--primary-font-clr-dark);
         font-weight: 700;
         text-align: center;
         display: flex;
