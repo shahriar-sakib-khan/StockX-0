@@ -1,6 +1,6 @@
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--scroll-padding, 50px);
+.inventoryContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper {
@@ -9,11 +9,21 @@ html {
   margin: 0 auto;
 }
 
-.secondaryNavbar{
+.secondaryNavbar {
   position: sticky;
-  top: 4.38em;
+  top: 1px;
   background-color: white;
   z-index: 1000;
+}
+
+.secondaryNavbar::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -5px;
+  background-color: white;
+  z-index: -1;
 }
 
 .secondaryNavbar > .wrapper {
@@ -39,7 +49,9 @@ html {
   padding: 0.5em 1em;
   border-radius: 0.25em;
   background-color: transparent;
-  transition: background-color color 0.1s ease;
+  transition: 
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .secondaryNavLink:hover{
@@ -49,6 +61,10 @@ html {
 .secondaryNavLink.active {
   color: white;
   background-color: var(--accent-clr);
+}
+
+.section {
+  scroll-margin-top: 60px;
 }
 
 .section > .header {
@@ -73,75 +89,17 @@ html {
   margin-top: 0px;
 }
 
-.backToTopBtn {
-  font-size: 0.75rem;
-  border-radius: 50%;
-  padding: 0.1em 0.2em;
-  background-color: var(--accent-clr);
-  box-shadow: 2px 2px 5px hsl(0, 0%, 60%);
-  animation-name: appear;
-  animation-timeline: scroll(y);
-  transition: transform 0.2s ease;
-
-  img {
-    width: 3em;
-    border-radius: 50%;
-  }
-}
-
-.backToTopBtn:hover {
-  transform: translateY(-4px);
-}
-
-@keyframes appear {
-  0%{
-    opacity: 0;
-    display: none;
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-  }
-  3%{
-    opacity: 0;
-    display: none;
-  }
-  3.5%{
-    opacity: 1;
-    display: block;
-  }
-  100%{
-    opacity: 1;
-    display: block;
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-  }
-}
-
 @media (width <= 680px) {
-  .secondaryNavbar {
-    margin-top: 0;
-  }
-
-  h1 {
-    font-size: 1.125rem;
-  }
-
-  .secondaryNavLink {
-    font-size: 1rem;
-  }
+  .secondaryNavbar { margin-top: 0; }
+  .section > .header { font-size: 1.125rem; }
+  .secondaryNavLink { font-size: 1rem; }
 
   .grid {
     gap: 0.5rem;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
-  
-  .backToTopBtn {
-    font-size: 1.5em;
-  }
 }
 
 @media (width <= 400px) {
   .wrapper { width: 95%; }
-  .backToTopBtn { font-size: 0.5rem;}
 }

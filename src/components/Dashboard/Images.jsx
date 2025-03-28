@@ -1,13 +1,13 @@
-import buy from "./images/buy.png";
-import sell from "./images/sell.png";
-import selection from "./images/selection.png";
-import inventory from "./images/inventory.png";
-import exchange from "./images/exchange.png";
-import shop from "./images/shop.png";
-import history from "./images/history.png";
-import profile from "./images/profile.png";
-import logout from "./images/logout.png";
-import due from "./images/due.png";
+import buy from "./images/buy.webp";
+import sell from "./images/sell.webp";
+import selection from "./images/selection.webp";
+import inventory from "./images/inventory.webp";
+import exchange from "./images/exchange.webp";
+import shop from "./images/shop.webp";
+import history from "./images/history.webp";
+import profile from "./images/profile.webp";
+import logout from "./images/logout.webp";
+import due from "./images/due.webp";
 
 const images = {
   img_buy: buy,

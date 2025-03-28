@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
+import styles from "./Layout.module.css";
 
 function Layout() {
   const [selectedBrands, setSelectedBrands] = useState(() => {
@@ -18,7 +19,7 @@ function Layout() {
   useEffect(() => {
     localStorage.setItem("selectedBrands", JSON.stringify(selectedBrands));
   }, [selectedBrands]);
-  
+
   useEffect(() => {
     localStorage.setItem("stockCount", JSON.stringify(stockCount));
   }, [stockCount]);
@@ -27,13 +28,24 @@ function Layout() {
     localStorage.setItem("prices", JSON.stringify(prices));
   }, [prices]);
 
-  return(
-    <>
-      <Navbar />
-      <main id="main">
-        <Outlet context={{selectedBrands, setSelectedBrands, stockCount, setStockCount, prices, setPrices}}/>
+  return (
+    <div className={styles.layout}>
+      <nav className={styles.navbar}>
+        <Navbar />
+      </nav>
+      <main className={styles.content} id="main-content">
+        <Outlet
+          context={{
+            selectedBrands,
+            setSelectedBrands,
+            stockCount,
+            setStockCount,
+            prices,
+            setPrices,
+          }}
+        />
       </main>
-    </>
+    </div>
   );
 }
 

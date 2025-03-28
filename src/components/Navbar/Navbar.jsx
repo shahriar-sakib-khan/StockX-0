@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
   const noNavbar =
     location.pathname === "/" ||
@@ -32,7 +31,7 @@ function Navbar() {
   // ✖
 
   return (
-    <div
+    <section
       className={`${styles.navContainer} ${noNavbar ? styles.noNavbar : ""}`}
       id="primary-navbar"
     >
@@ -59,7 +58,7 @@ function Navbar() {
           </ul>
         </nav>
       </div>
-    </div>
+    </section>
   );
 }
 

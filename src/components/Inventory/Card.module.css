@@ -75,31 +75,32 @@
   justify-content: space-between;
   gap: 0.5em;
   width: 60%;
+  margin-bottom: 0.5em;
 }
 
 .plusBtn,
 .minusBtn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
-  font-size: 20px;
-  color: #333;
-  border: none;
+  color: var(--primary-font-clr-dark);
+  font-size: 1rem;
+  font-weight: 900;
+  background-color: hsl(220, 37%, 97%);
+  height: 2.25em;
+  width: 2.25em;
+  border: 0;
+  border-radius: 100vw;
   cursor: pointer;
-  margin-bottom: 0.8em;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 0.15em 0 rgb(0 0 0 / 0.08);
+  transition: 
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
 }
 
 .plusBtn:hover,
-.minusBtn:hover {
-  background-color: #ddd;
-}
-
+.minusBtn:not(:disabled):hover,
 .plusBtn:focus,
-.minusBtn:focus {
-  outline: none;
-  background-color: #ccc;
+.minusBtn:not(.disabled):focus {
+  color: hsl(220, 37%, 97%);
+  background-color: hsl(220, 20%, 67%);
 }
 
 .minusBtn:disabled {
