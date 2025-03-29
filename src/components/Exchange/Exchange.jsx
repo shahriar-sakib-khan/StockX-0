@@ -6,6 +6,7 @@ import stoves from "../../assets/Lists/stove_list";
 import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Exchange.module.css";
+import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 
 const Exchange = () => {
   const { selectedBrands, stockCount, setStockCount, prices } =
@@ -15,21 +16,14 @@ const Exchange = () => {
   const [activeSection, setActiveSection] = useState("delivered");
   const navigate = useNavigate();
 
-  const [deliveredItems, setDeliveredItems] = useState(() => {
-    return JSON.parse(localStorage.getItem("deliveredItems") || "{}");
-  });
-
-  const [receivedItems, setReceivedItems] = useState(() => {
-    return JSON.parse(localStorage.getItem("receivedItems") || "{}");
-  });
-
-  useEffect(() => {
-    localStorage.setItem("deliveredItems", JSON.stringify(deliveredItems));
-  }, [deliveredItems]);
-
-  useEffect(() => {
-    localStorage.setItem("receivedItems", JSON.stringify(receivedItems));
-  }, [receivedItems]);
+  const [deliveredItems, setDeliveredItems] = useLocalStorageState(
+    "deliveredItems",
+    {}
+  );
+  const [receivedItems, setReceivedItems] = useLocalStorageState(
+    "receivedItems",
+    {}
+  );
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
