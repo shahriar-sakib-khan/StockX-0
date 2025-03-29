@@ -27,23 +27,25 @@
   font-weight: 600;
   color: #333;
   text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
-input[type="number"] {
+/* input[type="number"]{ ... } */
+input {
   padding: 0.5em;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.25em;
   width: 100%;
-  margin-bottom: 1em;
   text-align: center;
 }
 
-input[type="number"]:not(.inputWarning):focus {
+input:not(.inputWarning):focus {
   outline: none;
   border-color: #4caf50;
 }
+
+input:only-of-type { margin-bottom: 1em;}
 
 .noArrows::-webkit-outer-spin-button,
 .noArrows::-webkit-inner-spin-button {
@@ -54,6 +56,12 @@ input[type="number"]:not(.inputWarning):focus {
 .modalButtons {
   display: flex;
   justify-content: space-between;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .warningContainer {

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import styles from "./Layout.module.css";
@@ -9,8 +8,8 @@ function Layout() {
     "selectedBrands",
     []
   );
-  const [regulators, setRegulators] = useLocalStorageState("regulators", {});
-  const [stoves, setStoves] = useLocalStorageState("stoves", {});
+  const [regulators, setRegulators] = useLocalStorageState("regulators", []);
+  const [stoves, setStoves] = useLocalStorageState("stoves", []);
   const [stockCount, setStockCount] = useLocalStorageState("stockCount", {});
   const [prices, setPrices] = useLocalStorageState("prices", {});
 
@@ -24,6 +23,10 @@ function Layout() {
           context={{
             selectedBrands,
             setSelectedBrands,
+            regulators,
+            setRegulators,
+            stoves,
+            setStoves,
             stockCount,
             setStockCount,
             prices,

@@ -1,15 +1,40 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/Lists/list_of_brands";
-import regulators from "../../assets/Lists/regulator_list";
-import stoves from "../../assets/Lists/stove_list";
+import regulator_image from "../../assets/images/Regulator.jpg";
+import stove_image from "../../assets/images/Stove.jpeg";
+import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Inventory.module.css";
+import Modal from "./Modal";
+import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 
 function Inventory() {
-  const { selectedBrands, stockCount, setStockCount, prices } =
-    useOutletContext();
-  const [activeSection, setActiveSection] = useState("cylinders");
+  const {
+    selectedBrands,
+    regulators,
+    setRegulators,
+    stoves,
+    setStoves,
+    stockCount,
+    setStockCount,
+    prices,
+  } = useOutletContext();
+
+  const [productData, setProductData] = useState({
+    name: "",
+    price: "",
+    stock: "",
+  });
+
+  const [activeSection, setActiveSection] = useLocalStorageState(
+    "active-inventory-section",
+    "cylinder"
+  );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [selectedProductType, setSelectedProductType] = useState("");
 
   const updateStock = (id, productType, cylinderType, value) => {
     const newValue = parseFloat(value);
@@ -24,6 +49,26 @@ function Inventory() {
             : newValue,
       },
     }));
+  };
+
+  const openAddProductModal = (type) => {
+    setSelectedProductType(type); // regulator or stove
+    setModalType("ADD_PRODUCT");
+    setIsModalOpen(true);
+  };
+
+  const handleAddProduct = (type, productData) => {
+    const image = type === "regulator" ? regulator_image : stove_image;
+    const setter = type === "regulator" ? setRegulators : setStoves;
+
+    setter((prevList) => {
+      const newId =
+        prevList.length > 0
+          ? Math.max(...prevList.map((item) => item.id)) + 1
+          : 1;
+
+      return [...prevList, { ...productData, id: newId, image }];
+    });
   };
 
   return (
@@ -78,7 +123,7 @@ function Inventory() {
       <div className={styles.wrapper}>
         {activeSection === "cylinders" && (
           <section id="cylinders" className={styles.section}>
-            <h1 className={styles.header}>Cylinders</h1>
+            {/* <h1 className={styles.header}>Cylinders</h1> */}
             <div className={styles.grid}>
               {selectedBrands.length > 0 ? (
                 allBrands
@@ -113,7 +158,16 @@ function Inventory() {
 
         {activeSection === "regulators" && (
           <section id="regulators" className={styles.section}>
-            <h1 className={styles.header}>Regulators</h1>
+            {/* <h1 className={styles.header}>Regulators</h1> */}
+            <div className={styles.newButtonContainer}>
+              {/* <Button onClick={() => setRegulators([])}>Reset List</Button> */}
+              <Button
+                variant="secondary"
+                onClick={() => openAddProductModal("regulator")}
+              >
+                Add Regulator
+              </Button>
+            </div>
             <div className={styles.grid}>
               {regulators.map((regulator) => (
                 <Card
@@ -130,12 +184,30 @@ function Inventory() {
                 />
               ))}
             </div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onSubmit={() => handleAddProduct("regulator", productData)}
+              modalType={modalType}
+              stock={selectedProductType}
+              productData={productData}
+              setProductData={setProductData}
+            />
           </section>
         )}
 
         {activeSection === "stoves" && (
           <section id="stoves" className={styles.section}>
-            <h1 className={styles.header}>Stoves</h1>
+            {/* <h1 className={styles.header}>Stoves</h1> */}
+            <div className={styles.newButtonContainer}>
+              {/* <Button onClick={() => setStoves([])}>Reset List</Button> */}
+              <Button
+                variant="secondary"
+                onClick={() => openAddProductModal("stove")}
+              >
+                Add Stove
+              </Button>
+            </div>
             <div className={styles.grid}>
               {stoves.map((stove) => (
                 <Card
@@ -150,6 +222,15 @@ function Inventory() {
                 />
               ))}
             </div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onSubmit={() => handleAddProduct("stove", productData)}
+              modalType={modalType}
+              stock={selectedProductType}
+              productData={productData}
+              setProductData={setProductData}
+            />
           </section>
         )}
       </div>
