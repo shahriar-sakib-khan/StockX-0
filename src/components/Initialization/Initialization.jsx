@@ -28,8 +28,8 @@ function Initialization() {
   };
 
   const handleClearValues = () => {
-    setPrices({});
-    setStockCount({});
+    setPrices([]);
+    setStockCount([]);
   };
 
   return (

@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import allBrands from "../../assets/Lists/list_of_brands";
-import regulators from "../../assets/Lists/regulator_list";
-import stoves from "../../assets/Lists/stove_list";
+import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Exchange.module.css";
-import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 
 const Exchange = () => {
-  const { selectedBrands, stockCount, setStockCount, prices } =
-    useOutletContext();
+  const {
+    selectedBrands,
+    regulators,
+    stoves,
+    stockCount,
+    setStockCount,
+    prices,
+  } = useOutletContext();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeCategory, setActiveCategory] = useState("cylinders");
   const [activeSection, setActiveSection] = useState("delivered");
