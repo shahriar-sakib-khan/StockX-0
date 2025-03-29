@@ -2,31 +2,17 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import styles from "./Layout.module.css";
+import useLocalStorageState from "./hooks/useLocalStorageState";
 
 function Layout() {
-  const [selectedBrands, setSelectedBrands] = useState(() => {
-    return JSON.parse(localStorage.getItem("selectedBrands")) || [];
-  });
-
-  const [stockCount, setStockCount] = useState(() => {
-    return JSON.parse(localStorage.getItem("stockCount")) || {};
-  });
-
-  const [prices, setPrices] = useState(() => {
-    return JSON.parse(localStorage.getItem("prices")) || {};
-  });
-
-  useEffect(() => {
-    localStorage.setItem("selectedBrands", JSON.stringify(selectedBrands));
-  }, [selectedBrands]);
-
-  useEffect(() => {
-    localStorage.setItem("stockCount", JSON.stringify(stockCount));
-  }, [stockCount]);
-
-  useEffect(() => {
-    localStorage.setItem("prices", JSON.stringify(prices));
-  }, [prices]);
+  const [selectedBrands, setSelectedBrands] = useLocalStorageState(
+    "selectedBrands",
+    []
+  );
+  const [regulators, setRegulators] = useLocalStorageState("regulators", {});
+  const [stoves, setStoves] = useLocalStorageState("stoves", {});
+  const [stockCount, setStockCount] = useLocalStorageState("stockCount", {});
+  const [prices, setPrices] = useLocalStorageState("prices", {});
 
   return (
     <div className={styles.layout}>

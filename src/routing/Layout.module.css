@@ -15,17 +15,17 @@
 
 
 .content::-webkit-scrollbar {
-  width: .5rem;
+  width: 0.5rem;
 }
 
 .content::-webkit-scrollbar-track {
   background-color: hsl(215, 20%, 90%);
-  border-radius: 50px;
+  border-radius: 3rem;
   margin-block: 0.5em;
 }
 
 .content::-webkit-scrollbar-thumb {
-  border-radius: 50px;
+  border-radius: 3rem;
   background-color: hsl(215, 20%, 50%);
 }
 
