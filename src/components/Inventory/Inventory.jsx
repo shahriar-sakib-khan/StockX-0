@@ -12,6 +12,7 @@ import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 function Inventory() {
   const {
     selectedBrands,
+    setSelectedBrands,
     regulators,
     setRegulators,
     stoves,
@@ -27,10 +28,7 @@ function Inventory() {
     stock: "",
   });
 
-  const [activeSection, setActiveSection] = useLocalStorageState(
-    "active-inventory-section",
-    "cylinder"
-  );
+  const [activeSection, setActiveSection] = useState("cylinders");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
@@ -39,16 +37,34 @@ function Inventory() {
   const updateStock = (id, productType, cylinderType, value) => {
     const newValue = parseFloat(value);
 
-    setStockCount((prev) => ({
-      ...prev,
-      [productType]: {
-        ...(prev[productType] || {}),
-        [id]:
-          productType === "cylinder"
-            ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue }
-            : newValue,
-      },
-    }));
+    if (productType === "cylinder") {
+      setSelectedBrands((prevBrands) =>
+        prevBrands.map((brand) =>
+          brand.id === id
+            ? {
+                ...brand,
+                cylinders: brand.cylinders.map((cylinder) =>
+                  cylinder.type === cylinderType
+                    ? { ...cylinder, stock: newValue }
+                    : cylinder
+                ),
+              }
+            : brand
+        )
+      );
+    } else if (productType === "regulator") {
+      setRegulators((prevRegulators) =>
+        prevRegulators.map((regulator) =>
+          regulator.id === id ? { ...regulator, stock: newValue } : regulator
+        )
+      );
+    } else if (productType === "stove") {
+      setStoves((prevStoves) =>
+        prevStoves.map((stove) =>
+          stove.id === id ? { ...stove, stock: newValue } : stove
+        )
+      );
+    }
   };
 
   const openAddProductModal = (type) => {
@@ -126,29 +142,21 @@ function Inventory() {
             {/* <h1 className={styles.header}>Cylinders</h1> */}
             <div className={styles.grid}>
               {selectedBrands.length > 0 ? (
-                allBrands
-                  .filter((brand) => selectedBrands.includes(brand.id))
-                  .map((brand) =>
-                    brand.cylinders.map((cylinder) => (
-                      <Card
-                        key={`${brand.id}-${cylinder.type}`}
-                        id={brand.id}
-                        name={brand.name}
-                        type={cylinder.type}
-                        cardType={"cylinder"}
-                        picture={cylinder.image}
-                        price={
-                          prices?.cylinder?.[brand.id]?.[cylinder.type] ??
-                          brand.price
-                        }
-                        stock={
-                          stockCount?.cylinder?.[brand.id]?.[cylinder.type] ??
-                          brand.stock
-                        }
-                        updateStock={updateStock}
-                      />
-                    ))
-                  )
+                selectedBrands.map((brand) =>
+                  brand.cylinders.map((cylinder) => (
+                    <Card
+                      key={`${brand.id}-${cylinder.type}`}
+                      id={brand.id}
+                      name={brand.name}
+                      type={cylinder.type}
+                      cardType={"cylinder"}
+                      picture={cylinder.image}
+                      price={cylinder.price}
+                      stock={cylinder.stock}
+                      updateStock={updateStock}
+                    />
+                  ))
+                )
               ) : (
                 <p className={styles.noBrands}>No brands selected</p>
               )}
@@ -176,10 +184,8 @@ function Inventory() {
                   name={regulator.name}
                   cardType={"regulator"}
                   picture={regulator.image}
-                  price={prices?.regulator?.[regulator.id] ?? regulator.price}
-                  stock={
-                    stockCount?.regulator?.[regulator.id] ?? regulator.stock
-                  }
+                  price={regulator.price}
+                  stock={regulator.stock}
                   updateStock={updateStock}
                 />
               ))}
@@ -216,8 +222,8 @@ function Inventory() {
                   name={stove.name}
                   cardType={"stove"}
                   picture={stove.image}
-                  price={prices?.stove?.[stove.id] ?? stove.price}
-                  stock={stockCount?.stove?.[stove.id] ?? stove.stock}
+                  price={stove.price}
+                  stock={stove.stock}
                   updateStock={updateStock}
                 />
               ))}

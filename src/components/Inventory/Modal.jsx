@@ -70,7 +70,7 @@ function Modal({
     setInputValue("");
     setShowWarning(false);
     setError("");
-    setProductData({ name: "", price: "", stock: "" });
+    () => setProductData({ name: "", price: "", stock: "" });
   };
 
   const handleKeyDown = (e) => {

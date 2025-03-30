@@ -11,16 +11,19 @@ function Selection() {
 
   const toggleBrand = (id) => {
     setSelectedBrands((prev) =>
-      prev.includes(id) ? prev.filter((brand) => brand !== id) : [...prev, id]
+      prev.some((brand) => brand.id === id) // looks whether the brand is in the list or not
+        ? prev.filter((brand) => brand.id !== id)
+        : [...prev, allBrands.find((brand) => brand.id === id)]
     );
   };
 
   const toggleSelect = () => {
     if (selectedBrands.length === allBrands.length) setSelectedBrands([]);
-    else setSelectedBrands(allBrands.map((brand) => brand.id));
+    else setSelectedBrands([...allBrands]);
   };
 
   const handleSubmit = (isSubmitDisabled) => {
+    console.log(selectedBrands);
     if (!isSubmitDisabled) navigate("/initialization");
   };
 
@@ -59,7 +62,9 @@ function Selection() {
               id={brand.id}
               name={brand.name}
               logo={brand.logo}
-              isSelected={selectedBrands.includes(brand.id)}
+              isSelected={selectedBrands.some(
+                (selected) => selected.id === brand.id
+              )}
               onSelect={() => toggleBrand(brand.id)}
             />
           ))}
