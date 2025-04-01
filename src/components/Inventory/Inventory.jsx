@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import allBrands from "../../assets/Lists/list_of_brands";
 import regulator_image from "../../assets/images/Regulator.jpg";
 import stove_image from "../../assets/images/Stove.jpeg";
 import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Inventory.module.css";
 import Modal from "./Modal";
-import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
+import { useUpdateStock } from "../../routing/hooks/useUpdateStock";
 
 function Inventory() {
   const {
@@ -17,15 +16,12 @@ function Inventory() {
     setRegulators,
     stoves,
     setStoves,
-    stockCount,
-    setStockCount,
-    prices,
   } = useOutletContext();
 
   const [productData, setProductData] = useState({
     name: "",
-    price: "",
-    stock: "",
+    price: 0,
+    stock: 0,
   });
 
   const [activeSection, setActiveSection] = useState("cylinders");
@@ -34,38 +30,11 @@ function Inventory() {
   const [modalType, setModalType] = useState("");
   const [selectedProductType, setSelectedProductType] = useState("");
 
-  const updateStock = (id, productType, cylinderType, value) => {
-    const newValue = parseFloat(value);
-
-    if (productType === "cylinder") {
-      setSelectedBrands((prevBrands) =>
-        prevBrands.map((brand) =>
-          brand.id === id
-            ? {
-                ...brand,
-                cylinders: brand.cylinders.map((cylinder) =>
-                  cylinder.type === cylinderType
-                    ? { ...cylinder, stock: newValue }
-                    : cylinder
-                ),
-              }
-            : brand
-        )
-      );
-    } else if (productType === "regulator") {
-      setRegulators((prevRegulators) =>
-        prevRegulators.map((regulator) =>
-          regulator.id === id ? { ...regulator, stock: newValue } : regulator
-        )
-      );
-    } else if (productType === "stove") {
-      setStoves((prevStoves) =>
-        prevStoves.map((stove) =>
-          stove.id === id ? { ...stove, stock: newValue } : stove
-        )
-      );
-    }
-  };
+  const updateStock = useUpdateStock(
+    setSelectedBrands,
+    setRegulators,
+    setStoves
+  );
 
   const openAddProductModal = (type) => {
     setSelectedProductType(type); // regulator or stove
@@ -83,7 +52,10 @@ function Inventory() {
           ? Math.max(...prevList.map((item) => item.id)) + 1
           : 1;
 
-      return [...prevList, { ...productData, id: newId, image }];
+      return [
+        ...prevList,
+        { ...productData, id: newId, stock: Number(productData.stock), image },
+      ];
     });
   };
 
@@ -182,6 +154,7 @@ function Inventory() {
                   key={`regulator-${regulator.id}`}
                   id={regulator.id}
                   name={regulator.name}
+                  type={null}
                   cardType={"regulator"}
                   picture={regulator.image}
                   price={regulator.price}
@@ -220,6 +193,7 @@ function Inventory() {
                   key={`stove-${stove.id}`}
                   id={stove.id}
                   name={stove.name}
+                  type={null}
                   cardType={"stove"}
                   picture={stove.image}
                   price={stove.price}

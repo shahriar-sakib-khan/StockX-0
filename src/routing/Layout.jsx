@@ -10,8 +10,6 @@ function Layout() {
   );
   const [regulators, setRegulators] = useLocalStorageState("regulators", []);
   const [stoves, setStoves] = useLocalStorageState("stoves", []);
-  const [stockCount, setStockCount] = useLocalStorageState("stockCount", []);
-  const [prices, setPrices] = useLocalStorageState("prices", []);
 
   return (
     <div className={styles.layout}>
@@ -27,10 +25,6 @@ function Layout() {
             setRegulators,
             stoves,
             setStoves,
-            stockCount,
-            setStockCount,
-            prices,
-            setPrices,
           }}
         />
       </main>

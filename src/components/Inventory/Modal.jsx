@@ -27,37 +27,37 @@ function Modal({
     if (modalType === "ADD_PRODUCT") {
       const { name, price, stock } = productData;
 
-      if (!name.trim() || price === "" || stock === "") {
+      if (!name.trim() || price === 0 || stock === 0) {
         setError("All fields are required!");
         return;
       }
 
-      const parsedPrice = parseFloat(price);
-      const parsedStock = parseInt(stock, 10);
-
-      if (isNaN(parsedPrice) || parsedPrice < 0) {
+      if (isNaN(price) || price < 0) {
         setError("Price must be a valid number!");
         return;
       }
-      if (isNaN(parsedPrice) || parsedPrice < 0) {
+      if (isNaN(price) || price < 0) {
         setError("Price must be a positive number.");
         return;
       }
 
       onSubmit(productType, {
         name: name.trim(),
-        price: parsedPrice,
-        stock: parsedStock,
+        price: price,
+        stock: stock,
       });
       closeAndReset();
     } else {
-      const value = parseInt(inputValue, 10);
-      if (!isNaN(value) && value > 0) {
-        if (modalType === "DECREASE" && value > stock && !showWarning) {
+      if (!isNaN(inputValue) && inputValue > 0) {
+        if (modalType === "DECREASE" && inputValue > stock && !showWarning) {
           setShowWarning(true);
         } else {
           const finalValue =
-            modalType === "INCREASE" ? value : value > stock ? stock : value;
+            modalType === "INCREASE"
+              ? inputValue
+              : inputValue > stock
+              ? stock
+              : inputValue;
           onSubmit(finalValue);
           closeAndReset();
         }
@@ -70,7 +70,7 @@ function Modal({
     setInputValue("");
     setShowWarning(false);
     setError("");
-    () => setProductData({ name: "", price: "", stock: "" });
+    () => setProductData({ name: "", price: 0, stock: 0 });
   };
 
   const handleKeyDown = (e) => {
@@ -85,7 +85,7 @@ function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
+    <div className={styles.modalOverlay} onClick={closeAndReset}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {modalType === "ADD_PRODUCT" ? (
           <>
@@ -108,9 +108,12 @@ function Modal({
               type="number"
               placeholder="Enter price"
               min="0"
-              value={productData.price}
+              value={productData.price === 0 ? "" : productData.price}
               onChange={(e) =>
-                setProductData({ ...productData, price: e.target.value })
+                setProductData({
+                  ...productData,
+                  price: parseFloat(e.target.value),
+                })
               }
               onKeyDown={handleKeyDown}
               className={styles.noArrows}
@@ -119,9 +122,12 @@ function Modal({
               type="number"
               placeholder="Enter stock count"
               min="1"
-              value={productData.stock}
+              value={productData.stock === 0 ? "" : productData.stock}
               onChange={(e) =>
-                setProductData({ ...productData, stock: e.target.value })
+                setProductData({
+                  ...productData,
+                  stock: parseInt(e.target.value),
+                })
               }
               onKeyDown={handleKeyDown}
               className={styles.noArrows}
@@ -146,7 +152,7 @@ function Modal({
               min="1"
               value={inputValue}
               onChange={(e) => {
-                setInputValue(e.target.value);
+                setInputValue(parseInt(e.target.value, 10));
                 setShowWarning(false);
               }}
               placeholder="Enter amount"
