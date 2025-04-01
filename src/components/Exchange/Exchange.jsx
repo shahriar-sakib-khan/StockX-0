@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { useUpdateStock } from "../../routing/hooks/useUpdateStock";
 import allBrands from "../../assets/Lists/list_of_brands";
 import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Exchange.module.css";
+// import { handleItemAction } from "./exchangeUtils";
 
 const Exchange = () => {
   const {
     selectedBrands,
+    setSelectedBrands,
     regulators,
+    setRegulators,
     stoves,
-    stockCount,
-    setStockCount,
-    prices,
+    setStoves,
   } = useOutletContext();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeCategory, setActiveCategory] = useState("cylinders");
@@ -35,164 +37,55 @@ const Exchange = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // const updateStock = (id, cylinderType, newStock) => {
-  //   setStockCount((prevStocks) => ({
-  //     ...prevStocks,
-  //     [id]: {
-  //       ...(prevStocks[id] || {} ),
-  //       [cylinderType]: newStock,
-  //     },
-  //   }));
-  // };
-
-  const updateStock = (id, productType, cylinderType, value) => {
-    const newValue = parseFloat(value);
-
-    setStockCount((prev) => ({
-      ...prev,
-      [productType]: {
-        ...(prev[productType] || {}),
-        [id]:
-          productType === "cylinder"
-            ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue }
-            : newValue,
-      },
-    }));
-  };
+  const updateStock = useUpdateStock(
+    setSelectedBrands,
+    setRegulators,
+    setStoves
+  );
 
   const handleSelectSection = (section) => {
     setActiveSection(section);
   };
 
-  const handleAddItem = (id, productType, cylinderType) => {
-    if (!activeSection) return;
-
-    const isCylinder = productType === "cylinder";
-    const currentStock = isCylinder
-      ? stockCount.cylinder?.[id]?.[cylinderType] || 0
-      : stockCount[productType]?.[id] || 0;
-
-    if (activeSection === "delivered") {
-      if (currentStock === 0) return;
-
-      setDeliveredItems((prev) => ({
-        ...prev,
-        [productType]: {
-          ...(prev[productType] || {}),
-          [id]: isCylinder
-            ? {
-                ...(prev[productType]?.[id] || {}),
-                [cylinderType]:
-                  (prev[productType]?.[id]?.[cylinderType] || 0) + 1,
-              }
-            : (prev[productType]?.[id] || 0) + 1,
-        },
-      }));
-
-      const newStock = Math.max(currentStock - 1, 0);
-      updateStock(id, productType, cylinderType, newStock);
+  const getCurrentStock = (id, productType, cylinderType) => {
+    let currentStock = 0;
+    if (productType === "cylinder") {
+      const brand = selectedBrands.find((brand) => brand.id === id);
+      const cylinder = brand?.cylinders.find(
+        (cylinder) => cylinder.type === cylinderType
+      );
+      currentStock = cylinder?.stock || 0;
     } else {
-      setReceivedItems((prev) => ({
-        ...prev,
-        [productType]: {
-          ...(prev[productType] || {}),
-          [id]: isCylinder
-            ? {
-                ...(prev[productType]?.[id] || {}),
-                [cylinderType]:
-                  (prev[productType]?.[id]?.[cylinderType] || 0) + 1,
-              }
-            : (prev[productType]?.[id] || 0) + 1,
-        },
-      }));
+      const productList =
+        productType === "regulator"
+          ? regulators
+          : productType === "stove"
+          ? stoves
+          : [];
+      const product = productList.find((product) => product.id === id);
+      currentStock = product?.stock || 0;
     }
+
+    return currentStock;
   };
 
-  const handleDecrementItem = (id, productType, cylinderType) => {
+  const handleItemAction = (action, id, productType, cylinderType) => {
     if (!activeSection) return;
 
     const isCylinder = productType === "cylinder";
+    let currentStock = getCurrentStock(
+      id,
+      productType,
+      cylinderType,
+      selectedBrands,
+      regulators,
+      stoves
+    );
 
+    // handle all state updates for delivered items
     if (activeSection === "delivered") {
-      setDeliveredItems((prev) => {
-        const updated = JSON.parse(JSON.stringify(prev));
-
-        if (isCylinder) {
-          if (updated[productType]?.[id]?.[cylinderType] > 1) {
-            updated[productType][id][cylinderType] -= 1;
-          } else {
-            delete updated[productType][id][cylinderType];
-
-            if (Object.keys(updated[productType][id] || {}).length === 0) {
-              delete updated[productType][id];
-            }
-          }
-        } else {
-          if (updated[productType]?.[id] > 1) {
-            updated[productType][id] -= 1;
-          } else {
-            delete updated[productType][id];
-          }
-        }
-
-        const newStock = Math.max(
-          (isCylinder
-            ? stockCount.cylinder?.[id]?.[cylinderType]
-            : stockCount[productType]?.[id]) + 1,
-          0
-        );
-
-        updateStock(id, productType, cylinderType, newStock);
-        return updated;
-      });
-    } else {
-      setReceivedItems((prev) => {
-        const updated = JSON.parse(JSON.stringify(prev));
-
-        if (isCylinder) {
-          if (updated[productType]?.[id]?.[cylinderType] > 1) {
-            updated[productType][id][cylinderType] -= 1;
-          } else {
-            delete updated[productType][id][cylinderType];
-
-            if (Object.keys(updated[productType]?.[id] || {}).length === 0) {
-              delete updated[productType][id];
-            }
-          }
-        } else {
-          if (updated[productType]?.[id] > 1) {
-            updated[productType][id] -= 1;
-          } else {
-            delete updated[productType][id];
-          }
-        }
-        return updated;
-      });
-    }
-  };
-
-  const handleRemoveItem = (id, productType, cylinderType) => {
-    if (!activeSection) return;
-
-    const isCylinder = productType === "cylinder";
-
-    if (activeSection === "delivered") {
-      setDeliveredItems((prev) => {
-        const updated = { ...prev };
-        let removedCount = 0;
-
-        if (isCylinder) {
-          removedCount = updated[productType]?.[id]?.[cylinderType] || 0;
-          delete updated[productType]?.[id]?.[cylinderType];
-          if (Object.keys(updated[productType]?.[id] || {}).length === 0) {
-            delete updated[productType][id];
-          }
-        } else {
-          removedCount = updated[productType]?.[id] || 0;
-          delete updated[productType][id];
-        }
-
-        setStockCount((prev) => ({
+      if (action == "add") {
+        setDeliveredItems((prev) => ({
           ...prev,
           [productType]: {
             ...(prev[productType] || {}),
@@ -201,35 +94,103 @@ const Exchange = () => {
                 ? {
                     ...(prev[productType]?.[id] || {}),
                     [cylinderType]:
-                      (prev[productType]?.[id]?.[cylinderType] || 0) +
-                      removedCount,
+                      (prev[productType]?.[id]?.[cylinderType] || 0) + 1,
                   }
-                : (prev[productType]?.[id] || 0) + removedCount,
+                : (prev[productType]?.[id] || 0) + 1,
           },
         }));
+        currentStock = Math.max(currentStock - 1, 0);
+        updateStock(id, productType, cylinderType, currentStock);
+      } else if (action === "decrement") {
+        setDeliveredItems((prev) => {
+          const updated = JSON.parse(JSON.stringify(prev));
+          if (isCylinder) {
+            if (updated[productType]?.[id]?.[cylinderType] > 1) {
+              updated[productType][id][cylinderType] -= 1;
+            } else {
+              delete updated[productType][id][cylinderType];
+              if (Object.keys(updated[productType][id] || {}).length === 0) {
+                delete updated[productType][id];
+              }
+            }
+          } else {
+            if (updated[productType]?.[id] > 1) {
+              updated[productType][id] -= 1;
+            } else {
+              delete updated[productType][id];
+            }
+          }
+          currentStock += 1;
+          updateStock(id, productType, cylinderType, currentStock);
 
-        return updated;
-      });
-    } else {
-      setReceivedItems((prev) => {
-        const updated = { ...prev };
+          return updated;
+        });
+      } else if (action === "remove") {
+        setDeliveredItems((prev) => {
+          const updated = { ...prev };
+          let removedCount = 0;
 
-        if (isCylinder) {
-          delete updated[productType]?.[id]?.[cylinderType];
-          if (Object.keys(updated[productType]?.[id] || {}).length === 0) {
+          if (isCylinder) {
+            removedCount = updated[productType]?.[id]?.[cylinderType] || 0;
+            delete updated[productType]?.[id]?.[cylinderType];
+            if (Object.keys(updated[productType]?.[id] || {}).length === 0) {
+              delete updated[productType][id];
+            }
+          } else {
+            removedCount = updated[productType]?.[id] || 0;
             delete updated[productType][id];
           }
-        } else {
-          delete updated[productType][id];
-        }
 
-        return updated;
-      });
+          currentStock += removedCount;
+          updateStock(id, productType, cylinderType, currentStock);
+
+          return updated;
+        });
+      }
+    }
+
+    // handle all state updates for received items
+    if (activeSection === "received") {
+      if (action == "add") {
+        setReceivedItems((prev) => ({
+          ...prev,
+          [id]: {
+            ...(prev[id] || {}),
+            [cylinderType]: (prev[id]?.[cylinderType] || 0) + 1,
+          },
+        }));
+      } else if (action === "decrement") {
+        setReceivedItems((prev) => {
+          const updated = JSON.parse(JSON.stringify(prev)); // JSON.parse(JSON.stringify(prev))
+
+          if (updated[id]?.[cylinderType] > 1) {
+            updated[id][cylinderType] -= 1;
+          } else {
+            delete updated[id][cylinderType];
+            if (Object.keys(updated[id] || {}).length === 0) {
+              delete updated[id];
+            }
+          }
+
+          return updated;
+        });
+      } else if (action === "remove") {
+        setReceivedItems((prev) => {
+          const updated = { ...prev };
+          delete updated[id]?.[cylinderType];
+          if (Object.keys(updated[id] || {}).length === 0) {
+            delete updated[id];
+          }
+
+          return updated;
+        });
+      }
     }
   };
 
   const renderItemList = (items, active) => {
     let serialCounter = 0;
+
     return (
       <table className={styles.tableContainer} role="table">
         {
@@ -247,38 +208,137 @@ const Exchange = () => {
           </thead>
         }
         <tbody role="rowgroup">
-          {Object.entries(items).flatMap(([productType, productData]) => {
-            return Object.entries(productData).flatMap(([id, typesOrCount]) => {
-              if (productType === "cylinder") {
-                const brand = allBrands.find(
-                  (brand) => brand.id === parseInt(id)
-                );
-                if (!brand) return [];
-                return Object.entries(typesOrCount).map(
-                  ([cylinderType, count]) => {
-                    serialCounter++;
-                    const price =
-                      prices[productType]?.[brand?.id]?.[cylinderType] || 0;
-                    return (
-                      <tr key={`${id}-${cylinderType}`} role="row">
-                        <td role="cell" data-cell="#: ">
-                          {serialCounter}.
-                        </td>
-                        <td role="cell" data-cell="Brand: ">
-                          {brand?.name || "Unknown"}{" "}
-                          <span className={styles[`type-${cylinderType}`]}>
-                            {cylinderType}
-                          </span>
-                        </td>
-                        {/* <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td> */}
-                        {/* <td role="cell" data-cell="Logo: ">
+          {active === "delivered" &&
+            Object.entries(items).flatMap(([productType, productData]) => {
+              return Object.entries(productData).flatMap(
+                ([id, typesOrCount]) => {
+                  if (productType === "cylinder") {
+                    const brand = selectedBrands.find(
+                      (brand) => brand.id === parseInt(id)
+                    );
+                    if (!brand) return [];
+                    return Object.entries(typesOrCount).map(
+                      ([cylinderType, count]) => {
+                        serialCounter++;
+                        const price =
+                          brand?.cylinders?.find(
+                            (cylinder) => cylinder.type === cylinderType
+                          )?.price || 0;
+                        return (
+                          <tr key={`${id}-${cylinderType}`} role="row">
+                            <td role="cell" data-cell="#: ">
+                              {serialCounter}.
+                            </td>
+                            <td role="cell" data-cell="Brand: ">
+                              {brand?.name || "Unknown"}{" "}
+                              <span className={styles[`type-${cylinderType}`]}>
+                                {cylinderType}
+                              </span>
+                            </td>
+                            {/* <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td> */}
+                            {/* <td role="cell" data-cell="Logo: ">
                         {brand && (
                           <img src={brand.logo} alt={brand.name} className={styles.logo} />
                         )}
                       </td > */}
+                            {active !== "received" && (
+                              <td role="cell" data-cell="Price: ">
+                                Tk {price.toFixed(2)}
+                              </td>
+                            )}
+                            <td role="cell" data-cell="Count: ">
+                              <span className={styles.Count}>
+                                {count}
+                                {/* <button
+                              className={styles.decrementButton}
+                              onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
+                              disabled={activeSection !== active}
+                            >-</button> */}
+                              </span>
+                            </td>
+                            <td role="cell" data-cell="Action: ">
+                              <div className={styles.actionButtons}>
+                                <button
+                                  className={styles.decrementButton}
+                                  onClick={() =>
+                                    handleItemAction(
+                                      "decrement",
+                                      brand.id,
+                                      productType,
+                                      cylinderType
+                                    )
+                                  }
+                                  disabled={activeSection !== active}
+                                >
+                                  -
+                                </button>
+                                <button
+                                  className={`${styles.removeButton} ${
+                                    windowWidth < 975 ? styles.hidden : ""
+                                  }`}
+                                  onClick={() =>
+                                    handleItemAction(
+                                      "remove",
+                                      brand.id,
+                                      productType,
+                                      cylinderType
+                                    )
+                                  }
+                                  disabled={activeSection !== active}
+                                >
+                                  Remove
+                                </button>
+                                <button
+                                  className={`${styles.crossButton} ${
+                                    windowWidth < 975 ? "" : styles.hidden
+                                  }`}
+                                  onClick={() =>
+                                    handleItemAction(
+                                      "remove",
+                                      brand.id,
+                                      productType,
+                                      cylinderType
+                                    )
+                                  }
+                                  disabled={activeSection !== active}
+                                >
+                                  ✖
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    );
+                  } else {
+                    const brand =
+                      productType === "regulator"
+                        ? regulators.find(
+                            (regulator) => regulator.id === parseInt(id)
+                          )
+                        : stoves.find((stove) => stove.id === parseInt(id));
+
+                    const count = typesOrCount;
+                    serialCounter++;
+
+                    const price = brand?.price || 0; // ......................................................
+
+                    return (
+                      <tr key={`${id}-${productType}`} role="row">
+                        <td role="cell" data-cell="#: ">
+                          {serialCounter}.
+                        </td>
+                        <td role="cell" data-cell="Brand: ">
+                          {brand?.name || "Unknown"}
+                        </td>
+                        {/* <td role="cell" data-cell="Logo: ">
+                      {brand && (
+                        <img src={brand.logo} alt={brand.name} className={styles.logo} />
+                      )}
+                    </td > */}
                         {active !== "received" && (
                           <td role="cell" data-cell="Price: ">
-                            Tk {price.toFixed(2)}
+                            Tk {price}
                           </td>
                         )}
                         <td role="cell" data-cell="Count: ">
@@ -286,9 +346,9 @@ const Exchange = () => {
                             {count}
                             {/* <button
                               className={styles.decrementButton}
-                              onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
+                              onClick={() => handleDecrementItem(brand.id, productType)}
                               disabled={activeSection !== active}
-                            >-</button> */}
+                        >-</button> */}
                           </span>
                         </td>
                         <td role="cell" data-cell="Action: ">
@@ -296,10 +356,11 @@ const Exchange = () => {
                             <button
                               className={styles.decrementButton}
                               onClick={() =>
-                                handleDecrementItem(
+                                handleItemAction(
+                                  "decrement",
                                   brand.id,
                                   productType,
-                                  cylinderType
+                                  null
                                 )
                               }
                               disabled={activeSection !== active}
@@ -311,10 +372,11 @@ const Exchange = () => {
                                 windowWidth < 975 ? styles.hidden : ""
                               }`}
                               onClick={() =>
-                                handleRemoveItem(
+                                handleItemAction(
+                                  "remove",
                                   brand.id,
                                   productType,
-                                  cylinderType
+                                  null
                                 )
                               }
                               disabled={activeSection !== active}
@@ -326,10 +388,11 @@ const Exchange = () => {
                                 windowWidth < 975 ? "" : styles.hidden
                               }`}
                               onClick={() =>
-                                handleRemoveItem(
+                                handleItemAction(
+                                  "remove",
                                   brand.id,
                                   productType,
-                                  cylinderType
+                                  null
                                 )
                               }
                               disabled={activeSection !== active}
@@ -341,42 +404,49 @@ const Exchange = () => {
                       </tr>
                     );
                   }
-                );
-              } else {
-                const brand =
-                  productType === "regulator"
-                    ? regulators.find((brand) => brand.id === parseInt(id))
-                    : stoves.find((brand) => brand.id === parseInt(id));
+                }
+              );
+            })}
 
-                const count = typesOrCount;
+          {active === "received" &&
+            Object.entries(items).flatMap(([id, types]) => {
+              const brand = selectedBrands.find(
+                (brand) => brand.id === parseInt(id)
+              );
+              if (!brand) return [];
+
+              return Object.entries(types).map(([cylinderType, count]) => {
                 serialCounter++;
-                const price = prices[productType]?.[brand?.id] || 0;
+                const price =
+                  brand?.cylinders?.find(
+                    (cylinder) => cylinder.type === cylinderType
+                  )?.price || 0;
+
                 return (
-                  <tr key={`${id}-${productType}`} role="row">
+                  <tr key={`${id}-${cylinderType}`} role="row">
                     <td role="cell" data-cell="#: ">
                       {serialCounter}.
                     </td>
                     <td role="cell" data-cell="Brand: ">
-                      {brand?.name || "Unknown"}
+                      {brand?.name || "Unknown"}{" "}
+                      <span className={styles[`type-${cylinderType}`]}>
+                        {cylinderType}
+                      </span>
                     </td>
+                    {/* <td role="cell" data-cell="Type: " className={styles[`type-${cylinderType}`]}>{cylinderType}</td> */}
                     {/* <td role="cell" data-cell="Logo: ">
-                      {brand && (
-                        <img src={brand.logo} alt={brand.name} className={styles.logo} />
-                      )}
-                    </td > */}
-                    {active !== "received" && (
-                      <td role="cell" data-cell="Price: ">
-                        Tk {price.toFixed(2)}
-                      </td>
-                    )}
+                        {brand && (
+                          <img src={brand.logo} alt={brand.name} className={styles.logo} />
+                        )}
+                      </td > */}
                     <td role="cell" data-cell="Count: ">
                       <span className={styles.Count}>
                         {count}
                         {/* <button
                               className={styles.decrementButton}
-                              onClick={() => handleDecrementItem(brand.id, productType)}
+                              onClick={() => handleDecrementItem(brand.id, productType, cylinderType)}
                               disabled={activeSection !== active}
-                        >-</button> */}
+                            >-</button> */}
                       </span>
                     </td>
                     <td role="cell" data-cell="Action: ">
@@ -384,7 +454,12 @@ const Exchange = () => {
                         <button
                           className={styles.decrementButton}
                           onClick={() =>
-                            handleDecrementItem(brand.id, productType)
+                            handleItemAction(
+                              "decrement",
+                              brand.id,
+                              null,
+                              cylinderType
+                            )
                           }
                           disabled={activeSection !== active}
                         >
@@ -395,7 +470,12 @@ const Exchange = () => {
                             windowWidth < 975 ? styles.hidden : ""
                           }`}
                           onClick={() =>
-                            handleRemoveItem(brand.id, productType)
+                            handleItemAction(
+                              "remove",
+                              brand.id,
+                              null,
+                              cylinderType
+                            )
                           }
                           disabled={activeSection !== active}
                         >
@@ -406,7 +486,12 @@ const Exchange = () => {
                             windowWidth < 975 ? "" : styles.hidden
                           }`}
                           onClick={() =>
-                            handleRemoveItem(brand.id, productType)
+                            handleItemAction(
+                              "remove",
+                              brand.id,
+                              null,
+                              cylinderType
+                            )
                           }
                           disabled={activeSection !== active}
                         >
@@ -416,17 +501,12 @@ const Exchange = () => {
                     </td>
                   </tr>
                 );
-              }
-            });
-          })}
+              });
+            })}
         </tbody>
       </table>
     );
   };
-
-  const selectedBrandsList = allBrands.filter((brand) =>
-    selectedBrands.includes(brand.id)
-  );
 
   const handleNext = (isNextDisabled) => {
     if (!isNextDisabled) {
@@ -524,11 +604,14 @@ const Exchange = () => {
 
         {windowWidth < 890 && (
           <div className={styles.buttonContainer}>
-            {/* <Button
-            onClick={() => {console.log(deliveredItems); console.log(receivedItems)}}
-          >
-            print
-          </Button> */}
+            <Button
+              onClick={() => {
+                console.log(deliveredItems);
+                console.log(receivedItems);
+              }}
+            >
+              print
+            </Button>
             <Button
               variant="outline"
               className={`${styles.deliveredBtn} ${styles[activeSection]}`}
@@ -543,17 +626,13 @@ const Exchange = () => {
                 ? "Go to Received"
                 : "Go to Delivered"}
             </Button>
-            {/* <Button
-            onClick={handleClearLists}
-          >
-            Clear Lists
-          </Button> */}
+            {/* <Button onClick={handleClearLists}>Clear Lists</Button> */}
           </div>
         )}
         <div className={styles.bottomScrollable}>
           {activeCategory == "cylinders" &&
             [
-              ...allBrands.filter((brand) => selectedBrands.includes(brand.id)),
+              ...selectedBrands,
               ...allBrands.filter(
                 (brand) => !selectedBrands.includes(brand.id)
               ),
@@ -566,18 +645,17 @@ const Exchange = () => {
                   type={cylinder.type}
                   cardType={"cylinder"}
                   picture={cylinder.image}
-                  price={
-                    prices?.cylinder?.[brand.id]?.[cylinder.type] ?? brand.price
-                  }
+                  price={cylinder.price}
                   stock={
-                    selectedBrandsList.includes(brand)
-                      ? stockCount?.cylinder?.[brand.id]?.[cylinder.type] ??
-                        brand.stock
+                    selectedBrands.some(
+                      (selectedBrand) => selectedBrand.id === brand.id
+                    )
+                      ? cylinder.stock
                       : null
                   }
                   activeSection={activeSection}
                   onAdd={() =>
-                    handleAddItem(brand.id, "cylinder", cylinder.type)
+                    handleItemAction("add", brand.id, "cylinder", cylinder.type)
                   }
                 />
               ))
@@ -591,10 +669,12 @@ const Exchange = () => {
                 name={regulator.name}
                 cardType={"regulator"}
                 picture={regulator.image}
-                price={prices?.regulator?.[regulator.id] ?? regulator.price}
-                stock={stockCount?.regulator?.[regulator.id] ?? regulator.stock}
+                price={regulator.price}
+                stock={regulator.stock}
                 activeSection={activeSection}
-                onAdd={() => handleAddItem(regulator.id, "regulator")}
+                onAdd={() =>
+                  handleItemAction("add", regulator.id, "regulator", null)
+                }
               />
             ))}
 
@@ -606,10 +686,10 @@ const Exchange = () => {
                 name={stove.name}
                 cardType={"stove"}
                 picture={stove.image}
-                price={prices?.stove?.[stove.id] ?? stove.price}
-                stock={stockCount?.stove?.[stove.id] ?? stove.stock}
+                price={stove.price}
+                stock={stove.stock}
                 activeSection={activeSection}
-                onAdd={() => handleAddItem(stove.id, "stove")}
+                onAdd={() => handleItemAction("add", stove.id, "stove", null)}
               />
             ))}
         </div>
