@@ -534,6 +534,20 @@ const Exchange = () => {
   return (
     <div className={styles.wrapper}>
       <main className={styles.exchangeContainer}>
+        <div className={styles.topButtonContainer}>
+          <Button className={styles.backBtn} onClick={() => navigate(-1)}>
+            Change Shop
+          </Button>
+          <Button
+            className={styles.nextBtn}
+            onClick={() => handleNext(isNextDisabled)}
+            disabled={isNextDisabled}
+            data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
+          >
+            Next
+          </Button>
+        </div>
+        <div className={styles.shopDetailsContainer}>Shop Details</div>
         <div className={styles.secondaryNavbar}>
           <ul className={styles.secondaryNavList}>
             {["cylinders", "regulators", "stoves"].map(
@@ -552,18 +566,6 @@ const Exchange = () => {
                   </li>
                 )
             )}
-          </ul>
-          <ul className={styles.secondaryNavList}>
-            <li className={styles.secondaryNavItems}>
-              <Button
-                className={styles.nextBtn}
-                onClick={() => handleNext(isNextDisabled)}
-                disabled={isNextDisabled}
-                data-tool-tip={isNextDisabled ? "Add items to proceed" : ""}
-              >
-                Next
-              </Button>
-            </li>
           </ul>
         </div>
         <div className={styles.sectionsContainer}>

@@ -14,10 +14,27 @@
   
 }
 
+.topButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.125em;
+}
+
+.shopDetailsContainer {
+  color: var(--primary-font-clr-dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-inline: 1em;
+  text-decoration:underline;
+  /* margin: 0 auto; */
+  /* padding-block: 0.125em; */
+}
+
 .secondaryNavbar {
   display: flex;
-  justify-content: space-between;
-  padding-block: 0.5em;
+  justify-content: center;
+  padding-bottom: 0.125em;
   flex-wrap: wrap;
 }
 
@@ -189,11 +206,6 @@
   }
 }
 
-.logo {
-  max-width: 100px;
-  height: auto;
-}
-
 .actionButtons {
   display: flex;
   gap: 0.25em;
@@ -345,7 +357,7 @@
 
   .buttonContainer {
     display: flex;  
-    margin-top: 0.625em;
+    margin-top: 0.125em;
     margin-inline: 0.625em;
 
     &:has(:not(.received)) { justify-content: flex-end; }

@@ -27,6 +27,8 @@ function Receipts() {
     "newReceived",
     updateReceivedItems(state?.receivedItems, selectedBrands)
   );
+  const [paid, setPaid] = useLocalStorageState("paid", 0);
+  let finalPrice = 0;
 
   useEffect(() => {
     setDeliveredItems(
@@ -58,14 +60,28 @@ function Receipts() {
 
   const renderTableHeader = (isReceived) => {
     return (
-      <tr role="row">
-        <th role="cell">#</th>
-        <th role="cell">Brand</th>
+      <tr className={styles.tableHeader} role="row">
+        <th className={styles.tableHeaderItem} role="cell">
+          #
+        </th>
+        <th className={styles.tableHeaderItem} role="cell">
+          Brand
+        </th>
         {/* <th role="cell">Type</th> */}
-        {!isReceived && <th role="cell">Price</th>}
-        <th role="cell">Quantity</th>
-        {!isReceived && <th role="cell">Total Price</th>}
-        {!isReceived && <th role="cell">Due</th>}
+        {!isReceived && (
+          <th className={styles.tableHeaderItem} role="cell">
+            Price
+          </th>
+        )}
+        <th className={styles.tableHeaderItem} role="cell">
+          Qty
+        </th>
+        {!isReceived && (
+          <th className={styles.tableHeaderItem} role="cell">
+            Total Price
+          </th>
+        )}
+        {/* {!isReceived && <th role="cell">Due</th>} */}
       </tr>
     );
   };
@@ -73,6 +89,8 @@ function Receipts() {
   const renderTableRowsDelivered = () => {
     let serial = 1;
     const rows = [];
+    // let finalPrice = 0;
+    // let paid = 0;
 
     // Iterate over the types of products (cylinder, regulator, stove)
     Object.keys(deliveredItems).forEach((productType) => {
@@ -89,18 +107,50 @@ function Receipts() {
           Object.keys(details).forEach((cylinderType) => {
             const info = details[cylinderType];
             const totalPrice = info.price * info.quantity;
+            if (!isNaN(totalPrice)) finalPrice += totalPrice;
 
             if (cylinderType !== "brandName")
               rows.push(
-                <tr key={`${productType}-${id}-${cylinderType}`}>
-                  <td>{serial++}</td>
-                  <td>
-                    {Name || "Unknown"} ({cylinderType})
+                <tr
+                  className={styles.tableBodyRow}
+                  key={`${productType}-${id}-${cylinderType}`}
+                >
+                  <td
+                    className={styles.tableBodyRowItem}
+                    data-cell="#: "
+                    role="cell"
+                  >
+                    {serial++}
                   </td>
-                  <td>{info.price}</td>
-                  <td>{info.quantity}</td>
-                  <td>{totalPrice}</td>
-                  <td>
+                  <td
+                    className={styles.tableBodyRowItem}
+                    data-cell="Brand: "
+                    role="cell"
+                  >
+                    {Name || "Unknown"} [{cylinderType}]
+                  </td>
+                  <td
+                    className={styles.tableBodyRowItem}
+                    data-cell="Price: "
+                    role="cell"
+                  >
+                    Tk {info.price}
+                  </td>
+                  <td
+                    className={styles.tableBodyRowItem}
+                    data-cell="Quantity: "
+                    role="cell"
+                  >
+                    {info.quantity}
+                  </td>
+                  <td
+                    className={styles.tableBodyRowItem}
+                    data-cell="Total: "
+                    role="cell"
+                  >
+                    Tk {totalPrice}
+                  </td>
+                  {/* <td>
                     <input
                       type="checkbox"
                       checked={info.isDue}
@@ -113,7 +163,7 @@ function Receipts() {
                         )
                       }
                     />
-                  </td>
+                  </td> */}
                 </tr>
               );
           });
@@ -121,15 +171,45 @@ function Receipts() {
           // Handle regulators and stoves (no cylinderType)
           const product = details;
           const totalPrice = product.price * product.quantity;
-
+          finalPrice += totalPrice;
           rows.push(
-            <tr key={`${productType}-${id}`}>
-              <td>{serial++}</td>
-              <td>{Name || "Unknown"}</td>
-              <td>{product.price}</td>
-              <td>{product.quantity}</td>
-              <td>{totalPrice}</td>
-              <td>
+            <tr className={styles.tableBodyRow} key={`${productType}-${id}`}>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="#: "
+                role="cell"
+              >
+                {serial++}
+              </td>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="Brand: "
+                role="cell"
+              >
+                {Name || "Unknown"}
+              </td>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="Price: "
+                role="cell"
+              >
+                Tk {product.price}
+              </td>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="Quantity: "
+                role="cell"
+              >
+                {product.quantity}
+              </td>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="Total: "
+                role="cell"
+              >
+                Tk {totalPrice}
+              </td>
+              {/* <td>
                 <input
                   type="checkbox"
                   checked={product.isDue}
@@ -142,12 +222,66 @@ function Receipts() {
                     )
                   }
                 />
-              </td>
+              </td> */}
             </tr>
           );
         }
       });
     });
+
+    rows.push(
+      <tr className={`${styles.tableBodyRow} ${styles.calculation}`} role="row">
+        <td className={styles.tableBodyRowItem} role="cell" colSpan="4">
+          Total Price
+        </td>
+        <td className={styles.tableBodyRowItem} role="cell" colSpan="1">
+          Tk {finalPrice}
+        </td>
+      </tr>
+    );
+
+    rows.push(
+      <tr className={`${styles.tableBodyRow} ${styles.calculation}`} role="row">
+        <td className={styles.tableBodyRowItem} role="cell" colSpan="4">
+          Paid
+        </td>
+        <td className={styles.tableBodyRowItem} role="cell" colSpan="1">
+          Tk{` `}
+          <input
+            type="number"
+            value={paid === 0 ? "" : paid}
+            min="0"
+            max={finalPrice}
+            onChange={(e) => {
+              setPaid(
+                Number(e.target.value) > finalPrice
+                  ? finalPrice
+                  : Number(e.target.value)
+              );
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.target.blur();
+              }
+            }}
+            className={styles.tableBodyRowItemInput}
+          />
+        </td>
+      </tr>
+    );
+
+    const due = finalPrice - paid;
+
+    rows.push(
+      <tr className={`${styles.tableBodyRow} ${styles.calculation}`} role="row">
+        <td className={styles.tableBodyRowItem} role="cell" colSpan="4">
+          Due
+        </td>
+        <td className={styles.tableBodyRowItem} role="cell" colSpan="1">
+          Tk {due}
+        </td>
+      </tr>
+    );
 
     return rows;
   };
@@ -168,12 +302,31 @@ function Receipts() {
         // Push the row into the rows array
         if (cylinderType !== "brandName")
           rows.push(
-            <tr key={`${id}-${cylinderType}`}>
-              <td>{serial++}</td>
-              <td>
-                {Name || "Unknown"} ({cylinderType})
+            <tr
+              className={styles.tableBodyRow}
+              key={`cylinder-${id}-${cylinderType}`}
+            >
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="#: "
+                role="cell"
+              >
+                {serial++}
               </td>
-              <td>{info.quantity}</td>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="Brand: "
+                role="cell"
+              >
+                {Name || "Unknown"} [{cylinderType}]
+              </td>
+              <td
+                className={styles.tableBodyRowItem}
+                data-cell="Quantity: "
+                role="cell"
+              >
+                {info.quantity}
+              </td>
               {/* <td>
                 <input
                   type="checkbox"
@@ -195,24 +348,71 @@ function Receipts() {
     return rows;
   };
 
+  const handleNext = () => {
+    navigate("/exchange-history", {
+      state: { deliveredItems, receivedItems },
+    });
+    // console.log(deliveredItems, receivedItems);
+  };
+
+  const currentShopName = "EA Enterprise";
+  const currentShopOwner = "Ebtehaj Ahmed";
+  const currentShopContact = "01722818829";
+  const currentShopAddress = "Ola Street , Lala Land";
+
+  const transactionID = 1;
+  const targetShopName = "EA Limited";
+  const targetShopOwner = "Ahmed Ebtehaj";
+  const targetShopContact = "01234567890";
+  const targetShopAddress = "Lala Street , Ola Land";
+
   return (
     <div className={styles.wrapper}>
       <main className={styles.receiptContainer}>
         <div className={styles.buttons}>
           <Button onClick={() => navigate(-1)}>Previous</Button>
-          <Button onClick={print}>Print</Button>
-          <Button onClick={() => navigate("/exchange-history")}>Save</Button>
+          {/* <Button onClick={print}>Console output</Button> */}
+          <Button onClick={handleNext}>Save</Button>
         </div>{" "}
         <div className={styles.receipt}>
           <div className={styles.titleSection}>
-            <h1 className={styles.heading}>Receipt</h1>
+            {/* current shop details */}
+            <div className={styles.currentShopDetails}>
+              <h1 className={styles.currentShopName}>{currentShopName}</h1>
+              <h2 className={styles.currentShopOwner}>{currentShopOwner}</h2>
+              <p className={styles.currentShopMoto}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing.
+              </p>
+              <p className={styles.currentShopContact}>
+                Phone: {currentShopContact}
+              </p>
+              <p className={styles.currentShopAddress}>{currentShopAddress}</p>
+            </div>
+            {/* target shop details */}
+            <div className={styles.targetShopDetails}>
+              <div className={styles.targetShopTop}>
+                <span>Receipt No: {transactionID}</span>
+                <span>Date: {getFormattedDateTime()}</span>
+              </div>
+              <div className={styles.targetShopMiddle}>
+                <span>
+                  Name: {targetShopName} ({targetShopOwner})
+                </span>
+              </div>
+              <div className={styles.targetShopBottom}>
+                <span>Address: {targetShopAddress}</span>
+                <span>Phone: {targetShopContact}</span>
+              </div>
+            </div>
           </div>
           <div className={styles.receiptBody}>
             <div className={styles.delivered}>
               <table className={styles.tableContainer} role="table">
-                <caption role="caption">Delivered Items</caption>
+                <caption className={styles.caption} role="caption">
+                  Delivered Items
+                </caption>
                 <thead role="rowgroup">{renderTableHeader(false)}</thead>
-                <tbody role="rowgroup">
+                <tbody className={styles.tableBody} role="rowgroup">
                   {/* <tr>
                     <td>1</td>
                     <td>Company</td>
@@ -228,9 +428,11 @@ function Receipts() {
             </div>
             <div className={styles.received}>
               <table className={styles.tableContainer} role="table">
-                <caption role="caption">Received Items</caption>
+                <caption className={styles.caption} role="caption">
+                  Received Items
+                </caption>
                 <thead role="rowgroup">{renderTableHeader(true)}</thead>
-                <tbody role="rowgroup">
+                <tbody className={styles.tableBody} role="rowgroup">
                   {/* {renderTableRows(receivedItems, true)} */}
                   {/* <tr>
                     <td>1</td>
