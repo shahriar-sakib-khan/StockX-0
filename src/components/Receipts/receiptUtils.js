@@ -17,8 +17,8 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
         const brandName = brand?.name || "Unknown";
 
         updatedDeliveredItems[productType][brandId] = {
-          id: brandId,
-          brandName,
+          // id: Number(brandId),
+          brandName
         };
 
         for (const cylinderType in deliveredItems[productType][brandId]) {
@@ -50,7 +50,7 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
       }
     }
   }
-  console.log(updatedDeliveredItems);
+  // console.log(updatedDeliveredItems);
   return updatedDeliveredItems;
 };
 
@@ -69,8 +69,8 @@ export const updateReceivedItems = (receivedItems = [], selectedBrands = []) => 
     const brandName = brand?.name || "Unknown";
     
     updatedReceivedItems[brandId] = {
-      id: brandId,
-      brandName,
+      // id: Number(brandId),
+      brandName
     };
 
     for (const cylinderType in receivedItems[brandId]) {
@@ -82,7 +82,7 @@ export const updateReceivedItems = (receivedItems = [], selectedBrands = []) => 
       };
     }
   }
-  console.log(updatedReceivedItems);
+  // console.log(updatedReceivedItems);
   return updatedReceivedItems;
 };
 

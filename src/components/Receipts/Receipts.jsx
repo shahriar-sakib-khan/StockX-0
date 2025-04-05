@@ -72,61 +72,67 @@ function Receipts() {
 
   const renderTableRowsDelivered = () => {
     let serial = 1;
-    return Object.entries(deliveredItems).map(([productType, items]) =>
-      Object.entries(items).map(([id, details]) => {
+    const rows = [];
+
+    // Iterate over the types of products (cylinder, regulator, stove)
+    Object.keys(deliveredItems).forEach((productType) => {
+      const items = deliveredItems[productType];
+
+      // Iterate over each item (brandId) within the current productType
+      Object.keys(items).forEach((id) => {
+        const details = items[id];
+        const Name =
+          productType === "cylinder" ? details.brandName : details.productName;
+
         if (productType === "cylinder") {
-          const brand = selectedBrands.find((brand) => brand.id == id);
-          // Cylinder case (has cylinderType)
-          return Object.entries(details).map(([cylinderType, info]) => {
-            const price = brand.cylinders.find(
-              (cylinder) => cylinder.type === cylinderType
-            ).price;
-            return (
-              <tr key={`${productType}-${id}-${cylinderType}`}>
-                <td>{serial++}</td>
-                <td>
-                  {brand?.name || "Unknown"}{" "}
-                  <span className={styles[`type-${cylinderType}`]}>
-                    {cylinderType}
-                  </span>{" "}
-                </td>
-                <td>{price}</td>
-                {/*....................................................................... */}
-                <td>{info.quantity}</td>
-                <td>total price</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={info.isDue}
-                    onChange={() =>
-                      handleToggleIsDueDelivered(
-                        productType,
-                        id,
-                        cylinderType,
-                        setDeliveredItems
-                      )
-                    }
-                  />
-                </td>
-              </tr>
-            );
+          // Handle cylinders (which include cylinderType)
+          Object.keys(details).forEach((cylinderType) => {
+            const info = details[cylinderType];
+            const totalPrice = info.price * info.quantity;
+
+            if (cylinderType !== "brandName")
+              rows.push(
+                <tr key={`${productType}-${id}-${cylinderType}`}>
+                  <td>{serial++}</td>
+                  <td>
+                    {Name || "Unknown"} ({cylinderType})
+                  </td>
+                  <td>{info.price}</td>
+                  <td>{info.quantity}</td>
+                  <td>{totalPrice}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={info.isDue}
+                      onChange={() =>
+                        handleToggleIsDueDelivered(
+                          productType,
+                          id,
+                          cylinderType,
+                          setDeliveredItems
+                        )
+                      }
+                    />
+                  </td>
+                </tr>
+              );
           });
         } else {
-          // Regulator & Stove case (no cylinderType)
-          const list = productType === "regulator" ? regulators : stoves;
-          const brand = list.find((brand) => brand.id == id);
+          // Handle regulators and stoves (no cylinderType)
+          const product = details;
+          const totalPrice = product.price * product.quantity;
 
-          return (
+          rows.push(
             <tr key={`${productType}-${id}`}>
               <td>{serial++}</td>
-              <td>{brand.name}</td>
-              <td>price</td>
-              <td>{details.quantity}</td>
-              <td>total price</td>
+              <td>{Name || "Unknown"}</td>
+              <td>{product.price}</td>
+              <td>{product.quantity}</td>
+              <td>{totalPrice}</td>
               <td>
                 <input
                   type="checkbox"
-                  checked={details.isDue}
+                  checked={product.isDue}
                   onChange={() =>
                     handleToggleIsDueDelivered(
                       productType,
@@ -140,31 +146,53 @@ function Receipts() {
             </tr>
           );
         }
-      })
-    );
+      });
+    });
+
+    return rows;
   };
 
   const renderTableRowsReceived = () => {
     let serial = 1;
-    return Object.entries(receivedItems).map(([id, cylinderTypes]) => {
-      const brand = selectedBrands.find((brand) => brand.id == id);
-      return Object.entries(cylinderTypes).map(([cylinderType, details]) => (
-        <tr key={`${id}-${cylinderType}`}>
-          <td>{serial++}</td>
-          <span>{brand.name}</span> <span>{cylinderType}</span>
-          <td>{details.quantity}</td>
-          <td>
-            <input
-              type="checkbox"
-              checked={details.isDue}
-              onChange={() =>
-                handleToggleIsDueReceived(id, cylinderType, setReceivedItems)
-              }
-            />
-          </td>
-        </tr>
-      ));
+    const rows = [];
+
+    // Iterate over each brand in receivedItems
+    Object.keys(receivedItems).forEach((id) => {
+      const details = receivedItems[id];
+      const Name = details.brandName;
+
+      // Iterate over each cylinderType for the current brand
+      Object.keys(details).forEach((cylinderType) => {
+        const info = details[cylinderType];
+
+        // Push the row into the rows array
+        if (cylinderType !== "brandName")
+          rows.push(
+            <tr key={`${id}-${cylinderType}`}>
+              <td>{serial++}</td>
+              <td>
+                {Name || "Unknown"} ({cylinderType})
+              </td>
+              <td>{info.quantity}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={info.isDue}
+                  onChange={() =>
+                    handleToggleIsDueReceived(
+                      id,
+                      cylinderType,
+                      setReceivedItems
+                    )
+                  }
+                />
+              </td>
+            </tr>
+          );
+      });
     });
+
+    return rows;
   };
 
   return (
