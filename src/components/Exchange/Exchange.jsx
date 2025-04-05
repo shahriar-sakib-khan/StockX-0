@@ -6,7 +6,6 @@ import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
 import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Exchange.module.css";
-// import { handleItemAction } from "./exchangeUtils";
 
 const Exchange = () => {
   const {
@@ -604,14 +603,14 @@ const Exchange = () => {
 
         {windowWidth < 890 && (
           <div className={styles.buttonContainer}>
-            <Button
+            {/* <Button
               onClick={() => {
                 console.log(deliveredItems);
                 console.log(receivedItems);
               }}
             >
               print
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               className={`${styles.deliveredBtn} ${styles[activeSection]}`}

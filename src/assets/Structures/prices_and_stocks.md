@@ -6,3 +6,5 @@ const regulatorStock = stockCount?.regulator?.[regulator.id] ?? regulator.stock;
 
 const stovePrice = prices?.stove?.[stove.id] ?? stove.price;
 const stoveStock = stockCount?.stove?.[stove.id] ?? stove.stock;
+
+
