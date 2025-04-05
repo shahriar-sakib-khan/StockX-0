@@ -1,6 +1,11 @@
 export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], regulators = [], stoves = []) => {
   if (!deliveredItems) return {};
 
+  if (!Array.isArray(selectedBrands) || !Array.isArray(regulators) || !Array.isArray(stoves)) {
+    console.error("Expected arrays for selectedBrands, regulators, and stoves");
+    return {};
+  }
+
   const updatedDeliveredItems = {};
 
   for (const productType in deliveredItems) {
@@ -8,7 +13,7 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
 
     for (const brandId in deliveredItems[productType]) {
       if (productType === "cylinder") {
-        const brand = selectedBrands.find(b => b.id === brandId);
+        const brand = selectedBrands.find(b => Number(b.id) === Number(brandId));
         const brandName = brand?.name || "Unknown";
 
         updatedDeliveredItems[productType][brandId] = {
@@ -18,7 +23,9 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
 
         for (const cylinderType in deliveredItems[productType][brandId]) {
           const quantity = deliveredItems[productType][brandId][cylinderType];
-          const price = brand?.cylinders?.[cylinderType]?.price || 0;
+
+          const cylinder = brand?.cylinders?.find(c => c.type === cylinderType);
+          const price = Number(cylinder.price) || 0;
 
           updatedDeliveredItems[productType][brandId][cylinderType] = {
             quantity, // Store the original count
@@ -30,9 +37,9 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
         const quantity = deliveredItems[productType][brandId];
 
         const productList = productType === "regulator" ? regulators : stoves;
-        const product = productList.find(p => p.id === brandId);
+        const product = productList.find(p => Number(p.id) === Number(brandId));
         const productName = product?.name || "";
-        const price = product?.price || 0;
+        const price = Number(product?.price) || 0;
 
         updatedDeliveredItems[productType][brandId] = {
           productName,
@@ -43,17 +50,22 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
       }
     }
   }
-
+  console.log(updatedDeliveredItems);
   return updatedDeliveredItems;
 };
 
 export const updateReceivedItems = (receivedItems = [], selectedBrands = []) => {
   if (!receivedItems) return {};
 
+  if (!Array.isArray(selectedBrands)) {
+    console.error("Expected arrays for selectedBrands, regulators, and stoves");
+    return {};
+  }
+
   const updatedReceivedItems = {};
 
   for (const brandId in receivedItems) {
-    const brand = selectedBrands.find(b => b.id === brandId);
+    const brand = selectedBrands.find(b => Number(b.id) === Number(brandId));
     const brandName = brand?.name || "Unknown";
     
     updatedReceivedItems[brandId] = {
@@ -70,7 +82,7 @@ export const updateReceivedItems = (receivedItems = [], selectedBrands = []) => 
       };
     }
   }
-
+  console.log(updatedReceivedItems);
   return updatedReceivedItems;
 };
 
