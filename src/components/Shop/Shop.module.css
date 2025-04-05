@@ -1,0 +1,226 @@
+.shopContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    position: relative;
+  }
+  
+  .shopsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    grid-auto-rows: 1fr;
+  }
+  
+  .shopCard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 380px;
+    width: 100%;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .shopCard.selected {
+    border: 2px solid #4CAF50;
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shopImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .Input input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-width: 600px;
+  }
+  
+  .Input label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .submitButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #45a049;
+  }
+  
+  .addShopCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 300px;
+    cursor: pointer;
+    height: 200px;
+  }
+  
+  .addShopCard:hover {
+    transform: scale(1.05);
+  }
+  
+  .addShopCard .addShopImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .addShopCard .addShopText {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+  .moveRight {
+    transform: translateX(1px);
+  }
+  
+  .Input {
+    position: relative;
+  }
+  
+  .Input input {
+    color: hsl(214, 20%, 40%);
+    font-weight: 600;
+    height: 2.5rem;
+    background: transparent;
+    outline: none;
+    border: 2px solid hsl(214, 20%, 40%);
+    padding-left: 12px;
+    border-radius: 5px;
+  }
+  
+  .Input label {
+    color: hsl(214, 20%, 40%);
+    position: absolute;
+    top: 30%;
+    left: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: 0.2s;
+  }
+  
+  .Input input:focus,
+  .Input input:valid {
+    border: 2px solid hsl(148, 74%, 47%);
+  }
+  
+  .Input input:focus + label,
+  .Input input:valid + label {
+    top: 0;
+    font-size: .75rem;
+    padding: 0 5px;
+    color: hsl(148, 74%, 30%);
+    background-color: white;
+    transform: translate(-5px, -10px);
+  }
+  
+  .removeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #1f0d66;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 10px;
+    z-index: 10;
+  }
+  
+  .removeButton:hover {
+    background-color: #011a43;
+  }
+  
+  .popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .popup {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  .popupButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .popupButtons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .popupButtons button:first-child {
+    background-color: #ccc;
+  }
+  
+  .popupButtons button:last-child {
+    background-color: #4caf50;
+    color: white;
+  } 
