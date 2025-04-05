@@ -17,8 +17,8 @@ const Shop = () => {
     ownerName: '',
     contactNumber: '',
     location: '',
-    balance: '',
-    image: shopImage2,
+    balance: 0, // Default balance set to 0
+    image: '',
   });
 
   const [addShopCardMoved, setAddShopCardMoved] = useState(false);
@@ -32,6 +32,7 @@ const Shop = () => {
     const updatedShopData = {
       id: Date.now(),
       ...newShop,
+      image: newShop.image || shopImage2,
     };
     const updatedShopList = [...shopData, updatedShopData];
     setShopData(updatedShopList);
@@ -42,8 +43,8 @@ const Shop = () => {
       ownerName: '',
       contactNumber: '',
       location: '',
-      balance: '',
-      image: shopImage2,
+      balance: 0, // Reset balance to 0
+      image: '',
     });
 
     setAddShopCardMoved(true);
@@ -55,6 +56,17 @@ const Shop = () => {
       ...prevShop,
       [name]: value,
     }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setNewShop((prevShop) => ({
+        ...prevShop,
+        image: imageUrl,
+      }));
+    }
   };
 
   const handleShopInputChange = (e, shopId) => {
@@ -133,14 +145,32 @@ const Shop = () => {
                 />
                 <label>Balance</label>
               </div>
+
+              {/* Image Upload Field */}
+              <div className={styles.uploadImageInput}>
+  <label style={{ marginBottom: "1px" }}>Upload Shop Image</label>
+  <input type="file" accept="image/*" onChange={handleImageUpload} />
+  {newShop.image && (
+    <img
+      src={newShop.image}
+      alt="Preview"
+      className={styles.imagePreview}
+    />
+  )}
+</div>
+
+              
             </div>
             <div className={styles.popupButtons}>
-              <button onClick={() => setIsPopupOpen(false)}>Cancel</button>
-              <button onClick={() => {
-                handleAddShop();
-                setIsPopupOpen(false);
-              }}>Add</button>
-            </div>
+  <button className={styles.cancelButton} onClick={() => setIsPopupOpen(false)}>Cancel</button>
+  <button className={styles.addButton} onClick={() => {
+    handleAddShop();
+    setIsPopupOpen(false);
+  }}>
+    Add
+  </button>
+</div>
+
           </div>
         </div>
       )}
@@ -149,6 +179,11 @@ const Shop = () => {
       <div className={styles.shopsGrid}>
         {shopData.map((shop) => (
           <div className={styles.shopCard} key={shop.id}>
+            {/* Balance in top-left corner of Shop Card */}
+            <div className={styles.balance}>
+              Balance: {shop.balance}
+            </div>
+
             <button
               className={styles.removeButton}
               onClick={() => handleRemoveShop(shop.id)}
@@ -202,25 +237,15 @@ const Shop = () => {
                 />
                 <label>Location</label>
               </div>
-              <div className={styles.Input}>
-                <input
-                  type="number"
-                  name="balance"
-                  value={shop.balance}
-                  onChange={(e) => handleShopInputChange(e, shop.id)}
-                />
-                <label>Balance</label>
-              </div>
             </div>
           </div>
         ))}
 
         {/* Add Shop Card */}
         <div
-  className={`${styles.addShopCard} ${addShopCardMoved ? styles.moveRight : ""}`}
-  onClick={() => setIsPopupOpen(true)}
->
-
+          className={`${styles.addShopCard} ${addShopCardMoved ? styles.moveRight : ""}`}
+          onClick={() => setIsPopupOpen(true)}
+        >
           <img src={shopImage1} alt="Add Shop" className={styles.addShopImage} />
           <div className={styles.addShopText}>Add Shop</div>
         </div>
@@ -229,4 +254,4 @@ const Shop = () => {
   );
 };
 
-export default Shop; 
+export default Shop;
