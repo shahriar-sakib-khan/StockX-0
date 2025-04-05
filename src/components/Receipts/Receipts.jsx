@@ -174,7 +174,7 @@ function Receipts() {
                 {Name || "Unknown"} ({cylinderType})
               </td>
               <td>{info.quantity}</td>
-              <td>
+              {/* <td>
                 <input
                   type="checkbox"
                   checked={info.isDue}
@@ -186,7 +186,7 @@ function Receipts() {
                     )
                   }
                 />
-              </td>
+              </td> */}
             </tr>
           );
       });
