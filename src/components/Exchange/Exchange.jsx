@@ -545,6 +545,7 @@ const Exchange = () => {
           <Button className={styles.backBtn} onClick={() => navigate(-1)}>
             Change Shop
           </Button>
+          <Button onClick={handleClearLists}>Clear Lists</Button>
           <Button
             className={styles.nextBtn}
             onClick={() => handleNext(isNextDisabled)}
