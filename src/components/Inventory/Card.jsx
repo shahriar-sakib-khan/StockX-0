@@ -20,16 +20,14 @@ function Card({
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   const handleStockChange = (value) => {
     if (modalType === "INCREASE") {
       updateStock(id, cardType, type, stock + value);
     } else if (modalType === "DECREASE" && stock - value >= 0) {
       updateStock(id, cardType, type, stock - value);
     }
+
+    setIsModalOpen(false);
   };
 
   const typeClassName = `type-${type}`;
@@ -65,7 +63,7 @@ function Card({
 
       <Modal
         isOpen={isModalOpen}
-        onClose={closeModal}
+        onClose={() => setIsModalOpen(false)}
         onSubmit={handleStockChange}
         modalType={modalType}
         stock={stock}

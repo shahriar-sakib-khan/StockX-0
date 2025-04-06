@@ -13,8 +13,8 @@ export default function Dashboard() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <div className={styles.dailySection}>
+      <main className={styles.dashboardContainer}>
+        <section className={styles.dailySection}>
           <div className={styles.dailySales}>
             <span>Todays sells:</span>
             <span className={styles.amount_blue}>
@@ -41,9 +41,9 @@ export default function Dashboard() {
               </span>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className={styles.middleSection}>
+        <section className={styles.middleSection}>
           <NavLink to={"/statistics"}>
             <img src={images.img_buy} alt="" />
             <span>Buy</span>
@@ -56,9 +56,9 @@ export default function Dashboard() {
             <img src={images.img_due} alt="" />
             <span>Due</span>
           </NavLink>
-        </div>
+        </section>
 
-        <div className={styles.navigationSection}>
+        <section className={styles.navigationSection}>
           <NavLink to={"/selection"} className={styles.navItem}>
             <img src={images.img_selection} />
             <span>Selection</span>
@@ -93,8 +93,8 @@ export default function Dashboard() {
             <img src={images.img_logout} />
             <span>Log out</span>
           </NavLink>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }

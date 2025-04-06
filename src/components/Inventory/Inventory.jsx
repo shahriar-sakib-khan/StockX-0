@@ -1,77 +1,67 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import allBrands from "../../assets/Lists/list_of_brands";
-import regulators from "../../assets/Lists/regulator_list";
-import stoves from "../../assets/Lists/stove_list";
-import up_arrow from "./images/up_arrow.png";
+import regulator_image from "../../assets/images/Regulator.jpg";
+import stove_image from "../../assets/images/Stove.jpeg";
+import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Inventory.module.css";
+import Modal from "./Modal";
+import { useUpdateStock } from "../../routing/hooks/useUpdateStock";
 
 function Inventory() {
-  const { selectedBrands, stockCount, setStockCount, prices } =
-    useOutletContext();
+  const {
+    selectedBrands,
+    setSelectedBrands,
+    regulators,
+    setRegulators,
+    stoves,
+    setStoves,
+  } = useOutletContext();
+
+  const [productData, setProductData] = useState({
+    name: "",
+    price: 0,
+    stock: 0,
+  });
+
   const [activeSection, setActiveSection] = useState("cylinders");
-  const [scrollPadding, setScrollPadding] = useState(0);
 
-  useEffect(() => {
-    const updatePadding = () => {
-      const primaryNavbar = document.getElementById("primary-navbar");
-      const secondaryNavbar = document.getElementById("secondary-navbar");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [selectedProductType, setSelectedProductType] = useState("");
 
-      const primaryHeight = primaryNavbar?.offsetHeight || 0;
-      const secondaryHeight = secondaryNavbar?.offsetHeight || 0;
-      const totalHeight = primaryHeight + secondaryHeight;
+  const updateStock = useUpdateStock(
+    setSelectedBrands,
+    setRegulators,
+    setStoves
+  );
 
-      setScrollPadding(totalHeight);
-      document.documentElement.style.setProperty(
-        "--scroll-padding",
-        `${totalHeight}px`
-      );
-    };
+  const openAddProductModal = (type) => {
+    setSelectedProductType(type); // regulator or stove
+    setModalType("ADD_PRODUCT");
+    setIsModalOpen(true);
+  };
 
-    updatePadding();
-    window.addEventListener("resize", updatePadding);
+  const handleAddProduct = (type, productData) => {
+    const image = type === "regulator" ? regulator_image : stove_image;
+    const setter = type === "regulator" ? setRegulators : setStoves;
 
-    const sections = document.querySelectorAll("section");
+    setter((prevList) => {
+      const newId =
+        prevList.length > 0
+          ? Math.max(...prevList.map((item) => item.id)) + 1
+          : 1;
 
-    const handleScroll = () => {
-      const top = window.scrollY;
-
-      sections.forEach((section) => {
-        const offset = section.offsetTop - scrollPadding - 100;
-        const height = section.offsetHeight;
-        const id = section.id;
-
-        if (top >= offset && top < offset + height) setActiveSection(id);
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("resize", updatePadding);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollPadding]);
-
-  const updateStock = (id, productType, cylinderType, value) => {
-    const newValue = parseFloat(value);
-
-    setStockCount((prev) => ({
-      ...prev,
-      [productType]: {
-        ...(prev[productType] || {}),
-        [id]:
-          productType === "cylinder"
-            ? { ...(prev[productType]?.[id] || {}), [cylinderType]: newValue }
-            : newValue,
-      },
-    }));
+      return [
+        ...prevList,
+        { ...productData, id: newId, stock: Number(productData.stock), image },
+      ];
+    });
   };
 
   return (
-    <>
-      <div className={styles.secondaryNavbar} id="secondary-navbar">
+    <main className={styles.inventoryContainer}>
+      <section className={styles.secondaryNavbar} id="secondary-navbar">
         <div className={styles.wrapper}>
           <ul className={styles.secondaryNavList}>
             <li className={styles.secondaryNavItems}>
@@ -80,6 +70,7 @@ function Inventory() {
                 className={`${styles.secondaryNavLink} ${
                   activeSection === "cylinders" ? styles.active : ""
                 }`}
+                onClick={() => setActiveSection("cylinders")}
               >
                 Cylinders
               </a>
@@ -90,6 +81,7 @@ function Inventory() {
                 className={`${styles.secondaryNavLink} ${
                   activeSection === "regulators" ? styles.active : ""
                 }`}
+                onClick={() => setActiveSection("regulators")}
               >
                 Regulators
               </a>
@@ -100,6 +92,7 @@ function Inventory() {
                 className={`${styles.secondaryNavLink} ${
                   activeSection === "stoves" ? styles.active : ""
                 }`}
+                onClick={() => setActiveSection("stoves")}
               >
                 Stoves
               </a>
@@ -113,15 +106,15 @@ function Inventory() {
             </li>
           </ul>
         </div>
-      </div>
+      </section>
+
       <div className={styles.wrapper}>
-        {selectedBrands.length > 0 ? (
+        {activeSection === "cylinders" && (
           <section id="cylinders" className={styles.section}>
-            <h1 className={styles.header}>Cylinders</h1>
+            {/* <h1 className={styles.header}>Cylinders</h1> */}
             <div className={styles.grid}>
-              {allBrands
-                .filter((brand) => selectedBrands.includes(brand.id))
-                .map((brand) =>
+              {selectedBrands.length > 0 ? (
+                selectedBrands.map((brand) =>
                   brand.cylinders.map((cylinder) => (
                     <Card
                       key={`${brand.id}-${cylinder.type}`}
@@ -130,63 +123,98 @@ function Inventory() {
                       type={cylinder.type}
                       cardType={"cylinder"}
                       picture={cylinder.image}
-                      price={
-                        prices?.cylinder?.[brand.id]?.[cylinder.type] ??
-                        brand.price
-                      }
-                      stock={
-                        stockCount?.cylinder?.[brand.id]?.[cylinder.type] ??
-                        brand.stock
-                      }
+                      price={cylinder.price}
+                      stock={cylinder.stock}
                       updateStock={updateStock}
                     />
                   ))
-                )}
+                )
+              ) : (
+                <p className={styles.noBrands}>No brands selected</p>
+              )}
             </div>
           </section>
-        ) : (
-          <p className={styles.noBrands}>No brands selected</p>
         )}
-        <section id="regulators" className={styles.section}>
-          <h1 className={styles.header}>Regulators</h1>
-          <div className={styles.grid}>
-            {regulators.map((regulator) => (
-              <Card
-                key={`regulator-${regulator.id}`}
-                id={regulator.id}
-                name={regulator.name}
-                cardType={"regulator"}
-                picture={regulator.image}
-                price={prices?.regulator?.[regulator.id] ?? regulator.price}
-                stock={stockCount?.regulator?.[regulator.id] ?? regulator.stock}
-                updateStock={updateStock}
-              />
-            ))}
-          </div>
-        </section>
-        <section id="stoves" className={styles.section}>
-          <h1 className={styles.header}>Stoves</h1>
-          <div className={styles.grid}>
-            {stoves.map((stove) => (
-              <Card
-                key={`stove-${stove.id}`}
-                id={stove.id}
-                name={stove.name}
-                cardType={"stove"}
-                picture={stove.image}
-                price={prices?.stove?.[stove.id] ?? stove.price}
-                stock={stockCount?.stove?.[stove.id] ?? stove.stock}
-                updateStock={updateStock}
-              />
-            ))}
-          </div>
-        </section>
-        <a href="#" className={styles.backToTopBtn}>
-          {/* ⬆ */}
-          <img src={up_arrow} alt="" />
-        </a>
+
+        {activeSection === "regulators" && (
+          <section id="regulators" className={styles.section}>
+            {/* <h1 className={styles.header}>Regulators</h1> */}
+            <div className={styles.newButtonContainer}>
+              {/* <Button onClick={() => setRegulators([])}>Reset List</Button> */}
+              <Button
+                variant="secondary"
+                onClick={() => openAddProductModal("regulator")}
+              >
+                Add Regulator
+              </Button>
+            </div>
+            <div className={styles.grid}>
+              {regulators.map((regulator) => (
+                <Card
+                  key={`regulator-${regulator.id}`}
+                  id={regulator.id}
+                  name={regulator.name}
+                  type={null}
+                  cardType={"regulator"}
+                  picture={regulator.image}
+                  price={regulator.price}
+                  stock={regulator.stock}
+                  updateStock={updateStock}
+                />
+              ))}
+            </div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onSubmit={() => handleAddProduct("regulator", productData)}
+              modalType={modalType}
+              stock={selectedProductType}
+              productData={productData}
+              setProductData={setProductData}
+            />
+          </section>
+        )}
+
+        {activeSection === "stoves" && (
+          <section id="stoves" className={styles.section}>
+            {/* <h1 className={styles.header}>Stoves</h1> */}
+            <div className={styles.newButtonContainer}>
+              {/* <Button onClick={() => setStoves([])}>Reset List</Button> */}
+              <Button
+                variant="secondary"
+                onClick={() => openAddProductModal("stove")}
+              >
+                Add Stove
+              </Button>
+            </div>
+            <div className={styles.grid}>
+              {stoves.map((stove) => (
+                <Card
+                  key={`stove-${stove.id}`}
+                  id={stove.id}
+                  name={stove.name}
+                  type={null}
+                  cardType={"stove"}
+                  picture={stove.image}
+                  price={stove.price}
+                  stock={stove.stock}
+                  updateStock={updateStock}
+                />
+              ))}
+            </div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onSubmit={() => handleAddProduct("stove", productData)}
+              modalType={modalType}
+              stock={selectedProductType}
+              productData={productData}
+              setProductData={setProductData}
+            />
+          </section>
+        )}
       </div>
-    </>
+    </main>
   );
 }
 

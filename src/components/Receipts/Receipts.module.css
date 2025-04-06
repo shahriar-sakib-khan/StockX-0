@@ -1,149 +1,158 @@
-.receipt {
-  display: flex;
-  flex-direction: column;
+.wrapper {
   width: 90%;
-  margin: 1em auto;
-}
-
-.dateContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.date {
-  color: var(--primary-font-clr-dark);
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-align: center;
-  padding: 0.75em 1em;
-  box-shadow: 0 5px 5px -4px gray;
-  border-inline: 3px solid hsl(190, 80%, 40%);
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .receiptContainer {
   display: flex;
-  justify-content: space-evenly;
-  gap: 2em;
-  padding-inline: 1em;
-  flex-wrap: wrap;
-}
-
-.tableContainer {
-  & {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: hsl(0, 0%, 95%);
-  }
-  
-  & caption {
-    font-size: 1.5rem;
-    font-weight: 700;
-    padding: 1em;
-    color: var(--primary-font-clr-dark);
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  & td {
-    text-align: center;
-  }
-  
-  & th {
-    text-align: center;
-    text-wrap: nowrap;
-    padding: 1em;
-  }
-  
-  & thead th:not(:last-of-type) {
-    border-right: 2px solid hsl(190, 80%, 40%);
-  }
-  
-  & tbody td:nth-of-type(2) {
-    text-align: left;
-    text-wrap: nowrap;
-  }
-
-  & tbody td {
-    padding: 0.5em 1em;
-  }
-  
-  & tbody td:not(:last-of-type) {
-    border-right: 2px solid hsl(0, 0%, 100%);
-  }
-  
-  &:has(.finalPrice) tbody td:last-of-type {
-    text-align: left;
-  }
-  
-  & thead th{
-    color: white;
-    letter-spacing: 0.1em;
-    background-color: hsl(190, 80%, 35%);
-  }
-  
-  & tbody tr:nth-of-type(even) {
-    background-color: hsl(0 0% 0% / 0.07);
-  }
-  
-  & tbody tr {
-    color: var(--primary-font-clr-dark);
-    font-weight: 500;
-  }
-  
-  & tbody tr:last-of-type {
-    border-bottom: 3px solid hsl(190, 80%, 35%);
-  }
-
-  
-  & .type-20mm, .type-22mm {
-    padding: 0.25em;
-    border-radius: 0.25em;
-  }
-  
-  & .type-20mm {
-    background-color: hsl(122, 71%, 85%);
-  }
-  
-  & .type-22mm {
-    background-color: hsl(215, 100%, 90%);
-  }
+  flex-direction: column;
+  margin-top: 0;
+  margin-bottom: 1em;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-block: 1em;
+  margin-top: 1em;
 }
 
-@media (width <= 745px) {
-  .date { font-size: 0.9rem; }
-  .receiptContainer { font-size: 0.8rem; }
+.receipt {
+  --_background : var(--primary-font-clr-dark, black);
+  /* border: 2px solid steelblue; */
 }
 
-@media (width <= 609px) {
-  .date { font-size: 0.8rem; }
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
 
-  .tableContainer {
-    & { border: 2px solid hsl(190, 80%, 35%); }
-    & th { display: none; }
+  .currentShopDetails {
+    color: var(--primary-font-clr-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    & td {
-      display: grid;
-      grid-template-columns: 15ch auto;
-      text-align: left;
+    .currentShopName {
+      letter-spacing: 0.05em;
+      font-size: 2rem;  
+      font-weight: 600;
+      margin-bottom: 0.125em;
     }
+    .currentShopOwner {
+      color: white;
+      letter-spacing: 0.05em;
+      background-color: var(--_background);
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 0.125em 0.75em 0.25em;
+      border-radius: 1em;
+    }
+    .currentShopMoto { text-align: center; }
+    .currentShopContact { font-weight: 500; }
+    .currentShopAddress {
+      color: white;
+      width: 90%;
+      text-align: center;
+      background-color: var(--_background);
+      padding-block: 0.25em;
+    }
+  }
+
+  .targetShopDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125em;
+    color: var(--primary-font-clr-dark);
+
+    .targetShopTop,
+    .targetShopBottom {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.receiptBody {
+  display: flex;
+  /* border: 2px solid lightcoral; */
+  flex-wrap: wrap;
+  gap: 0.25em;
+  /* background-color: lightblue; */
+
+  & > * {
+    flex-grow: 1;
+    /* border: 2px solid var(--_background); */
+  }
+}
+
+.tableContainer {
+  color: var(--primary-font-clr-dark);
+  width: 100%;
+  border-collapse: collapse;
+
+  & > * {
+    border-inline: 1px solid var(--_background);
+  }
+
+  .caption {
+    color: white;
+    font-size: 1.125rem;
+    padding-block: 0.125em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: var(--_background);
+  }
   
-    & caption { font-size: 1.2rem; }
-    & tbody td:not(:last-of-type) { border-right: none; }
-    & td:first-child { padding-top: 0.75em; }
-    & td:last-child { padding-bottom: 1.5em; }
-    & td:not(:first-child, :last-child) { padding-block: 0.125em; }
+  .tableHeader {
+    background-color: var(--_background);
+    border-block: 1px solid white;
     
-    & td::before {
-      content: attr(data-cell);
-      font-weight: 700;
+    .tableHeaderItem {
+      color: white;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      padding: 0.125em 0.5em 0.25em;
+      
+      &:not(:first-of-type) {
+        border-left: 1px solid white;
+      }
     }
+  }
+
+  .tableBodyRow {
+    &:last-of-type {
+      border-bottom: 1px solid var(--_background);
+    }
+    .tableBodyRowItem {
+      padding-block: 0.125em;
+      &:not(:first-of-type) { border-left: 1px solid var(--_background); }
+      &:nth-of-type(2) { padding-left: 0.25em; }
+      &:not(:nth-of-type(2)) { text-align: center; }
+    }
+    &.calculation {
+      border-top: 1px solid var(--_background);
+      text-align: center;
+    }
+    .tableBodyRowItemInput {
+      color: var(--primary-font-clr-dark);
+      width: 4em;
+      margin: 0;
+      padding: 0;
+      border-radius: 0px;
+      caret-color: var(--primary-font-clr-dark);
+
+      &:focus {
+        border-color: var(--primary-font-clr-dark);
+      }
+    }
+  }
+}
+
+@media (width < 470px) {
+  .receiptContainer {
+    font-size: 0.8rem;
   }
 }

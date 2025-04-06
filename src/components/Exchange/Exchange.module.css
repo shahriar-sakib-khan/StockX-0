@@ -14,10 +14,27 @@
   
 }
 
+.topButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.125em;
+}
+
+.shopDetailsContainer {
+  color: var(--primary-font-clr-dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-inline: 1em;
+  text-decoration:underline;
+  /* margin: 0 auto; */
+  /* padding-block: 0.125em; */
+}
+
 .secondaryNavbar {
   display: flex;
-  justify-content: space-between;
-  padding-block: 0.5em;
+  justify-content: center;
+  padding-bottom: 0.125em;
   flex-wrap: wrap;
 }
 
@@ -75,8 +92,6 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: hsl(0, 0%, 95%);
-  /* background-color: #ff3c78; */
-  /* box-shadow: 5px 5px 10px hsl(0, 0%, 90%); */
   transition: 0.3s ease all;
   position: relative;
   z-index: 1;
@@ -129,7 +144,6 @@
   
   & tbody td:nth-of-type(2) {
     text-align: left;
-    /* padding: 0.8em 1em; */
   }
   
   & td:not(.price) {
@@ -165,7 +179,7 @@
 }
 
 .active .tableContainer{
-  & th{
+  & th {
   color: white;
     background-color: var(--accent-clr);
     transition: all 0.5s ease;
@@ -190,11 +204,6 @@
       background-color: hsl(201, 100%, 40%);
     }
   }
-}
-
-.logo {
-  max-width: 100px;
-  height: auto;
 }
 
 .actionButtons {
@@ -348,7 +357,7 @@
 
   .buttonContainer {
     display: flex;  
-    margin-top: 0.625em;
+    margin-top: 0.125em;
     margin-inline: 0.625em;
 
     &:has(:not(.received)) { justify-content: flex-end; }

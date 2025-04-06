@@ -1,39 +1,34 @@
-import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
+import styles from "./Layout.module.css";
+import useLocalStorageState from "./hooks/useLocalStorageState";
 
 function Layout() {
-  const [selectedBrands, setSelectedBrands] = useState(() => {
-    return JSON.parse(localStorage.getItem("selectedBrands")) || [];
-  });
+  const [selectedBrands, setSelectedBrands] = useLocalStorageState(
+    "selectedBrands",
+    []
+  );
+  const [regulators, setRegulators] = useLocalStorageState("regulators", []);
+  const [stoves, setStoves] = useLocalStorageState("stoves", []);
 
-  const [stockCount, setStockCount] = useState(() => {
-    return JSON.parse(localStorage.getItem("stockCount")) || {};
-  });
-
-  const [prices, setPrices] = useState(() => {
-    return JSON.parse(localStorage.getItem("prices")) || {};
-  });
-
-  useEffect(() => {
-    localStorage.setItem("selectedBrands", JSON.stringify(selectedBrands));
-  }, [selectedBrands]);
-  
-  useEffect(() => {
-    localStorage.setItem("stockCount", JSON.stringify(stockCount));
-  }, [stockCount]);
-
-  useEffect(() => {
-    localStorage.setItem("prices", JSON.stringify(prices));
-  }, [prices]);
-
-  return(
-    <>
-      <Navbar />
-      <main id="main">
-        <Outlet context={{selectedBrands, setSelectedBrands, stockCount, setStockCount, prices, setPrices}}/>
+  return (
+    <div className={styles.layout}>
+      <nav className={styles.navbar}>
+        <Navbar />
+      </nav>
+      <main className={styles.content} id="main-content">
+        <Outlet
+          context={{
+            selectedBrands,
+            setSelectedBrands,
+            regulators,
+            setRegulators,
+            stoves,
+            setStoves,
+          }}
+        />
       </main>
-    </>
+    </div>
   );
 }
 
