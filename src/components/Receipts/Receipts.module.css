@@ -15,12 +15,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1em;
+  margin-top: min(2%, 1em);
 }
 
 .receipt {
   --_background : var(--primary-font-clr-dark, black);
-  /* border: 2px solid steelblue; */
+  margin-bottom: 1.5em;
 }
 
 .titleSection {
@@ -77,82 +77,99 @@
 
 .receiptBody {
   display: flex;
-  /* border: 2px solid lightcoral; */
   flex-wrap: wrap;
-  gap: 0.25em;
-  /* background-color: lightblue; */
+  gap: 1em 0.25em;
 
   & > * {
     flex-grow: 1;
-    /* border: 2px solid var(--_background); */
-  }
-}
-
-.tableContainer {
-  color: var(--primary-font-clr-dark);
-  width: 100%;
-  border-collapse: collapse;
-
-  & > * {
-    border-inline: 1px solid var(--_background);
   }
 
-  .caption {
-    color: white;
-    font-size: 1.125rem;
-    padding-block: 0.125em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background-color: var(--_background);
-  }
+  .tableContainer {
+    color: var(--primary-font-clr-dark);
+    width: 100%;
+    border-collapse: collapse;
   
-  .tableHeader {
-    background-color: var(--_background);
-    border-block: 1px solid white;
-    
-    .tableHeaderItem {
+    & > * {
+      border-inline: 1px solid var(--_background);
+    }
+  
+    .caption {
       color: white;
-      font-weight: 400;
+      font-size: 1.125rem;
+      padding-block: 0.125em;
+      text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 0.125em 0.5em 0.25em;
+      background-color: var(--_background);
+    }
+    
+    .tableHeader {
+      background-color: var(--_background);
+      border-top: 1px solid white;
       
-      &:not(:first-of-type) {
-        border-left: 1px solid white;
+      .tableHeaderItem {
+        color: white;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        padding: 0.125em 0.5em 0.25em;
+        
+        &:not(:first-of-type) {
+          border-left: 1px solid white;
+        }
       }
     }
-  }
-
-  .tableBodyRow {
-    &:last-of-type {
-      border-bottom: 1px solid var(--_background);
-    }
-    .tableBodyRowItem {
-      padding-block: 0.125em;
-      &:not(:first-of-type) { border-left: 1px solid var(--_background); }
-      &:nth-of-type(2) { padding-left: 0.25em; }
-      &:not(:nth-of-type(2)) { text-align: center; }
-    }
-    &.calculation {
-      border-top: 1px solid var(--_background);
-      text-align: center;
-    }
-    .tableBodyRowItemInput {
-      color: var(--primary-font-clr-dark);
-      width: 4em;
-      margin: 0;
-      padding: 0;
-      border-radius: 0px;
-      caret-color: var(--primary-font-clr-dark);
-
-      &:focus {
-        border-color: var(--primary-font-clr-dark);
+  
+    .tableBodyRow {
+      &:last-of-type {
+        border-bottom: 1px solid var(--_background);
+      }
+      .tableBodyRowItem {
+        padding-block: 0.125em;
+        &:not(:first-of-type) { border-left: 1px solid var(--_background); }
+        &:nth-of-type(2) { padding-left: 0.25em; }
+        &:not(:nth-of-type(2)) { text-align: center; }
+      }
+      &.calculation {
+        border-top: 1px solid var(--_background);
+        text-align: center;
+      }
+      .tableBodyRowItemInput {
+        color: var(--primary-font-clr-dark);
+        width: 4em;
+        margin: 0;
+        padding: 0;
+        border-radius: 0px;
+        caret-color: var(--primary-font-clr-dark);
+  
+        &:focus {
+          border-color: var(--primary-font-clr-dark);
+        }
       }
     }
   }
 }
+
+.bottomSection {
+  text-align: center;
+  background-color: hsl(214, 20%, 50%);
+  width: 40ch;
+  align-self: center;
+  
+  .disclaimerText {
+    padding: 0.125em 1em 0.25em;
+    background-color: hsl(214, 20%, 85%);
+    color: var(--primary-font-clr-dark);
+    font-weight: 600;
+    border-inline: 4px solid white;
+  }
+}
+
 
 @media (width < 470px) {
   .receiptContainer {
     font-size: 0.8rem;
+    .currentShopDetails {
+      .currentShopName { font-size: 1.6rem; }
+      .currentShopOwner { font-size: 0.9rem; }
+    }
   }
 }

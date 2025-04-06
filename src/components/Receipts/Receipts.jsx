@@ -350,7 +350,7 @@ function Receipts() {
 
   const handleNext = () => {
     navigate("/exchange-history", {
-      state: { deliveredItems, receivedItems },
+      state: { deliveredItems, receivedItems, finalPrice, paid },
     });
     // console.log(deliveredItems, receivedItems);
   };
@@ -444,6 +444,11 @@ function Receipts() {
               </table>
             </div>
           </div>
+        </div>
+        <div className={styles.bottomSection}>
+          <span className={styles.disclaimerText}>
+            N.B: Sold products are not refundable.
+          </span>
         </div>
       </main>
     </div>
