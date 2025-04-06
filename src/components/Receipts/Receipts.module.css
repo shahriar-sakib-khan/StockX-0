@@ -19,7 +19,7 @@
 }
 
 .receipt {
-  --_background : var(--primary-font-clr-dark, black);
+  --_background : hsl(214, 30%, 30%);
   margin-bottom: 1.5em;
 }
 

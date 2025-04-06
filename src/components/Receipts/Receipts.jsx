@@ -446,11 +446,11 @@ function Receipts() {
             </div>
           </div>
         </div>
-        <div className={styles.bottomSection}>
+        {/* <div className={styles.bottomSection}>
           <span className={styles.disclaimerText}>
             N.B: Sold products are not refundable.
           </span>
-        </div>
+        </div> */}
       </main>
     </div>
   );

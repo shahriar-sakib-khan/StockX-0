@@ -89,6 +89,11 @@ export default function Dashboard() {
             <span>Profile</span>
           </NavLink>
 
+          <NavLink to={"/lpg-community"} className={styles.navItem}>
+            <img src={images.img_community} />
+            <span>Community</span>
+          </NavLink>
+
           <NavLink to={"/"} className={styles.navItem}>
             <img src={images.img_logout} />
             <span>Log out</span>

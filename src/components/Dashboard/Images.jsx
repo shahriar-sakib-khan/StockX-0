@@ -8,6 +8,7 @@ import history from "./images/history.webp";
 import profile from "./images/profile.webp";
 import logout from "./images/logout.webp";
 import due from "./images/due.webp";
+import community from "./images/community.webp";
 
 const images = {
   img_buy: buy,
@@ -20,6 +21,7 @@ const images = {
   img_profile: profile,
   img_logout: logout,
   img_due: due,
+  img_community: community,
 };
 
 export default images;
