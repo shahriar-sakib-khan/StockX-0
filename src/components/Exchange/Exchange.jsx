@@ -409,7 +409,7 @@ const Exchange = () => {
 
           {active === "received" &&
             Object.entries(items).flatMap(([id, types]) => {
-              const brand = selectedBrands.find(
+              const brand = allBrands.find(
                 (brand) => brand.id === parseInt(id)
               );
               if (!brand) return [];
@@ -531,6 +531,13 @@ const Exchange = () => {
     setReceivedItems({});
   };
 
+  const newBrandList = [
+    ...selectedBrands,
+    ...allBrands.filter(
+      (brand) => !selectedBrands.some((b) => b.id === brand.id)
+    ),
+  ];
+
   return (
     <div className={styles.wrapper}>
       <main className={styles.exchangeContainer}>
@@ -605,14 +612,14 @@ const Exchange = () => {
 
         {windowWidth < 890 && (
           <div className={styles.buttonContainer}>
-            {/* <Button
+            <Button
               onClick={() => {
                 console.log(deliveredItems);
                 console.log(receivedItems);
               }}
             >
               print
-            </Button> */}
+            </Button>
             <Button
               variant="outline"
               className={`${styles.deliveredBtn} ${styles[activeSection]}`}
@@ -632,12 +639,7 @@ const Exchange = () => {
         )}
         <div className={styles.bottomScrollable}>
           {activeCategory == "cylinders" &&
-            [
-              ...selectedBrands,
-              ...allBrands.filter(
-                (brand) => !selectedBrands.includes(brand.id)
-              ),
-            ].map((brand) =>
+            newBrandList.map((brand) =>
               brand.cylinders.map((cylinder) => (
                 <Card
                   key={`${brand.id}-${cylinder.type}`}

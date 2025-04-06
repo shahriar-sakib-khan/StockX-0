@@ -1,4 +1,5 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import allBrands from "../../assets/Lists/list_of_brands";
 import Button from "../Button/Button";
 import styles from "./Receipts.module.css";
 import {
@@ -25,7 +26,7 @@ function Receipts() {
   );
   const [receivedItems, setReceivedItems] = useLocalStorageState(
     "newReceived",
-    updateReceivedItems(state?.receivedItems, selectedBrands)
+    updateReceivedItems(state?.receivedItems, allBrands)
   );
   const [paid, setPaid] = useLocalStorageState("paid", 0);
   let finalPrice = 0;
@@ -48,8 +49,8 @@ function Receipts() {
   ]);
 
   useEffect(() => {
-    setReceivedItems(updateReceivedItems(state?.receivedItems, selectedBrands));
-  }, [setReceivedItems, state?.receivedItems, selectedBrands]);
+    setReceivedItems(updateReceivedItems(state?.receivedItems, allBrands));
+  }, [setReceivedItems, state?.receivedItems, allBrands]);
 
   const navigate = useNavigate();
 
@@ -371,7 +372,7 @@ function Receipts() {
       <main className={styles.receiptContainer}>
         <div className={styles.buttons}>
           <Button onClick={() => navigate(-1)}>Previous</Button>
-          {/* <Button onClick={print}>Console output</Button> */}
+          {/* <Button onClick={print}>Console output Lists</Button> */}
           <Button onClick={handleNext}>Save</Button>
         </div>{" "}
         <div className={styles.receipt}>

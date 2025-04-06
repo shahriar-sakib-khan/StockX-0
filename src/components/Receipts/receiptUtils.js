@@ -54,18 +54,18 @@ export const updateDeliveredItems = (deliveredItems = [], selectedBrands = [], r
   return updatedDeliveredItems;
 };
 
-export const updateReceivedItems = (receivedItems = [], selectedBrands = []) => {
+export const updateReceivedItems = (receivedItems = [], allBrands = []) => {
   if (!receivedItems) return {};
 
-  if (!Array.isArray(selectedBrands)) {
-    console.error("Expected arrays for selectedBrands, regulators, and stoves");
+  if (!Array.isArray(allBrands)) {
+    console.error("Expected arrays for allBrands, regulators, and stoves");
     return {};
   }
 
   const updatedReceivedItems = {};
 
   for (const brandId in receivedItems) {
-    const brand = selectedBrands.find(b => Number(b.id) === Number(brandId));
+    const brand = allBrands.find(b => Number(b.id) === Number(brandId));
     const brandName = brand?.name || "Unknown";
     
     updatedReceivedItems[brandId] = {
