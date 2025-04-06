@@ -19,20 +19,13 @@ const SelectShop = () => {
 
     // Store only the selected shop name in local storage
     localStorage.setItem('selectedShop', shopName);
-  };
 
-  const handleSubmit = () => {
-    // Navigate to the Exchange page after submit
+    // Navigate to the Exchange page after selecting a shop
     navigate("/exchange");
   };
 
   return (
     <div className={styles.shopContainer}>
-      {/* Submit Button */}
-      <button className={styles.submitButton} onClick={handleSubmit}>
-        Submit
-      </button>
-
       {/* Render shop cards */}
       <div className={styles.shopsGrid}>
         {shopData.map((shop) => (
