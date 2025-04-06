@@ -205,7 +205,7 @@
   
   .Input input:focus,
   .Input input:valid {
-    border: 2px solid hsl(142, 83%, 95%);
+    border: 2px solid hsl(147, 100%, 98%);
   }
   
   .Input input:focus + label,
