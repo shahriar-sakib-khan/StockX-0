@@ -259,7 +259,7 @@
   cursor: not-allowed;
 }
 
-.secondaryNavItems {
+.topButtonContainer {
   position: relative;
 }
 
@@ -269,7 +269,7 @@
   display: block;
   position: absolute;
   bottom: 0;
-  right: -90%;
+  right: -7%;
   background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 0.3em 0.625em 0.5em;
@@ -286,7 +286,7 @@
 
 .nextBtn:disabled:hover::after {
   bottom: 40%;
-  right: 90%;
+  right: 5%;
   transform: scale(1);
 }
 
