@@ -1,50 +1,59 @@
 import React, { useState, useEffect } from "react";
-import styles from './Shop.module.css';
+import styles from "./Shop.module.css";
 
-import shopImage1 from '../../assets/images/Shop/shop.png';
-import shopImage2 from '../../assets/images/Shop/CylinderShop.jpg';
+import shopImage1 from "../../assets/images/Shop/shop.png";
+import shopImage2 from "../../assets/images/Shop/CylinderShop.jpg";
 
 const Shop = () => {
   const loadInitialShopData = () => {
-    const savedShopData = localStorage.getItem('shopData');
+    const savedShopData = localStorage.getItem("shopData");
     return savedShopData ? JSON.parse(savedShopData) : [];
   };
 
   const [shopData, setShopData] = useState(loadInitialShopData);
   const [newShop, setNewShop] = useState({
-    name: '',
-    registrationNumber: '',
-    ownerName: '',
-    contactNumber: '',
-    location: '',
-    balance: 0, // Default balance set to 0
-    image: '',
+    name: "",
+    registrationNumber: "",
+    ownerName: "",
+    contactNumber: "",
+    location: "",
+    balance: 0,
+    image: "",
   });
 
   const [addShopCardMoved, setAddShopCardMoved] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [editingShopId, setEditingShopId] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem('shopData', JSON.stringify(shopData));
+    localStorage.setItem("shopData", JSON.stringify(shopData));
   }, [shopData]);
 
   const handleAddShop = () => {
-    const updatedShopData = {
-      id: Date.now(),
-      ...newShop,
-      image: newShop.image || shopImage2,
-    };
-    const updatedShopList = [...shopData, updatedShopData];
-    setShopData(updatedShopList);
+    if (editingShopId !== null) {
+      const updatedShopList = shopData.map((shop) =>
+        shop.id === editingShopId ? { ...shop, ...newShop } : shop
+      );
+      setShopData(updatedShopList);
+      setEditingShopId(null);
+    } else {
+      const updatedShopData = {
+        id: Date.now(),
+        ...newShop,
+        image: newShop.image || shopImage2,
+      };
+      const updatedShopList = [...shopData, updatedShopData];
+      setShopData(updatedShopList);
+    }
 
     setNewShop({
-      name: '',
-      registrationNumber: '',
-      ownerName: '',
-      contactNumber: '',
-      location: '',
-      balance: 0, // Reset balance to 0
-      image: '',
+      name: "",
+      registrationNumber: "",
+      ownerName: "",
+      contactNumber: "",
+      location: "",
+      balance: 0,
+      image: "",
     });
 
     setAddShopCardMoved(true);
@@ -83,13 +92,47 @@ const Shop = () => {
     setShopData(updatedShopList);
   };
 
+  const handleEditClick = (shop) => {
+    setNewShop(shop);
+    setEditingShopId(shop.id);
+    setIsPopupOpen(true);
+  };
+
+  // Function to open the Add Shop popup
+  const handleAddShopCardClick = () => {
+    setNewShop({
+      name: "",
+      registrationNumber: "",
+      ownerName: "",
+      contactNumber: "",
+      location: "",
+      balance: 0,
+      image: "",
+    }); // Reset to empty values for a new shop
+    setIsPopupOpen(true); // Open the popup
+    setEditingShopId(null); // No editing, so set to null
+  };
+
+  // Handle Balance Focus and Blur
+  const handleBalanceFocus = (e) => {
+    if (e.target.value === "0") {
+      e.target.value = "";
+    }
+  };
+
+  const handleBalanceBlur = (e) => {
+    if (e.target.value === "") {
+      e.target.value = "0";
+    }
+  };
+
   return (
     <div className={styles.shopContainer}>
       {/* Popup Modal */}
       {isPopupOpen && (
         <div className={styles.popupOverlay}>
           <div className={styles.popup}>
-            <h2>Add New Shop</h2>
+            <h2>{editingShopId ? "Edit Shop" : "Add New Shop"}</h2>
             <div className={styles.inputFields}>
               <div className={styles.Input}>
                 <input
@@ -142,35 +185,49 @@ const Shop = () => {
                   name="balance"
                   value={newShop.balance}
                   onChange={handleInputChange}
+                  onFocus={handleBalanceFocus}
+                  onBlur={handleBalanceBlur}
                 />
                 <label>Balance</label>
               </div>
 
               {/* Image Upload Field */}
               <div className={styles.uploadImageInput}>
-  <label style={{ marginBottom: "1px" }}>Upload Shop Image</label>
-  <input type="file" accept="image/*" onChange={handleImageUpload} />
-  {newShop.image && (
-    <img
-      src={newShop.image}
-      alt="Preview"
-      className={styles.imagePreview}
-    />
-  )}
-</div>
-
-              
+                <label style={{ marginBottom: "1px" }}>Upload Shop Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+                {newShop.image && (
+                  <img
+                    src={newShop.image}
+                    alt="Preview"
+                    className={styles.imagePreview}
+                  />
+                )}
+              </div>
             </div>
             <div className={styles.popupButtons}>
-  <button className={styles.cancelButton} onClick={() => setIsPopupOpen(false)}>Cancel</button>
-  <button className={styles.addButton} onClick={() => {
-    handleAddShop();
-    setIsPopupOpen(false);
-  }}>
-    Add
-  </button>
-</div>
-
+              <button
+                className={styles.cancelButton}
+                onClick={() => {
+                  setIsPopupOpen(false);
+                  setEditingShopId(null);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                className={styles.addButton}
+                onClick={() => {
+                  handleAddShop();
+                  setIsPopupOpen(false);
+                }}
+              >
+                {editingShopId ? "Update" : "Add"}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -179,10 +236,7 @@ const Shop = () => {
       <div className={styles.shopsGrid}>
         {shopData.map((shop) => (
           <div className={styles.shopCard} key={shop.id}>
-            {/* Balance in top-left corner of Shop Card */}
-            <div className={styles.balance}>
-              Balance: {shop.balance}
-            </div>
+            <div className={styles.balance}>Balance: {shop.balance}</div>
 
             <button
               className={styles.removeButton}
@@ -198,6 +252,7 @@ const Shop = () => {
                   name="name"
                   value={shop.name}
                   onChange={(e) => handleShopInputChange(e, shop.id)}
+                  disabled
                 />
                 <label>Shop Name</label>
               </div>
@@ -207,6 +262,7 @@ const Shop = () => {
                   name="registrationNumber"
                   value={shop.registrationNumber}
                   onChange={(e) => handleShopInputChange(e, shop.id)}
+                  disabled
                 />
                 <label>Registration No.</label>
               </div>
@@ -216,6 +272,7 @@ const Shop = () => {
                   name="ownerName"
                   value={shop.ownerName}
                   onChange={(e) => handleShopInputChange(e, shop.id)}
+                  disabled
                 />
                 <label>Owner Name</label>
               </div>
@@ -225,6 +282,7 @@ const Shop = () => {
                   name="contactNumber"
                   value={shop.contactNumber}
                   onChange={(e) => handleShopInputChange(e, shop.id)}
+                  disabled
                 />
                 <label>Contact Number</label>
               </div>
@@ -234,19 +292,32 @@ const Shop = () => {
                   name="location"
                   value={shop.location}
                   onChange={(e) => handleShopInputChange(e, shop.id)}
+                  disabled
                 />
                 <label>Location</label>
               </div>
             </div>
+            <button
+              className={styles.editButton}
+              onClick={() => handleEditClick(shop)}
+            >
+              Edit
+            </button>
           </div>
         ))}
 
         {/* Add Shop Card */}
         <div
-          className={`${styles.addShopCard} ${addShopCardMoved ? styles.moveRight : ""}`}
-          onClick={() => setIsPopupOpen(true)}
+          className={`${styles.addShopCard} ${
+            addShopCardMoved ? styles.moveRight : ""
+          }`}
+          onClick={handleAddShopCardClick}
         >
-          <img src={shopImage1} alt="Add Shop" className={styles.addShopImage} />
+          <img
+            src={shopImage1}
+            alt="Add Shop"
+            className={styles.addShopImage}
+          />
           <div className={styles.addShopText}>Add Shop</div>
         </div>
       </div>

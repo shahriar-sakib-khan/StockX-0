@@ -1,311 +1,376 @@
 .shopContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    position: relative;
-  }
-  
-  .shopsGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    grid-auto-rows: 1fr;
-  }
-  
-  .shopCard {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    position: relative;
-  }
-  
-  .shopCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-  }
-  
-  .shopImage {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-  }
-  
-  
-  .inputFields {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .Input {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  
-  .Input input {
-    padding: 10px 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  
-  .Input input:focus {
-    border-color: #007bff;
-  }
-  
-  .Input label {
-    font-size: 13px;
-    margin-top: 6px;
-    color: #555;
-  }
-  .balance {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgb(71, 153, 78); /* Semi-transparent background */
-    color: white;
-    padding: 5px 10px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-  }
-  .removeButton {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background-color: #cc3535;
-    border: none;
-    color: white;
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    z-index: 1;
-  }
-  
-  .removeButton:hover {
-    background-color: #e60000;
-  }
-  
-  
-  .submitButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submitButton:hover {
-    background-color: #45a049;
-  }
-  
-  .addShopCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border: 2px dashed #4CAF50;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #fbfbfb, #e6f9f0);
-    cursor: pointer;
-    height: 220px;
-    width: 220px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.1);
-    text-align: center;
-  }
-  
-  .addShopCard:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
-    background: linear-gradient(135deg, #e3ffe7, #d1f5df);
-  }
-  
-  .addShopCard .addShopImage {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    margin-bottom: 12px;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-  }
-  
-  .addShopCard:hover .addShopImage {
-    opacity: 1;
-  }
-  
-  .addShopCard .addShopText {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #2e7d32;
-    transition: color 0.3s ease;
-  }
-  
-  .addShopCard:hover .addShopText {
-    color: #1b5e20;
-  }
-  .addShopCard {
-    margin-top: 85px; /* adjust as needed */
-  }
-    
-  
-  .moveRight {
-    transform: translateX(1px);
-  }
-  
-  .Input {
-    position: relative;
-  }
-  
-  .Input input {
-    color: hsl(214, 20%, 40%);
-    font-weight: 600;
-    height: 2.5rem;
-    background: transparent;
-    outline: none;
-    border: 2px solid hsl(214, 20%, 40%);
-    padding-left: 12px;
-    border-radius: 5px;
-  }
-  
-  .Input label {
-    color: hsl(214, 20%, 40%);
-    position: absolute;
-    top: 30%;
-    left: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    pointer-events: none;
-    transform: translateY(-50%);
-    transition: 0.2s;
-  }
-  
-  .Input input:focus,
-  .Input input:valid {
-    border: 2px solid hsl(147, 100%, 98%);
-  }
-  
-  .Input input:focus + label,
-  .Input input:valid + label {
-    top: 0;
-    font-size: .75rem;
-    padding: 0 5px;
-    color: hsl(148, 74%, 30%);
-    background-color: rgb(255, 255, 255);
-    transform: translate(-5px, -10px);
-  }
-  
-  .removeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background-color: #b23030;
-    color: white;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 10px;
-    z-index: 10;
-  }
-  
-  .removeButton:hover {
-    background-color: #bd0000;
-  }
-  
-  .popupOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-  
-  .popup {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 400px;
-    max-width: 90%;
-  }
-  
-  .popupButtons {
-    display: flex;
-    justify-content: space-between; /* Aligns buttons to opposite sides */
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .popupButtons button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    flex: 1; /* This will give both buttons equal width */
-  }
-  
-  .cancelButton {
-    background-color: #ff1717;
-    color: white; /* Makes the text inside the Cancel button white */
-    border: none;
-    margin-right: auto; /* Pushes the Cancel button to the left */
-  }
-  
-  .addButton {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .uploadImageInput input[type="file"] {
-    /* Style the file input element here */
-    padding: 5px;
-   
-    border-radius: 5px;
-  }
-  
-  .uploadImageInput label {
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .imagePreview {
-    margin-top: 10px;
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  position: relative;
+}
+
+.shopsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  grid-auto-rows: 1fr;
+}
+
+.shopCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.shopCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.shopImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.inputFields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.Input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.Input input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.Input input:focus {
+  border-color: #007bff;
+}
+
+.Input label {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #555;
+}
+
+.balance {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgb(71, 153, 78);
+  color: white;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.removeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #cc3535;
+  border: none;
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+}
+
+.removeButton:hover {
+  background-color: #e60000;
+}
+
+.submitButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}
+
+.addShopCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 2px dashed #4CAF50;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fbfbfb, #e6f9f0);
+  cursor: pointer;
+  height: 220px;
+  width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.1);
+  text-align: center;
+}
+
+.addShopCard:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background: linear-gradient(135deg, #e3ffe7, #d1f5df);
+}
+
+.addShopCard .addShopImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.addShopCard:hover .addShopImage {
+  opacity: 1;
+}
+
+.addShopCard .addShopText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2e7d32;
+  transition: color 0.3s ease;
+}
+
+.addShopCard:hover .addShopText {
+  color: #1b5e20;
+}
+
+.addShopCard {
+  margin-top: 85px;
+}
+
+.moveRight {
+  transform: translateX(1px);
+}
+
+.Input {
+  position: relative;
+}
+
+.Input input {
+  color: hsl(214, 20%, 40%);
+  font-weight: 600;
+  height: 2.5rem;
+  background: transparent;
+  outline: none;
+  border: 2px solid hsl(214, 20%, 40%);
+  padding-left: 12px;
+  border-radius: 5px;
+}
+
+.Input label {
+  color: hsl(214, 20%, 40%);
+  position: absolute;
+  top: 30%;
+  left: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: 0.2s;
+}
+
+.Input input:focus,
+.Input input:valid {
+  border: 2px solid hsl(147, 100%, 98%);
+}
+
+.Input input:focus + label,
+.Input input:valid + label {
+  top: 0;
+  font-size: .75rem;
+  padding: 0 5px;
+  color: hsl(148, 74%, 30%);
+  background-color: rgb(255, 255, 255);
+  transform: translate(-5px, -10px);
+}
+
+.removeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: #b23030;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 10px;
+  z-index: 10;
+}
+
+.removeButton:hover {
+  background-color: #bd0000;
+}
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+}
+
+.popupButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.popupButtons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.cancelButton {
+  background-color: #ff1717;
+  color: white;
+  border: none;
+  margin-right: auto;
+}
+
+.addButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.uploadImageInput input[type="file"] {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.uploadImageInput label {
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
+.imagePreview {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.popupImage {
+  max-width: 200px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+}
+
+.Input input:disabled {
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  color: #292929;
+  cursor: not-allowed;
+  padding: 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.Input label {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  font-size: 12px;
+  color: #438d3b;
+  font-weight: normal;
+  transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  padding: 0 5px;
+}
+
+.Input input:disabled:focus {
+  outline: none;
+  border-color: #dcdcdc;
+  box-shadow: none;
+}
+
+.editButton {
+  background-color: #477fda;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+  width: auto;
+  text-align: center;
+}
+
+.editButton:hover {
+  background-color: #524fb9;
+  transform: translateY(-2px);
+}
+
+.editButton:active {
+  background-color: #388e3c;
+  transform: translateY(1px);
+}
+
+.editButton:disabled {
+  background-color: #dcdcdc;
+  color: #aaa;
+  cursor: not-allowed;
+  transform: none;
+}
