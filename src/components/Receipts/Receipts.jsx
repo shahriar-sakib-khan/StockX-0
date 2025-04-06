@@ -50,7 +50,7 @@ function Receipts() {
 
   useEffect(() => {
     setReceivedItems(updateReceivedItems(state?.receivedItems, allBrands));
-  }, [setReceivedItems, state?.receivedItems, allBrands]);
+  }, [setReceivedItems, state?.receivedItems]);
 
   const navigate = useNavigate();
 
