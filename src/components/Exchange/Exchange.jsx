@@ -612,14 +612,14 @@ const Exchange = () => {
 
         {windowWidth < 890 && (
           <div className={styles.buttonContainer}>
-            <Button
+            {/* <Button
               onClick={() => {
                 console.log(deliveredItems);
                 console.log(receivedItems);
               }}
             >
               print
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               className={`${styles.deliveredBtn} ${styles[activeSection]}`}
