@@ -9,10 +9,32 @@ import {
   handleToggleIsDueDelivered,
   handleToggleIsDueReceived,
 } from "./receiptUtils";
-import { useEffect, useState } from "react";
 import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
+import { useContext, useEffect, useState } from "react";
+
+// Added by saalifBro
+import { UserContext } from "../Login/UserContext";
+import axios from "axios";
 
 function Receipts() {
+  
+  // Getting the user info
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    const fetchUserData = async () => {
+        const userId = localStorage.getItem("userId");  // Retrieve user ID from storage
+        if (userId && !user) { // Fetch data only if user is not already set
+            try {
+                const res = await axios.get(`https://stock-x-oyz9.onrender.com/clients/${userId}`);
+                setUser(res.data);
+            } catch (error) {
+                console.error("Failed to fetch user data", error);
+            }
+        }
+    };
+    fetchUserData();
+  }, [user, setUser]); // Fetch only if user is missing
+  
   const { selectedBrands, regulators, stoves } = useOutletContext();
   const { state } = useLocation();
   const [deliveredItems, setDeliveredItems] = useLocalStorageState(
@@ -392,15 +414,15 @@ function Receipts() {
           <div className={styles.titleSection}>
             {/* current shop details */}
             <div className={styles.currentShopDetails}>
-              <h1 className={styles.currentShopName}>{currentShopName}</h1>
-              <h2 className={styles.currentShopOwner}>{currentShopOwner}</h2>
+              <h1 className={styles.currentShopName}>{user.shop_name}</h1>
+              <h2 className={styles.currentShopOwner}>{user.username}</h2>
               {/* <p className={styles.currentShopMoto}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing.
               </p> */}
               <p className={styles.currentShopContact}>
-                Phone: {currentShopContact}
+                Phone: {user.phone_num}
               </p>
-              <p className={styles.currentShopAddress}>{currentShopAddress}</p>
+              <p className={styles.currentShopAddress}>{user.address}</p>
             </div>
             {/* target shop details */}
             <div className={styles.targetShopDetails}>
