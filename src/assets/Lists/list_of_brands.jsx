@@ -23,7 +23,28 @@ import brand22 from "../images/brands/22.webp";
 import brand23 from "../images/brands/23.webp";
 import brand24 from "../images/brands/24.webp";
 
-import cylinder1 from "../images/cylinders/1.png";
+import cylinder1 from "../images/cylinders/1.webp";
+import cylinder2 from "../images/cylinders/2.png";
+import cylinder4 from "../images/cylinders/4.webp";
+import cylinder5 from "../images/cylinders/5.webp";
+import cylinder6 from "../images/cylinders/6.webp";
+import cylinder7 from "../images/cylinders/7.webp";
+import cylinder8 from "../images/cylinders/8.webp";
+import cylinder9 from "../images/cylinders/9.webp";
+import cylinder11 from "../images/cylinders/11.webp";
+import cylinder12 from "../images/cylinders/12.webp";
+import cylinder13 from "../images/cylinders/13.webp";
+import cylinder14 from "../images/cylinders/14.webp";
+import cylinder15 from "../images/cylinders/15.webp";
+import cylinder16 from "../images/cylinders/16.webp";
+import cylinder17 from "../images/cylinders/17.webp";
+import cylinder18 from "../images/cylinders/18.webp";
+import cylinder19 from "../images/cylinders/19.webp";
+import cylinder20 from "../images/cylinders/20.webp";
+import cylinder21 from "../images/cylinders/21.webp";
+import cylinder22 from "../images/cylinders/22.webp";
+import cylinder23 from "../images/cylinders/23.webp";
+import cylinder24 from "../images/cylinders/24.webp";
 
 const allBrands = [
   {
@@ -44,8 +65,8 @@ const allBrands = [
     stock: 0,
     logo: brand2,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder2, stock: 0 },
+      { type: "22mm", image: cylinder2, stock: 0 },
     ],
   },
   {
@@ -55,8 +76,8 @@ const allBrands = [
     stock: 0,
     logo: brand3,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder2, stock: 0 },
+      { type: "22mm", image: cylinder2, stock: 0 },
     ],
   },
   {
@@ -66,8 +87,8 @@ const allBrands = [
     stock: 0,
     logo: brand4,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder4, stock: 0 },
+      { type: "22mm", image: cylinder4, stock: 0 },
     ],
   },
   {
@@ -77,8 +98,8 @@ const allBrands = [
     stock: 0,
     logo: brand5,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder5, stock: 0 },
+      { type: "22mm", image: cylinder5, stock: 0 },
     ],
   },
   {
@@ -88,8 +109,8 @@ const allBrands = [
     stock: 0,
     logo: brand6,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder6, stock: 0 },
+      { type: "22mm", image: cylinder6, stock: 0 },
     ],
   },
   {
@@ -99,8 +120,8 @@ const allBrands = [
     stock: 0,
     logo: brand7,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder7, stock: 0 },
+      { type: "22mm", image: cylinder7, stock: 0 },
     ],
   },
   {
@@ -110,8 +131,8 @@ const allBrands = [
     stock: 0,
     logo: brand8,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder8, stock: 0 },
+      { type: "22mm", image: cylinder8, stock: 0 },
     ],
   },
   {
@@ -121,8 +142,8 @@ const allBrands = [
     stock: 0,
     logo: brand9,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder9, stock: 0 },
+      { type: "22mm", image: cylinder9, stock: 0 },
     ],
   },
   {
@@ -132,8 +153,8 @@ const allBrands = [
     stock: 0,
     logo: brand10,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder2, stock: 0 },
+      { type: "22mm", image: cylinder2, stock: 0 },
     ],
   },
   {
@@ -143,8 +164,8 @@ const allBrands = [
     stock: 0,
     logo: brand11,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder11, stock: 0 },
+      { type: "22mm", image: cylinder11, stock: 0 },
     ],
   },
   {
@@ -154,8 +175,8 @@ const allBrands = [
     stock: 0,
     logo: brand12,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder12, stock: 0 },
+      { type: "22mm", image: cylinder12, stock: 0 },
     ],
   },
   {
@@ -165,8 +186,8 @@ const allBrands = [
     stock: 0,
     logo: brand13,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder13, stock: 0 },
+      { type: "22mm", image: cylinder13, stock: 0 },
     ],
   },
   {
@@ -176,8 +197,8 @@ const allBrands = [
     stock: 0,
     logo: brand14,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder14, stock: 0 },
+      { type: "22mm", image: cylinder14, stock: 0 },
     ],
   },
   {
@@ -187,8 +208,8 @@ const allBrands = [
     stock: 0,
     logo: brand15,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder15, stock: 0 },
+      { type: "22mm", image: cylinder15, stock: 0 },
     ],
   },
   {
@@ -198,8 +219,8 @@ const allBrands = [
     stock: 0,
     logo: brand16,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder16, stock: 0 },
+      { type: "22mm", image: cylinder16, stock: 0 },
     ],
   },
   {
@@ -209,8 +230,8 @@ const allBrands = [
     stock: 0,
     logo: brand17,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder17, stock: 0 },
+      { type: "22mm", image: cylinder17, stock: 0 },
     ],
   },
   {
@@ -220,8 +241,8 @@ const allBrands = [
     stock: 0,
     logo: brand18,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder18, stock: 0 },
+      { type: "22mm", image: cylinder18, stock: 0 },
     ],
   },
   {
@@ -231,8 +252,8 @@ const allBrands = [
     stock: 0,
     logo: brand19,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder19, stock: 0 },
+      { type: "22mm", image: cylinder19, stock: 0 },
     ],
   },
   {
@@ -242,8 +263,8 @@ const allBrands = [
     stock: 0,
     logo: brand20,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder20, stock: 0 },
+      { type: "22mm", image: cylinder20, stock: 0 },
     ],
   },
   {
@@ -253,8 +274,8 @@ const allBrands = [
     stock: 0,
     logo: brand21,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder21, stock: 0 },
+      { type: "22mm", image: cylinder21, stock: 0 },
     ],
   },
   {
@@ -264,8 +285,8 @@ const allBrands = [
     stock: 0,
     logo: brand22,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder22, stock: 0 },
+      { type: "22mm", image: cylinder22, stock: 0 },
     ],
   },
   {
@@ -275,8 +296,8 @@ const allBrands = [
     stock: 0,
     logo: brand23,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder23, stock: 0 },
+      { type: "22mm", image: cylinder23, stock: 0 },
     ],
   },
   {
@@ -286,8 +307,8 @@ const allBrands = [
     stock: 0,
     logo: brand24,
     cylinders: [
-      { type: "20mm", image: cylinder1, stock: 0 },
-      { type: "22mm", image: cylinder1, stock: 0 },
+      { type: "20mm", image: cylinder24, stock: 0 },
+      { type: "22mm", image: cylinder24, stock: 0 },
     ],
   },
 ];

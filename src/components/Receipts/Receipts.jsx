@@ -253,13 +253,13 @@ function Receipts() {
             min="-1"
             placeholder="Enter"
             value={paid === -1 ? "" : paid}
-            // min="0"
-            max={finalPrice}
+            // max={finalPrice}
             onChange={(e) => {
               setPaid(
-                Number(e.target.value) > finalPrice
-                  ? finalPrice
-                  : Number(e.target.value)
+                Number(e.target.value)
+                // Number(e.target.value) > finalPrice
+                //   ? finalPrice
+                //   : Number(e.target.value)
               );
             }}
             onKeyDown={(e) => {
