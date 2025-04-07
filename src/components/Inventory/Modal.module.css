@@ -1,0 +1,110 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1.5em;
+  border-radius: 0.5em;
+  width: min(300px, 90%);
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+input[type="number"] {
+  padding: 0.5em;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  width: 100%;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+input[type="number"]:not(.inputWarning):focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.noArrows::-webkit-outer-spin-button,
+.noArrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.warningContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.warningBubble {
+  background-color: hsl(0, 80%, 60%);
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.5em 0.75em;
+  border-radius: 0.5em;
+  text-align: center;
+  position: relative;
+  width: fit-content;
+  max-width: 90%;
+  box-shadow: 0 4px 8px hsla(0, 0%, 0%, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.warningBubble::before {
+  content: "";
+  position: absolute;
+  top:100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0.375em;
+  border-style: solid;
+  border-color: hsl(0, 80%, 60%) transparent transparent transparent;
+}
+
+.inputWarning {
+  outline: 1px solid hsl(0, 80%, 60%);
+}
+
+@media (width <= 680px) {
+  .modal {
+    font-size: 0.8rem;
+  }
+
+  .modal h3 {
+    font-size: 1rem;
+  }
+
+  input[type="number"] {
+    font-size: 0.9rem;
+  }
+
+  .warningBubble {
+    font-size: 0.75rem;
+  }
+}

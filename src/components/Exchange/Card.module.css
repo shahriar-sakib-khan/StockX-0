@@ -1,0 +1,147 @@
+.card {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 0;
+  margin: 0.3125em 0.625em;
+  border: 1px solid hsl(0, 0%, 85%);
+  border-radius: 0.5em;
+  box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.1);
+  width: 9.375em;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.stockCount {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: hsl(215, 20%, 40%);
+  background-color: hsl(0, 0%, 95%);
+  border-top-left-radius: 0.4375em ;
+  padding: 0.3em;
+  align-self: flex-start;
+}
+
+.image {
+  margin-top: auto;
+  max-width: 60%;
+  border-radius: 0.25em;
+  padding-inline: 0;
+}
+
+.name {
+  padding-inline-start: 1em;
+  align-self: flex-start;
+}
+
+.name, .type {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: hsl(215, 20%, 40%);
+  margin: 0;
+}
+
+.price {
+  font-size: 0.95rem;
+  color: #888;
+  align-self: flex-start;
+  padding-inline-start: 1em;
+  margin-block: 0 0.5em;
+}
+
+.type{
+  border-top-left-radius: 0.4375em;
+  border-top-right-radius: 0.4375em;
+  padding-inline: 1.2em;
+  margin-block: 0;
+}
+
+.type-20mm .type{
+  background-color: hsl(122, 70%, 85%);
+}
+.type-22mm .type{
+  background-color: hsl(215, 100%, 90%);
+}
+
+.plusBtn {
+  width: 2em;
+  height: 2em;
+  background-color: #f0f0f0;
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: 600;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: absolute;
+  top: 0.625em;
+  right: 0.95em;
+}
+
+.plusBtn:hover {
+  background-color: #ddd;
+}
+
+.plusBtn:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.plusBtn:disabled {
+  cursor: not-allowed;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+/* === Tooltip for Disabled Button === */
+.plusBtn:disabled::after {
+  content: attr(data-tool-tip);
+  font-weight: 500;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -110%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.375em 0.625em 0.5em;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  transform: scale(0);
+  transition: transform ease-out 150ms,
+              top ease-out 150ms,
+              right ease-out 150ms ;
+  z-index: 1;
+  pointer-events: none;
+}
+.plusBtn:disabled:hover::after {
+  top: 100%;
+  right: 0%;
+  transform: scale(1);
+}
+
+@media (width < 768px) {
+  .card, .stockCount { font-size: 0.8rem; }
+  .type { font-size: 0.85rem; }
+
+  .name, .price {
+    font-size: 0.8rem;
+    padding-inline-start: 0.6em;
+  }
+
+  .plusBtn {
+    top: 0.7em;
+    right: 0.4em;  
+    font-size: 0.9rem;
+  }
+
+}

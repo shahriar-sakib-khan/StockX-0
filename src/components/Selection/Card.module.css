@@ -1,0 +1,56 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  /* width: 10.625em; */
+  /* height: 5.3125em; */
+  padding: 0.625em 0.625em 0;
+  border: 1px solid hsl(0, 0%, 85%);
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px hsla(0, 0%, 0%, 0.1);
+  cursor: pointer;
+  transition: all 0.125s ease-in;
+}
+
+.card:not(.selected):hover {
+  transform: translateY(-3px);
+  box-shadow: 5px 5px 8px hsla(0, 0%, 0%, 0.2);
+}
+
+.selected {
+  transform: scale(0.95);
+  box-shadow: 4px 4px 8px hsla(0, 0%, 0%, 0.3),
+              0 0 0 2px hsl(122, 40%, 50%);
+  background-color: hsla(122, 40%, 50%, 0.2);
+}
+
+.logo {
+  width: 7.1875em;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+.name {
+  font-size: 1rem;
+  margin-top: 0.625em;
+  text-align: center;
+}
+
+
+@media (max-width: 680px) {
+  .card {
+    font-size: 0.7rem;
+  }
+
+  .logo {
+    font-size: 0.6rem;
+  }
+
+  .name {
+    font-size: 0.8rem;
+  }
+}

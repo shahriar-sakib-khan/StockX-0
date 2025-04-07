@@ -1,0 +1,145 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-padding, 50px);
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.secondaryNavbar {
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  padding-block: 1em;
+  flex-wrap: wrap;
+  gap: 1em;
+  position: sticky;
+  top: 4.38em;
+  background-color: white;
+  z-index: 1000;
+}
+
+.secondaryNavList {
+  display: flex;
+  gap: 0.5em;
+  margin: 0;
+  list-style: none;
+}
+
+.secondaryNavLink {
+  color: hsl(214, 20%, 40%);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  background-color: transparent;
+  transition: background-color color 0.1s ease;
+}
+
+.secondaryNavLink:hover{
+  background-color: hsl(0, 0%, 95%);
+}
+
+.secondaryNavLink.active {
+  color: white;
+  background-color: hsl(168, 100%, 30%);
+  /* border: 2px solid red; */
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(214, 20%, 40%);
+  margin-bottom: 0.67em;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
+  gap: 1em;
+  margin-bottom: 4em;
+}
+
+.noBrands {
+  font-size: 1.5rem;
+  color: #888;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.backToTopBtn {
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 100px;
+  padding-inline: 0.415em;
+  border: 2px solid lightgray;
+  color: gray;
+  background-color: hsl(0, 0%, 95%);
+  animation-name: appear;
+  animation-timeline: scroll(y);
+  transition: transform 0.2s ease;
+}
+
+.backToTopBtn:hover {
+  transform: translateY(-4px);
+}
+
+@keyframes appear {
+  0%{
+    opacity: 0;
+    display: none;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+  }
+  3%{
+    opacity: 0;
+    display: none;
+  }
+  3.5%{
+    opacity: 1;
+    display: block;
+  }
+  100%{
+    opacity: 1;
+    display: block;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+  }
+}
+
+@media (width <= 680px) {
+  .secondaryNavbar {
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: 1.125rem;
+  }
+
+  .secondaryNavLink {
+    font-size: 1rem;
+  }
+
+  .grid {
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .backToTopBtn {
+    font-size: 1.5em;
+  }
+}
+
+@media (width <= 400px) {
+  .wrapper {
+    width: 95%;
+  }
+}
