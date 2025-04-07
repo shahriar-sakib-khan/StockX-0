@@ -28,7 +28,7 @@ function Receipts() {
     "newReceived",
     updateReceivedItems(state?.receivedItems, allBrands)
   );
-  const [paid, setPaid] = useLocalStorageState("paid", 0);
+  const [paid, setPaid] = useLocalStorageState("paid", -1);
   let finalPrice = 0;
 
   useEffect(() => {
@@ -250,8 +250,10 @@ function Receipts() {
           Tk{` `}
           <input
             type="number"
-            value={paid === 0 ? "" : paid}
-            min="0"
+            min="-1"
+            placeholder="Enter"
+            value={paid === -1 ? "" : paid}
+            // min="0"
             max={finalPrice}
             onChange={(e) => {
               setPaid(
@@ -261,6 +263,9 @@ function Receipts() {
               );
             }}
             onKeyDown={(e) => {
+              if (["e", "E", "+", "-"].includes(e.key)) {
+                e.preventDefault();
+              }
               if (e.key === "Enter") {
                 e.target.blur();
               }
@@ -271,7 +276,7 @@ function Receipts() {
       </tr>
     );
 
-    const due = finalPrice - paid;
+    const due = finalPrice - (paid === -1 ? 0 : paid);
 
     rows.push(
       <tr className={`${styles.tableBodyRow} ${styles.calculation}`} role="row">
@@ -350,6 +355,7 @@ function Receipts() {
   };
 
   const handleNext = () => {
+    if (paid === -1) setPaid(0);
     navigate("/exchange-history", {
       state: { deliveredItems, receivedItems, finalPrice, paid },
     });
@@ -373,7 +379,14 @@ function Receipts() {
         <div className={styles.buttons}>
           <Button onClick={() => navigate(-1)}>Previous</Button>
           {/* <Button onClick={print}>Console output Lists</Button> */}
-          <Button onClick={handleNext}>Save</Button>
+          <Button
+            onClick={handleNext}
+            disabled={paid === -1}
+            data-tool-tip="Enter paid amount"
+            className={styles.saveBtn}
+          >
+            Save
+          </Button>
         </div>{" "}
         <div className={styles.receipt}>
           <div className={styles.titleSection}>
@@ -381,9 +394,9 @@ function Receipts() {
             <div className={styles.currentShopDetails}>
               <h1 className={styles.currentShopName}>{currentShopName}</h1>
               <h2 className={styles.currentShopOwner}>{currentShopOwner}</h2>
-              <p className={styles.currentShopMoto}>
+              {/* <p className={styles.currentShopMoto}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing.
-              </p>
+              </p> */}
               <p className={styles.currentShopContact}>
                 Phone: {currentShopContact}
               </p>
@@ -396,9 +409,8 @@ function Receipts() {
                 <span>Date: {getFormattedDateTime()}</span>
               </div>
               <div className={styles.targetShopMiddle}>
-                <span>
-                  Name: {targetShopName} ({targetShopOwner})
-                </span>
+                <span>Name: {targetShopName}</span>
+                <span>Owner: {targetShopOwner}</span>
               </div>
               <div className={styles.targetShopBottom}>
                 <span>Address: {targetShopAddress}</span>
