@@ -50,7 +50,7 @@ function Navbar() {
             {renderNavLink("/shop", "Shop")}
             {renderNavLink("/selection", "Selection")}
             {renderNavLink("/inventory", "Inventory")}
-            {renderNavLink("/exchange", "Exchange")}
+            {renderNavLink("/shop-selection", "Exchange")}
             {renderNavLink("/exchange-history", "History")}
           </ul>
           <ul className={styles.secondaryNavItems}>

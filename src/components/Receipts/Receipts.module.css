@@ -15,12 +15,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1em;
+  margin-top: min(2%, 1em);
+  position: relative;
+
+  .saveBtn:disabled::after {
+    content: attr(data-tool-tip);
+    font-weight: 500;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.3em 0.625em 0.5em;
+    border-radius: 0.25em;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    transform: scale(0);
+    transition: transform ease-out 150ms,
+                bottom ease-out 150ms,
+                right ease-out 150ms ;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .saveBtn:disabled:hover::after {
+    bottom: 40%;
+    right: 5%;
+    transform: scale(1);
+  }
 }
 
 .receipt {
-  --_background : var(--primary-font-clr-dark, black);
-  /* border: 2px solid steelblue; */
+  --_background : hsl(214, 30%, 30%);
+  margin-bottom: 1.5em;
 }
 
 .titleSection {
@@ -66,8 +94,10 @@
     flex-direction: column;
     gap: 0.125em;
     color: var(--primary-font-clr-dark);
+    /* font-weight: 500; */
 
     .targetShopTop,
+    .targetShopMiddle,
     .targetShopBottom {
       display: flex;
       justify-content: space-between;
@@ -77,82 +107,111 @@
 
 .receiptBody {
   display: flex;
-  /* border: 2px solid lightcoral; */
   flex-wrap: wrap;
-  gap: 0.25em;
-  /* background-color: lightblue; */
+  gap: 1em 0.25em;
 
   & > * {
     flex-grow: 1;
-    /* border: 2px solid var(--_background); */
-  }
-}
-
-.tableContainer {
-  color: var(--primary-font-clr-dark);
-  width: 100%;
-  border-collapse: collapse;
-
-  & > * {
-    border-inline: 1px solid var(--_background);
   }
 
-  .caption {
-    color: white;
-    font-size: 1.125rem;
-    padding-block: 0.125em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background-color: var(--_background);
-  }
+  .tableContainer {
+    color: var(--primary-font-clr-dark);
+    width: 100%;
+    border-collapse: collapse;
   
-  .tableHeader {
-    background-color: var(--_background);
-    border-block: 1px solid white;
-    
-    .tableHeaderItem {
+    & > * {
+      border-inline: 1px solid var(--_background);
+    }
+  
+    .caption {
       color: white;
-      font-weight: 400;
+      font-size: 1.125rem;
+      padding-block: 0.125em;
+      text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 0.125em 0.5em 0.25em;
+      background-color: var(--_background);
+    }
+    
+    .tableHeader {
+      background-color: var(--_background);
+      border-top: 1px solid white;
       
-      &:not(:first-of-type) {
-        border-left: 1px solid white;
+      .tableHeaderItem {
+        color: white;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        padding: 0.125em 0.5em 0.25em;
+        
+        &:not(:first-of-type) {
+          border-left: 1px solid white;
+        }
       }
     }
-  }
+  
+    .tableBodyRow {
+      &:last-of-type {
+        border-bottom: 1px solid var(--_background);
+      }
+      .tableBodyRowItem {
+        padding-block: 0.125em;
+        &:not(:first-of-type) { border-left: 1px solid var(--_background); }
+        &:nth-of-type(2) { padding-left: 0.25em; }
+        &:not(:nth-of-type(2)) { text-align: center; }
+      }
+      &.calculation {
+        border-top: 1px solid var(--_background);
+        text-align: center;
+      }
+      .tableBodyRowItemInput {
+        color: var(--primary-font-clr-dark);
+        width: 4em;
+        margin: 0;
+        padding: 0;
+        border: 1px solid lightcoral;
+        border-radius: 0;
+        caret-color: var(--primary-font-clr-dark);
 
-  .tableBodyRow {
-    &:last-of-type {
-      border-bottom: 1px solid var(--_background);
-    }
-    .tableBodyRowItem {
-      padding-block: 0.125em;
-      &:not(:first-of-type) { border-left: 1px solid var(--_background); }
-      &:nth-of-type(2) { padding-left: 0.25em; }
-      &:not(:nth-of-type(2)) { text-align: center; }
-    }
-    &.calculation {
-      border-top: 1px solid var(--_background);
-      text-align: center;
-    }
-    .tableBodyRowItemInput {
-      color: var(--primary-font-clr-dark);
-      width: 4em;
-      margin: 0;
-      padding: 0;
-      border-radius: 0px;
-      caret-color: var(--primary-font-clr-dark);
+        &::placeholder {
+          color: lightcoral;
+        }
 
-      &:focus {
-        border-color: var(--primary-font-clr-dark);
+        &:focus {
+          border-color: var(--accent-clr);
+          &::placeholder {
+            color: var(--accent-clr);
+          }
+        }
+
+        &:not(:placeholder-shown) {
+          border-color: lightgray;
+        }
       }
     }
   }
 }
+
+.bottomSection {
+  text-align: center;
+  background-color: hsl(214, 20%, 50%);
+  width: 40ch;
+  align-self: center;
+  
+  .disclaimerText {
+    padding: 0.125em 1em 0.25em;
+    background-color: hsl(214, 20%, 85%);
+    color: var(--primary-font-clr-dark);
+    font-weight: 600;
+    border-inline: 4px solid white;
+  }
+}
+
 
 @media (width < 470px) {
   .receiptContainer {
     font-size: 0.8rem;
+    .currentShopDetails {
+      .currentShopName { font-size: 1.6rem; }
+      .currentShopOwner { font-size: 0.9rem; }
+    }
   }
 }

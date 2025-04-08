@@ -1,0 +1,9 @@
+.communityContainer {
+  font-size: 1rem;
+  color: var(--primary-font-clr-dark);
+  text-align: center;
+}
+
+.heading {
+  margin-block: 1em;
+}

@@ -131,13 +131,15 @@
 
 @media (width < 768px) {
   .card, .stockCount { font-size: 0.8rem; }
-  .type { font-size: 0.85rem; }
+  .image {
+    max-width: 55%;
+  }
+  .type { font-size: 0.9rem; }
 
   .name, .price {
     font-size: 0.8rem;
     padding-inline-start: 0.6em;
   }
-
   .plusBtn {
     top: 0.7em;
     right: 0.4em;  
