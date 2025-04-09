@@ -19,6 +19,7 @@ const SelectShop = () => {
 
     // Store only the selected shop name in local storage
     localStorage.setItem('selectedShop', shopName);
+    localStorage.setItem('selectedShopId', shopId);
 
     // Navigate to the Exchange page after selecting a shop
     navigate("/exchange");

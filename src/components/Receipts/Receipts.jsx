@@ -17,26 +17,6 @@ import { UserContext } from "../Login/UserContext";
 import axios from "axios";
 
 function Receipts() {
-  // Getting the user info
-  const { user, setUser } = useContext(UserContext);
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userId = localStorage.getItem("userId"); // Retrieve user ID from storage
-      if (userId && !user) {
-        // Fetch data only if user is not already set
-        try {
-          const res = await axios.get(
-            `https://stock-x-oyz9.onrender.com/clients/${userId}`
-          );
-          setUser(res.data);
-        } catch (error) {
-          console.error("Failed to fetch user data", error);
-        }
-      }
-    };
-    fetchUserData();
-  }, [user, setUser]); // Fetch only if user is missing
-
   const { selectedBrands, regulators, stoves } = useOutletContext();
   const { state } = useLocation();
   const [deliveredItems, setDeliveredItems] = useLocalStorageState(
@@ -386,16 +366,48 @@ function Receipts() {
     // console.log(deliveredItems, receivedItems);
   };
 
-  const currentShopName = "EA Enterprise";
-  const currentShopOwner = "Ebtehaj Ahmed";
-  const currentShopContact = "01722818829";
-  const currentShopAddress = "Ola Street , Lala Land";
+  // Getting the user info
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem("userId"); // Retrieve user ID from storage
+      if (userId && !user) {
+        // Fetch data only if user is not already set
+        try {
+          const res = await axios.get(
+            `https://stock-x-oyz9.onrender.com/clients/${userId}`
+          );
+          setUser(res.data);
+        } catch (error) {
+          console.error("Failed to fetch user data", error);
+        }
+      }
+    };
+    fetchUserData();
+  }, [user, setUser]); // Fetch only if user is missing
 
-  const transactionID = 1;
-  const targetShopName = "EA Limited";
-  const targetShopOwner = "Ahmed Ebtehaj";
-  const targetShopContact = "01234567890";
-  const targetShopAddress = "Lala Street , Ola Land";
+  // Getting target shop info
+  const [shopId, setShopId] = useState(JSON.parse(localStorage.getItem('selectedShopId')));
+  const [shopData, setShopData] = useState(JSON.parse(localStorage.getItem('shopData')));
+  const [receiver, setReceiver] = useState({});
+  useEffect(() => {
+  if (shopData && shopId) {
+    const shop = shopData.find((shop) => shop.id === shopId);
+    if (shop) setReceiver(shop);
+  }
+}, [shopData, shopId]);
+console.log(receiver);
+
+  const currentShopName = user.shop_name;
+  const currentShopOwner = user.username;
+  const currentShopContact = user.phone_num;
+  const currentShopAddress = user.address;
+
+  const transactionID = receiver.id;
+  const targetShopName = receiver.name;
+  const targetShopOwner = receiver.ownerName;
+  const targetShopContact = receiver.contactNumber;
+  const targetShopAddress = receiver.location;
 
   return (
     <div className={styles.wrapper}>
@@ -416,15 +428,15 @@ function Receipts() {
           <div className={styles.titleSection}>
             {/* current shop details */}
             <div className={styles.currentShopDetails}>
-              <h1 className={styles.currentShopName}>{user.shop_name}</h1>
-              <h2 className={styles.currentShopOwner}>{user.username}</h2>
+              <h1 className={styles.currentShopName}>{currentShopName}</h1>
+              <h2 className={styles.currentShopOwner}>{currentShopOwner}</h2>
               {/* <p className={styles.currentShopMoto}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing.
               </p> */}
               <p className={styles.currentShopContact}>
-                Phone: {user.phone_num}
+                Phone: {currentShopContact}
               </p>
-              <p className={styles.currentShopAddress}>{user.address}</p>
+              <p className={styles.currentShopAddress}>{currentShopAddress}</p>
             </div>
             {/* target shop details */}
             <div className={styles.targetShopDetails}>
