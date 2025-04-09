@@ -1,3 +1,4 @@
+import style from './ExchangeHistory.module.css'
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -80,25 +81,27 @@ export default function ExchangeHistory() {
                 <button type="submit">Show Transactions</button>
             </form>
 
-            <hr />
-
-            <h3>Results</h3>
-            {transactions.length === 0 ? (
-                <p>No transactions found for this period.</p>
-            ) : (
-                transactions.map((transaction, index) => {
-                    const date = new Date(transaction.time);
-                    return (
-                        <div key={index}>
-                            <p>Buy: {transaction.buy}</p>
-                            <p>Sell: {transaction.sell}</p>
-                            <p>Due: {transaction.due}</p>
-                            <p>Time: {date.toLocaleString()}</p>
-                            <hr />
-                        </div>
-                    );
-                })
-            )}
+            <hr /><br /><br />
+            <div className={style.output}>
+                <h3>Transactions</h3>
+                <hr /><hr /> 
+                {transactions.length === 0 ? (
+                    <p>No transactions found for this period.</p>
+                ) : (
+                    transactions.map((transaction, index) => {
+                        const date = new Date(transaction.time);
+                        return (
+                            <div key={index}>
+                                <p>Buy: {transaction.buy}</p>
+                                <p>Sell: {transaction.sell}</p>
+                                <p>Due: {transaction.due}</p>
+                                <p>Time: {date.toLocaleString()}</p>
+                                <hr />
+                            </div>
+                        );
+                    })
+                )}
+            </div>
         </div>
     );
 }
