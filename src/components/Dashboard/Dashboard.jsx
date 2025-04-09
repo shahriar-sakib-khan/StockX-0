@@ -1,15 +1,17 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import images from "./Images";
+import { getCylinderCount } from "./dashboardUtils";
 import styles from "./Dashboard.module.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const { selectedBrands } = useOutletContext();
 
   let sale = 0;
   let expense = 0;
   let due = 0;
-  let stock = 0;
+  let stock = getCylinderCount(selectedBrands);
 
   return (
     <div className={styles.wrapper}>
