@@ -91,13 +91,15 @@ export default function ExchangeHistory() {
                     transactions.map((transaction, index) => {
                         const date = new Date(transaction.time);
                         return (
-                            <div key={index}>
-                                <p>Buy: {transaction.buy}</p>
-                                <p>Sell: {transaction.sell}</p>
-                                <p>Due: {transaction.due}</p>
+                        <>
+                            <div key={index} className={style.transactions}>
+                                <p>Buy: {transaction.buy} Tk</p>
+                                <p>Sell: {transaction.sell} Tk</p>
+                                <p>Due: {transaction.due} Tk</p>
                                 <p>Time: {date.toLocaleString()}</p>
-                                <hr />
                             </div>
+                            <hr />
+                        </>
                         );
                     })
                 )}
