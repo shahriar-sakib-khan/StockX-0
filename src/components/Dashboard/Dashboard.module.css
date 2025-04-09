@@ -117,6 +117,19 @@
     }
 }
 
+.statisticsSection {
+    color: var(--primary-font-clr-dark);
+    text-align: center;
+    
+    .statisticsTitle { font-size: 2rem;}
+    .disclaimer { font-size: 1.5rem;}
+    img {
+        width: 25em;
+        height: 20em;
+        padding: 1em;
+    }
+}
+
 
 @media (width < 680px) {
     .wrapper { width: 96%; }

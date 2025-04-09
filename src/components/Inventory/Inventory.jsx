@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import regulator_image from "../../assets/images/Regulator.jpg";
 import stove_image from "../../assets/images/Stove.jpeg";
+import { useUpdateStock } from "../../routing/hooks/useUpdateStock";
 import Button from "../Button/Button";
 import Card from "./Card";
 import styles from "./Inventory.module.css";
 import Modal from "./Modal";
-import { useUpdateStock } from "../../routing/hooks/useUpdateStock";
 
 function Inventory() {
   const {

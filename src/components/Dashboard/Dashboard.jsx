@@ -46,7 +46,7 @@ export default function Dashboard() {
         </section>
 
         <section className={styles.middleSection}>
-          <NavLink to={"/inventory"}>
+          <NavLink to={"/buy"}>
             <img src={images.img_buy} alt="" />
             <span>Buy</span>
           </NavLink>
@@ -62,64 +62,70 @@ export default function Dashboard() {
 
         <section className={styles.navigationSection}>
           <NavLink to={"/selection"} className={styles.navItem}>
-            <img src={images.img_selection} />
+            <img src={images.img_selection} alt="" />
             <span>Selection</span>
           </NavLink>
 
           <NavLink to={"/inventory"} className={styles.navItem}>
-            <img src={images.img_inventory} />
+            <img src={images.img_inventory} alt="" />
             <span>Inventory</span>
           </NavLink>
 
           <NavLink to={"/shop-selection"} className={styles.navItem}>
-            <img src={images.img_exchange} />
+            <img src={images.img_exchange} alt="" />
             <span>Cylinder Exchange</span>
           </NavLink>
 
           <NavLink to={"/shop"} className={styles.navItem}>
-            <img src={images.img_shop} />
+            <img src={images.img_shop} alt="" />
             <span>Shop</span>
           </NavLink>
 
           <NavLink to={"/vehicles"} className={styles.navItem}>
-            <img src={images.img_vehicles} />
+            <img src={images.img_vehicles} alt="" />
             <span>Vehicles</span>
           </NavLink>
 
           <NavLink to={"/vehicle-cost"} className={styles.navItem}>
-            <img src={images.img_vehicleCost} />
+            <img src={images.img_vehicleCost} alt="" />
             <span>Vehicle Cost</span>
           </NavLink>
 
           <NavLink to={"/exchange-history"} className={styles.navItem}>
-            <img src={images.img_history} />
+            <img src={images.img_history} alt="" />
             <span>History</span>
           </NavLink>
 
           <NavLink to={"/buy-history"} className={styles.navItem}>
-            <img src={images.img_buyHistory} />
+            <img src={images.img_buyHistory} alt="" />
             <span>Buy History</span>
           </NavLink>
 
           <NavLink to={"/daily-sales"} className={styles.navItem}>
-            <img src={images.img_dailySales} />
+            <img src={images.img_dailySales} alt="" />
             <span>Daily Sales</span>
           </NavLink>
 
           <NavLink to={"/profile"} className={styles.navItem}>
-            <img src={images.img_profile} />
+            <img src={images.img_profile} alt="" />
             <span>Profile</span>
           </NavLink>
 
           <NavLink to={"/lpg-community"} className={styles.navItem}>
-            <img src={images.img_community} />
+            <img src={images.img_community} alt="" />
             <span>Community</span>
           </NavLink>
 
           <NavLink to={"/"} className={styles.navItem}>
-            <img src={images.img_logout} />
+            <img src={images.img_logout} alt="" />
             <span>Log out</span>
           </NavLink>
+        </section>
+
+        <section className={styles.statisticsSection}>
+          <h1 className={styles.statisticsTitle}>Statistics</h1>
+          <img src={images.img_graph} alt="" />
+          <p className={styles.disclaimer}>(Coming soon...)</p>
         </section>
       </main>
     </div>
