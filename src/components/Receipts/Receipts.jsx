@@ -358,8 +358,21 @@ function Receipts() {
     return rows;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (paid === -1) setPaid(0);
+    
+      try {
+        await axios.post("https://stock-x-oyz9.onrender.com/add-transaction", {
+          buy: 0,
+          sell: paid,
+          due: finalPrice-paid,
+        });
+        alert("Transaction submitted successfully!");
+        // setTransaction({ buy: 0, sell: 0, due: 0 }); // Reset transaction after submission
+      } catch (error) {
+          console.error("Error submitting transaction:", error);
+          alert("Submission failed!");
+      }
     navigate("/exchange-history", {
       state: { deliveredItems, receivedItems, finalPrice, paid },
     });
