@@ -8,6 +8,8 @@ import {
   Dashboard,
   Statistics,
   Shop,
+  DailySales,
+  DueHistory,
   Selection,
   LpgCommunity,
   Initialization,
@@ -16,7 +18,10 @@ import {
   ShopSelection,
   Exchange,
   Receipts,
+  BuyHistory,
   ExchangeHistory,
+  Vehicles,
+  VehicleCost,
 } from "../components";
 import Layout from "./Layout";
 // import ErrorPage from "./ErrorPage";
@@ -37,6 +42,8 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <Dashboard /> },
       { path: "statistics", element: <Statistics /> },
       { path: "shop", element: <Shop /> },
+      { path: "daily-sales", element: <DailySales /> },
+      { path: "due-history", element: <DueHistory /> },
       { path: "selection", element: <Selection /> },
       { path: "inventory", element: <Inventory /> },
       { path: "lpg-community", element: <LpgCommunity /> },
@@ -44,7 +51,10 @@ const router = createBrowserRouter([
       { path: "shop-selection", element: <ShopSelection /> },
       { path: "exchange", element: <Exchange /> },
       { path: "receipts", element: <Receipts /> },
+      { path: "buy-history", element: <BuyHistory /> },
       { path: "exchange-history", element: <ExchangeHistory /> },
+      { path: "vehicles", element: <Vehicles /> },
+      { path: "vehicle-cost", element: <VehicleCost /> },
     ],
   },
   // {

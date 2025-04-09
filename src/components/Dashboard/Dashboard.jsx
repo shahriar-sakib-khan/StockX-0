@@ -46,15 +46,15 @@ export default function Dashboard() {
         </section>
 
         <section className={styles.middleSection}>
-          <NavLink to={"/statistics"}>
+          <NavLink to={"/inventory"}>
             <img src={images.img_buy} alt="" />
             <span>Buy</span>
           </NavLink>
-          <NavLink to={"/statistics"}>
+          <NavLink to={"/shop-selection"}>
             <img src={images.img_sell} alt="" />
             <span>Sell</span>
           </NavLink>
-          <NavLink to={"/statistics"}>
+          <NavLink to={"/due-history"}>
             <img src={images.img_due} alt="" />
             <span>Due</span>
           </NavLink>
@@ -73,7 +73,7 @@ export default function Dashboard() {
 
           <NavLink to={"/shop-selection"} className={styles.navItem}>
             <img src={images.img_exchange} />
-            <span>Exchange</span>
+            <span>Cylinder Exchange</span>
           </NavLink>
 
           <NavLink to={"/shop"} className={styles.navItem}>
@@ -81,9 +81,29 @@ export default function Dashboard() {
             <span>Shop</span>
           </NavLink>
 
+          <NavLink to={"/vehicles"} className={styles.navItem}>
+            {/* <img src={images.img_shop} /> */}
+            <span>Vehicles</span>
+          </NavLink>
+
+          <NavLink to={"/vehicle-cost"} className={styles.navItem}>
+            {/* <img src={images.img_shop} /> */}
+            <span>Vehicle Cost</span>
+          </NavLink>
+
           <NavLink to={"/exchange-history"} className={styles.navItem}>
             <img src={images.img_history} />
             <span>History</span>
+          </NavLink>
+
+          <NavLink to={"/buy-history"} className={styles.navItem}>
+            {/* <img src={images.img_history} /> */}
+            <span>Buy History</span>
+          </NavLink>
+
+          <NavLink to={"/daily-sales"} className={styles.navItem}>
+            {/* <img src={images.img_history} /> */}
+            <span>Daily Sales</span>
           </NavLink>
 
           <NavLink to={"/profile"} className={styles.navItem}>
