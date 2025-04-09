@@ -92,7 +92,7 @@
     font-size: 1.125rem;
     border-radius: 0.25em;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: 0.5em;
     gap: 1em;
     overflow: hidden;

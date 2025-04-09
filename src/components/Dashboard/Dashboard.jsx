@@ -82,12 +82,12 @@ export default function Dashboard() {
           </NavLink>
 
           <NavLink to={"/vehicles"} className={styles.navItem}>
-            {/* <img src={images.img_shop} /> */}
+            <img src={images.img_vehicles} />
             <span>Vehicles</span>
           </NavLink>
 
           <NavLink to={"/vehicle-cost"} className={styles.navItem}>
-            {/* <img src={images.img_shop} /> */}
+            <img src={images.img_vehicleCost} />
             <span>Vehicle Cost</span>
           </NavLink>
 
@@ -97,12 +97,12 @@ export default function Dashboard() {
           </NavLink>
 
           <NavLink to={"/buy-history"} className={styles.navItem}>
-            {/* <img src={images.img_history} /> */}
+            <img src={images.img_buyHistory} />
             <span>Buy History</span>
           </NavLink>
 
           <NavLink to={"/daily-sales"} className={styles.navItem}>
-            {/* <img src={images.img_history} /> */}
+            <img src={images.img_dailySales} />
             <span>Daily Sales</span>
           </NavLink>
 
