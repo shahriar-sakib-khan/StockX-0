@@ -14,7 +14,9 @@ function Card({
   updateStock,
 }) {
   const location = useLocation();
-  const noAction = location.pathname === "/inventory";
+  const noAction =
+    location.pathname === "/inventory" ||
+    location.pathname === "/empty-cylinders";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
