@@ -1,0 +1,216 @@
+/* Main container styling */
+.vehicleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .vehiclesGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 cards per row */
+    gap: 10px; /* Reduced gap between cards */
+    width: 100%;
+    max-width: 1300px; /* Slightly increased max-width */
+    margin-bottom: 20px;
+  }
+  
+  .vehicleCard {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: none; /* Let it fully occupy the grid cell */
+  }
+  
+  
+  .vehicleCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vehicleImage {
+    width: 100%;
+    height: 150px; /* Reduced height of image */
+    object-fit: cover;
+  }
+  
+  .details {
+    padding: 12px; /* Reduced padding for smaller cards */
+    background-color: #f9f9f9;
+  }
+  
+  .details p {
+    margin: 6px 0;
+    font-size: 14px; /* Slightly smaller font size */
+    color: #333;
+  }
+  
+  .cardButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px; /* Reduced padding */
+    background-color: #f0f0f0;
+  }
+  
+  .customizeButton,
+  .detailsButton {
+    padding: 8px 16px; /* Reduced padding for buttons */
+    font-size: 12px; /* Slightly smaller font size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .customizeButton:hover,
+  .detailsButton:hover {
+    background-color: #45a049;
+  }
+  .detailsButton {
+    background-color: #909090; /* A nice indigo/violet tone */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .detailsButton:hover {
+    background-color: #505050;
+  }
+  
+  
+  /* Popup Styles */
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+  }
+  
+  .popupContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .popup h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+  
+  .inputField:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  .popupButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .submitButton{
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  .closeButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #989898;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover
+  {
+    background-color: #45a049;
+  }
+  .closeButton:hover {
+    background-color: #6a6a6a;
+  }
+  
+  .resetButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resetButton:hover {
+    background-color: #e53935;
+  }
+  
+  /* History Table */
+  .historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .historyTable th,
+  .historyTable td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .historyTable th {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .historyTable tfoot td {
+    font-weight: bold;
+    background-color: #f9f9f9;
+  }
+  
+  .historyTable tr:hover {
+    background-color: #f1f1f1;
+  }
+  

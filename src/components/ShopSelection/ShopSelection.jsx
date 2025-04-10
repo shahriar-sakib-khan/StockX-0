@@ -25,52 +25,44 @@ const SelectShop = () => {
     navigate("/exchange");
   };
 
+  const handleAddShopClick = () => {
+    // Navigate to the Shop component to add a new shop
+    navigate("/shop");
+  };
+
   return (
     <div className={styles.shopContainer}>
-      {/* Render shop cards */}
-      <div className={styles.shopsGrid}>
-        {shopData.map((shop) => (
-          <div
-            className={`${styles.shopCard} ${selectedShopId === shop.id ? styles.selected : ''}`} // Corrected className
-            key={shop.id}
-            onClick={() => handleSelectShop(shop.id, shop.name)} // Pass the shop name only
+      {/* If there are no shops, display the "Add Shop" button */}
+      {shopData.length === 0 ? (
+        <div className={styles.noShops}>
+          <p>No shops available. Please add a shop.</p>
+          <button
+            className={styles.addShopButton}
+            onClick={handleAddShopClick}
           >
-            <img src={shop.image} alt="Shop" className={styles.shopImage} />
-            <div className={styles.form}>
-              {/* Read-only input fields */}
-              <div className={styles.Input}>
-                <label>Shop Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={shop.name}
-                  readOnly
-                />
-              </div>
-
-              <div className={styles.Input}>
-                <label>Owner Name</label>
-                <input
-                  type="text"
-                  name="ownerName"
-                  value={shop.ownerName}
-                  readOnly
-                />
-              </div>
-
-              <div className={styles.Input}>
-                <label>Location</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={shop.location}
-                  readOnly
-                />
+            Add Shop
+          </button>
+        </div>
+      ) : (
+        // Render shop cards if shops are available
+        <div className={styles.shopsGrid}>
+          {shopData.map((shop) => (
+            <div
+              className={`${styles.shopCard} ${selectedShopId === shop.id ? styles.selected : ''}`}
+              key={shop.id}
+              onClick={() => handleSelectShop(shop.id, shop.name)} // Pass the shop name only
+            >
+              <img src={shop.image} alt="Shop" className={styles.shopImage} />
+              <div className={styles.simpleInfo}>
+                {/* Display shop details without labels or input fields */}
+                <p>{shop.name}</p>
+                <p>{shop.ownerName}</p>
+                <p>{shop.location}</p>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

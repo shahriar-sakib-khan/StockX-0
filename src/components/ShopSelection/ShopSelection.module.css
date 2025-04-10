@@ -1,103 +1,60 @@
 .shopContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 20px;
-  background-color: #f3f4f6;
-  min-height: 100vh;
-  position: relative;
-  width: 100%;
 }
 
-/* Submit Button at the Top-Right */
-.submitButton {
-  align-self: flex-end; /* Moves button to the right */
-  margin-bottom: 10px;
-  padding: 12px 24px;
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.submitButton:hover {
-  background-color: #1d4ed8;
-  transform: scale(1.05);
-}
-
-/* Grid with 5 Cards per Row */
 .shopsGrid {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(5, 1fr); /* Ensures 5 cards per row */
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 20px; /* Creates space below the submit button */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
 }
 
 .shopCard {
-  background-color: white;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
   cursor: pointer;
-  border: 2px solid transparent;
-  width: 220px; /* Fixed card size */
+  transition: transform 0.2s ease;
 }
 
 .shopCard:hover {
-  
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.selected {
-  border-color: #2563eb;
+  transform: scale(1.05);
 }
 
 .shopImage {
   width: 100%;
-  height: 120px;
+  height: 150px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 12px;
 }
 
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
+.simpleInfo {
+  margin-top: 10px;
 }
 
-.Input {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+.simpleInfo p {
+  margin: 5px 0;
 }
 
-.Input input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 13px;
-  background-color: #f9fafb;
-  transition: border-color 0.3s ease;
+.selected {
+  border: 2px solid #007bff;
+}
+
+.noShops {
   text-align: center;
+  margin-top: 50px;
 }
 
-.Input input:focus {
-  border-color: #2563eb;
-  outline: none;
+.addShopButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
-.Input label {
-  font-size: 11px;
-  color: #6b7280;
-  margin-top: 4px;
-} 
+.addShopButton:hover {
+  background-color: #0056b3;
+}
