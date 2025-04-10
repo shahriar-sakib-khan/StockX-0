@@ -8,16 +8,18 @@ import {
   updateReceivedItems,
   handleToggleIsDueDelivered,
   handleToggleIsDueReceived,
+  updateEmptyCylinders,
 } from "./receiptUtils";
 import useLocalStorageState from "../../routing/hooks/useLocalStorageState";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Added by saalifBro
 import { UserContext } from "../Login/UserContext";
 import axios from "axios";
 
 function Receipts() {
-  const { selectedBrands, regulators, stoves } = useOutletContext();
+  const { selectedBrands, regulators, stoves, setEmptyCylinders } =
+    useOutletContext();
   const { state } = useLocation();
   const [deliveredItems, setDeliveredItems] = useLocalStorageState(
     "newDelivered",
@@ -360,19 +362,21 @@ function Receipts() {
 
   const handleNext = async () => {
     if (paid === -1) setPaid(0);
-    
-      try {
-        await axios.post("https://stock-x-oyz9.onrender.com/add-transaction", {
-          buy: 0,
-          sell: paid,
-          due: finalPrice-paid,
-        });
-        alert("Transaction submitted successfully!");
-        // setTransaction({ buy: 0, sell: 0, due: 0 }); // Reset transaction after submission
-      } catch (error) {
-          console.error("Error submitting transaction:", error);
-          alert("Submission failed!");
-      }
+
+    try {
+      await axios.post("https://stock-x-oyz9.onrender.com/add-transaction", {
+        buy: 0,
+        sell: paid,
+        due: finalPrice - paid,
+      });
+      alert("Transaction submitted successfully!");
+      // setTransaction({ buy: 0, sell: 0, due: 0 }); // Reset transaction after submission
+    } catch (error) {
+      console.error("Error submitting transaction:", error);
+      alert("Submission failed!");
+    }
+
+    updateEmptyCylinders(receivedItems, setEmptyCylinders);
     navigate("/exchange-history", {
       state: { deliveredItems, receivedItems, finalPrice, paid },
     });
@@ -400,16 +404,20 @@ function Receipts() {
   }, [user, setUser]); // Fetch only if user is missing
 
   // Getting target shop info
-  const [shopId, setShopId] = useState(JSON.parse(localStorage.getItem('selectedShopId')));
-  const [shopData, setShopData] = useState(JSON.parse(localStorage.getItem('shopData')));
+  const [shopId, setShopId] = useState(
+    JSON.parse(localStorage.getItem("selectedShopId"))
+  );
+  const [shopData, setShopData] = useState(
+    JSON.parse(localStorage.getItem("shopData"))
+  );
   const [receiver, setReceiver] = useState({});
   useEffect(() => {
-  if (shopData && shopId) {
-    const shop = shopData.find((shop) => shop.id === shopId);
-    if (shop) setReceiver(shop);
-  }
-}, [shopData, shopId]);
-console.log(receiver);
+    if (shopData && shopId) {
+      const shop = shopData.find((shop) => shop.id === shopId);
+      if (shop) setReceiver(shop);
+    }
+  }, [shopData, shopId]);
+  console.log(receiver);
 
   const currentShopName = user.shop_name;
   const currentShopOwner = user.username;

@@ -1,26 +1,32 @@
 import { useOutletContext } from "react-router-dom";
-import allBrands from "../../assets/Lists/list_of_brands";
+import Button from "../Button/Button";
+import Card from "../Inventory/Card";
+import styles from "./EmptyCylinders.module.css";
 
 function EmptyCylinders() {
-  const { EmptyCylinders } = useOutletContext();
+  const { selectedBrands, emptyCylinders, setEmptyCylinders } =
+    useOutletContext();
 
-  const dummyEmptyList = {
-    1: {
-      "20mm": 5,
-      "22mm": 2,
-    },
-    2: {
-      "22mm": 10,
-    },
-    5: {
-      "20mm": 7,
-    },
-  };
+  // console.log("empty cylinders: ");
+  // console.log(emptyCylinders);
+
+  // const dummyEmptyList = {
+  //   1: {
+  //     "20mm": 5,
+  //     "22mm": 2,
+  //   },
+  //   2: {
+  //     "22mm": 10,
+  //   },
+  //   5: {
+  //     "20mm": 7,
+  //   },
+  // };
 
   const isEmpty =
-    !dummyEmptyList ||
-    Object.keys(dummyEmptyList).length === 0 ||
-    Object.values(dummyEmptyList).every(
+    !emptyCylinders ||
+    Object.keys(emptyCylinders).length === 0 ||
+    Object.values(emptyCylinders).every(
       (item) =>
         !item ||
         Object.keys(item).length === 0 ||
@@ -28,29 +34,45 @@ function EmptyCylinders() {
     );
 
   return (
-    <>
-      <p>Retrieved Empty Cylinders</p>
+    <main className={styles.wrapper}>
+      <div className={styles.titleSection}>
+        <h1 className={styles.title}>Empty Cylinders List</h1>
+        <Button onClick={() => setEmptyCylinders([])}>Reset</Button>
+      </div>
       {isEmpty ? (
-        <p>No items received.</p>
+        <p className={styles.noItems}>No items to see here</p>
       ) : (
-        <ul>
-          {Object.entries(dummyEmptyList).map(([brandId, items]) => {
-            return Object.entries(items).map(([itemType, count]) => {
-              const brand = allBrands.find(
+        <section className={styles.grid}>
+          {Object.entries(emptyCylinders || []).map(([brandId, items]) => {
+            return Object.entries(items || []).map(([itemType, count]) => {
+              const brand = selectedBrands.find(
                 (f) => Number(f.id) === Number(brandId)
               );
+              const Price = brand.cylinders.find(
+                (c) => c.type === itemType
+              ).price;
+
+              const Image = brand.cylinders.find(
+                (c) => c.type === itemType
+              ).image;
               // console.log(brand);
-              const Name = brand.name || "Unknown";
               return (
-                <li key={`${brandId}-${itemType}`}>
-                  Brand: {Name} [{itemType}], Count: {count}
-                </li>
+                <Card
+                  key={`${brandId}-${itemType}`}
+                  id={Number(brandId)}
+                  name={brand.name || "Unknown"}
+                  type={itemType}
+                  cardType={"cylinder"}
+                  picture={Image}
+                  price={Price}
+                  stock={count}
+                />
               );
             });
           })}
-        </ul>
+        </section>
       )}
-    </>
+    </main>
   );
 }
 

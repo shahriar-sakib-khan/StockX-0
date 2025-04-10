@@ -13,6 +13,7 @@ import dailySales from "./images/daily-sales.webp";
 import buyHistory from "./images/buy-history.webp";
 import vehicles from "./images/vehicles.webp";
 import vehicleCost from "./images/vehicle-cost.webp";
+import graph from "./images/graph.webp";
 
 const images = {
   img_buy: buy,
@@ -30,6 +31,7 @@ const images = {
   img_buyHistory: buyHistory,
   img_vehicles: vehicles,
   img_vehicleCost: vehicleCost,
+  img_graph: graph,
 };
 
 export default images;

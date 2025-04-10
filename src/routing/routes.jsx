@@ -45,6 +45,7 @@ const router = createBrowserRouter([
       { path: "daily-sales", element: <DailySales /> },
       { path: "due-history", element: <DueHistory /> },
       { path: "selection", element: <Selection /> },
+      { path: "buy", element: <Inventory /> },
       { path: "inventory", element: <Inventory /> },
       { path: "lpg-community", element: <LpgCommunity /> },
       { path: "empty-cylinders", element: <EmptyCylinders /> },

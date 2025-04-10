@@ -88,6 +88,39 @@ export const updateReceivedItems = (receivedItems = [], allBrands = []) => {
 
 //.................................................................................................
 
+export const updateEmptyCylinders = (receivedItems, setEmptyCylinders) => {
+  if (Object.keys(receivedItems).length === 0) return;
+  
+  setEmptyCylinders(prev => {
+    const updated = JSON.parse(JSON.stringify(prev));
+    
+    for (const brandId in receivedItems) {
+      const brandData = receivedItems[brandId];
+  
+      for (const cylinderType in brandData) {
+        if (cylinderType === "brandName") continue;
+  
+        const quantityToAdd = brandData[cylinderType].quantity;
+  
+        if (!updated[brandId]) {
+          updated[brandId] = {};
+        }
+  
+        if (!updated[brandId][cylinderType]) {
+          updated[brandId][cylinderType] = 0;
+        }
+  
+        updated[brandId][cylinderType] += quantityToAdd;
+      }
+    }
+
+    return updated;
+  })
+  
+};
+
+//.................................................................................................
+
 export const handleToggleIsDueDelivered = (productType, id, cylinderType, setDeliveredItems) => {
   setDeliveredItems((prev) => {
     const updated = JSON.parse(JSON.stringify(prev)); // Deep copy to avoid mutation

@@ -1,6 +1,6 @@
 import style from './ExchangeHistory.module.css'
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ExchangeHistory() {
     const [transactions, setTransactions] = useState([]);
@@ -9,36 +9,44 @@ export default function ExchangeHistory() {
     const [endYear, setEndYear] = useState("");
     const [endMonth, setEndMonth] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        // Convert input to actual date objects
-        const startDate = new Date(`${startYear}-${startMonth}-01`);
-        const endDate = new Date(`${endYear}-${endMonth}-01`);
+    //     // Convert input to actual date objects
+    //     const startDate = new Date(`${startYear}-${startMonth}-01`);
+    //     const endDate = new Date(`${endYear}-${endMonth}-01`);
 
-        // Adjust endDate to be the **last day of the month**
-        endDate.setMonth(endDate.getMonth() + 1);
-        endDate.setDate(0); // last day of previous month
+    //     // Adjust endDate to be the **last day of the month**
+    //     endDate.setMonth(endDate.getMonth() + 1);
+    //     endDate.setDate(0); // last day of previous month
 
-        try {
+    //     try {
+    //         const res = await axios.get("https://stock-x-oyz9.onrender.com/transactions");
+    //         const allData = res.data;
+
+    //         // Filter by date range
+    //         const filtered = allData.filter((item) => {
+    //             const itemDate = new Date(item.time);
+    //             return itemDate >= startDate && itemDate <= endDate;
+    //         });
+
+    //         setTransactions(filtered);
+    //     } catch (error) {
+    //         console.error("Error fetching transactions:", error);
+    //     }
+    // };
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
             const res = await axios.get("https://stock-x-oyz9.onrender.com/transactions");
-            const allData = res.data;
-
-            // Filter by date range
-            const filtered = allData.filter((item) => {
-                const itemDate = new Date(item.time);
-                return itemDate >= startDate && itemDate <= endDate;
-            });
-
-            setTransactions(filtered);
-        } catch (error) {
-            console.error("Error fetching transactions:", error);
-        }
-    };
+            setTransactions(res.data);
+        };
+        fetchTransactions();
+    }, []);
 
     return (
         <div>
-            <h2>Filter Transactions by Month and Year</h2>
+            {/* <h2>Filter Transactions by Month and Year</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <h4>Start Date:</h4>
@@ -79,11 +87,11 @@ export default function ExchangeHistory() {
                     />
                 </div>
                 <button type="submit">Show Transactions</button>
-            </form>
+            </form> */}
 
             <hr /><br /><br />
             <div className={style.output}>
-                <h3>Transactions</h3>
+                <h3>All Transactions</h3>
                 <hr /><hr /> 
                 {transactions.length === 0 ? (
                     <p>No transactions found for this period.</p>
