@@ -1,0 +1,228 @@
+/* Vehicles.module.css */
+.vehicleContainer {
+    padding: 2rem;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fb;
+    min-height: 100vh;
+}
+
+.vehiclesGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.vehicleCard {
+    background-color: white;
+    border-radius: 16px;
+    padding: 1rem;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.vehicleCard:hover {
+    transform: translateY(-5px);
+}
+
+.vehicleImage {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.removeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.removeButton:hover {
+    background-color: #e63946;
+}
+
+.editButton {
+    margin-top: 1rem;
+    width: 100%;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.editButton:hover {
+    background-color: #1e88e5;
+}
+
+.vehicleCard div {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.vehicleCard input {
+    display: none;
+}
+
+/* Add card styles */
+.addVehicleCard {
+    background-color: #ffffff;
+    border: 2px dashed #90a4ae;
+    border-radius: 16px;
+    width: 250px;
+    height: 270px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #607d8b;
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+
+.addVehicleCard:hover {
+    border-color: #607d8b;
+}
+
+.addVehicleImage {
+    width: 60px;
+    margin-bottom: 1rem;
+}
+
+.addVehicleText {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Popup */
+.popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.inputFields {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.Input {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.Input input {
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+}
+
+.Input input:focus {
+    border-color: #1976d2;
+}
+
+.Input label {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.3rem;
+}
+
+.uploadImageInput label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.imagePreview {
+    margin-top: 0.1rem;
+    width: 100%;
+    max-height: 50px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.popupButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .5rem;
+}
+
+.cancelButton,
+.addButton {
+    flex: 1;
+    margin: 0 0.25rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.cancelButton {
+    background-color: #eeeeee;
+    color: #333;
+}
+
+.cancelButton:hover {
+    background-color: #dddddd;
+}
+
+.addButton {
+    background-color: #4caf50;
+    color: white;
+}
+
+.addButton:hover {
+    background-color: #43a047;
+}
+
+.moveRight {
+    animation: moveRightAnim 0.5s ease forwards;
+}
+
+@keyframes moveRightAnim {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(10px);
+    }
+}
