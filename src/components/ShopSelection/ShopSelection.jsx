@@ -36,37 +36,11 @@ const SelectShop = () => {
             onClick={() => handleSelectShop(shop.id, shop.name)} // Pass the shop name only
           >
             <img src={shop.image} alt="Shop" className={styles.shopImage} />
-            <div className={styles.form}>
-              {/* Read-only input fields */}
-              <div className={styles.Input}>
-                <label>Shop Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={shop.name}
-                  readOnly
-                />
-              </div>
-
-              <div className={styles.Input}>
-                <label>Owner Name</label>
-                <input
-                  type="text"
-                  name="ownerName"
-                  value={shop.ownerName}
-                  readOnly
-                />
-              </div>
-
-              <div className={styles.Input}>
-                <label>Location</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={shop.location}
-                  readOnly
-                />
-              </div>
+            <div className={styles.simpleInfo}>
+              {/* Display shop details without labels or input fields */}
+              <p>{shop.name}</p>
+              <p>{shop.ownerName}</p>
+              <p>{shop.location}</p>
             </div>
           </div>
         ))}

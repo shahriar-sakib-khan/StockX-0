@@ -8,8 +8,8 @@
 
 .shopsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
   grid-auto-rows: 1fr;
 }
 
@@ -19,10 +19,10 @@
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 300px;
+  width: 270px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
   position: relative;
 }
@@ -33,8 +33,8 @@
 }
 
 .shopImage {
-  width: 95%;
-  height: 150px;
+  width: 90%;
+  height: 120px;
   object-fit: cover;
   border-radius: 12px;
   border: 1px solid #ccc;
@@ -149,7 +149,7 @@
   width: 80px;
   height: 80px;
   object-fit: contain;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
@@ -170,7 +170,7 @@
 }
 
 .addShopCard {
-  margin-top: 85px;
+  margin-top: 30px;
 }
 
 .moveRight {
@@ -351,6 +351,9 @@
 }
 
 .editButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
   background-color: #477fda;
   color: white;
   border: none;
@@ -359,7 +362,6 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s ease;
-  width: auto;
   text-align: center;
 }
 
@@ -379,6 +381,7 @@
   cursor: not-allowed;
   transform: none;
 }
+
 .inputFields {
   width: 100%;
   display: flex;

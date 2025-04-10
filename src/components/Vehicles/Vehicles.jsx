@@ -14,7 +14,6 @@ const Vehicles = () => {
   const [newVehicle, setNewVehicle] = useState({
     name: "",
     registrationNumber: "",
-    ownerName: "",
     contactNumber: "",
     image: "",
   });
@@ -49,7 +48,6 @@ const Vehicles = () => {
     setNewVehicle({
       name: "",
       registrationNumber: "",
-      ownerName: "",
       contactNumber: "",
       image: "",
     });
@@ -103,7 +101,6 @@ const Vehicles = () => {
     setNewVehicle({
       name: "",
       registrationNumber: "",
-      ownerName: "",
       contactNumber: "",
       image: "",
     });
@@ -194,9 +191,7 @@ const Vehicles = () => {
               <p>
                 <strong>Registration No:</strong> {vehicle.registrationNumber}
               </p>
-              <p>
-                <strong>Owner:</strong> {vehicle.ownerName}
-              </p>
+             
               <p>
                 <strong>Contact:</strong> {vehicle.contactNumber}
               </p>
