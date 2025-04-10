@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import regulator_image from "../../assets/images/Regulator.jpg";
 import stove_image from "../../assets/images/Stove.jpeg";
 import { useUpdateStock } from "../../routing/hooks/useUpdateStock";
@@ -17,6 +17,9 @@ function Inventory() {
     stoves,
     setStoves,
   } = useOutletContext();
+
+  const location = useLocation();
+  const isBuyPage = location.pathname === "/buy";
 
   const [productData, setProductData] = useState({
     name: "",
@@ -98,13 +101,15 @@ function Inventory() {
               </a>
             </li>
           </ul>
-          <ul className={styles.secondaryNavList}>
-            <li className={styles.secondaryNavItems}>
-              <a href="/empty-cylinders" className={styles.secondaryNavLink}>
-                Empty Cylinders
-              </a>
-            </li>
-          </ul>
+          {!isBuyPage && (
+            <ul className={styles.secondaryNavList}>
+              <li className={styles.secondaryNavItems}>
+                <a href="/empty-cylinders" className={styles.secondaryNavLink}>
+                  Empty Cylinders
+                </a>
+              </li>
+            </ul>
+          )}
         </div>
       </section>
 
