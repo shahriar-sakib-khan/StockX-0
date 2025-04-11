@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap');
+
+.userinfo_container{
+    height: 500px;
+    width: 500px;
+    background: hsl(122, 50%, 92%);
+    box-shadow: 0 40px 80px rgba(0 , 0 , 0 , 0.4);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    border: 3px solid darkgreen;
+    border-radius: 10px;
+
+}
+
+.userinfo_container h2{
+    width: 99%;
+    height: 30px;
+    background: hsl(122 , 50% , 70%);
+    color: white;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: "Roboto" , sans-serif;
+    font-optical-sizing: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+}
+
+.pic_container{
+    height: 200px;
+    width: 100%;
+    /*background-color: #007bff;*/
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.pic_container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+    margin-top: 5px;
+    margin-bottom: -25px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pic_container img:hover{
+    transform:scale(1.5);
+}
+
+.pic_title{
+    font-size: 30px;
+}
+
+.profile_info_container{
+    width: 100%;
+    /*background-color: gray;*/
+    height: 200px;
+    font-size: 20px;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 0.5;
+}
+
+.profile_info_container p{
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.profile_button_container{
+    width: 100%;
+    height: 50px;
+    /*background-color: red;*/
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.profile_button{
+    margin-top: 5px;
+    width: 40%;
+    height: 30px;
+    background-color: green;
+    border-radius: 5px;
+    color:white;
+    font-size: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile_button:hover{
+    background-color: #009879;
+}
+
+.profile_button:active{
+    background-color: #db0c0c ;
+}

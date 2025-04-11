@@ -1,0 +1,104 @@
+.wrapper {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-top: 1em;
+}
+
+.titleSubmit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 0.625em;
+  position: relative;
+}
+
+.selectCount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.625em;
+}
+
+.title {
+  color: hsl(215, 20%, 40%);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.counter {
+  color: hsl(215, 20%, 40%);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.submitBtn:disabled::after {
+  content: attr(data-tool-tip);
+  font-weight: 500;
+  display: block;
+  position: absolute;
+  bottom: 5%;
+  right: -5%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  transform: scale(0);
+  transition: transform ease-out 150ms,
+              bottom ease-out 150ms,
+              right ease-out 150ms ;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.submitBtn:disabled:hover::after {
+  bottom: 80%;
+  right: 0%;
+  transform: scale(1);
+}
+
+.listContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  font-size: 1rem;
+  gap: 1.5em;
+  padding: 1em;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+@media (max-width: 680px) {
+  .titleSubmit {
+    padding: 0;
+  }
+  
+  .selectCount {
+    padding: 0;
+  }
+  
+  .title {
+    font-size: 1.125rem;
+  }
+  
+  .counter {
+    font-size: 1rem;
+  }
+  
+  .listContainer {
+    font-size: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
