@@ -17,7 +17,15 @@ export default function ExchangeHistory() {
     const fetchTransactions = async () => {
         try {
             const res = await axios.get("https://stock-x-oyz9.onrender.com/transactions");
-            setTransactions(res.data.reverse());
+            const reversed = res.data.reverse();
+            setTransactions(reversed);
+
+            // Save only buy and sell data to localStorage (excluding vehicleCost)
+            const transactionData = reversed.map((transaction) => ({
+                buy: transaction.buy,
+                sell: transaction.sell,
+            }));
+            localStorage.setItem("transactionsData", JSON.stringify(transactionData));
         } catch (error) {
             console.error("Error fetching transactions:", error);
         }
@@ -40,7 +48,16 @@ export default function ExchangeHistory() {
                 return itemDate >= startDate && itemDate <= endDate;
             });
 
-            setTransactions(filtered.reverse());
+            const reversed = filtered.reverse();
+            setTransactions(reversed);
+
+            // Save only filtered buy and sell data to localStorage (excluding vehicleCost)
+            const filteredData = reversed.map((transaction) => ({
+                buy: transaction.buy,
+                sell: transaction.sell,
+            }));
+            localStorage.setItem("transactionsData", JSON.stringify(filteredData));
+
             setShowDropdown(false);
         } catch (error) {
             console.error("Error filtering transactions:", error);
@@ -98,42 +115,41 @@ export default function ExchangeHistory() {
                 </form>
             )}
 
-<div className={style.output}>
-    <h3>All Transactions</h3>
-    <hr /><hr />
-    {transactions.length === 0 ? (
-        <p>No transactions found for this period.</p>
-    ) : (
-        <div className={style.tableWrapper}>
-            <table className={style.transactionTable}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Buy (Tk)</th>
-                        <th>Sell (Tk)</th>
-                        <th>Due (Tk)</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transactions.map((transaction, index) => {
-                        const date = new Date(transaction.time);
-                        return (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{transaction.buy}</td>
-                                <td>{transaction.sell}</td>
-                                <td>{transaction.due}</td>
-                                <td>{date.toLocaleString()}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
-    )}
-</div>
-
+            <div className={style.output}>
+                <h3>All Transactions</h3>
+                <hr /><hr />
+                {transactions.length === 0 ? (
+                    <p>No transactions found for this period.</p>
+                ) : (
+                    <div className={style.tableWrapper}>
+                        <table className={style.transactionTable}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Buy (Tk)</th>
+                                    <th>Sell (Tk)</th>
+                                    <th>Due (Tk)</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {transactions.map((transaction, index) => {
+                                    const date = new Date(transaction.time);
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{transaction.buy}</td>
+                                            <td>{transaction.sell}</td>
+                                            <td>{transaction.due}</td>
+                                            <td>{date.toLocaleString()}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

@@ -9,6 +9,7 @@ export { default as DueHistory } from "./DueHistory/DueHistory";
 export { default as LpgCommunity } from "./LpgCommunity/LpgCommunity";
 export { default as Dashboard } from "./Dashboard/Dashboard";
 export { default as Statistics } from "./Statistics/Statistics";
+export { default as StatisticsDetails } from "./StatisticsDetails/StatisticsDetails";
 export { default as Selection } from "./Selection/Selection";
 export { default as Initialization } from "./Initialization/Initialization";
 export { default as Inventory } from "./Inventory/Inventory";

@@ -3,6 +3,7 @@ import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import images from "./Images";
 import { getCylinderCount } from "./dashboardUtils";
 import styles from "./Dashboard.module.css";
+import Statistics from "../Statistics/Statistics"; 
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -124,9 +125,9 @@ export default function Dashboard() {
 
         <section className={styles.statisticsSection}>
           <h1 className={styles.statisticsTitle}>Statistics</h1>
-          <img src={images.img_graph} alt="" />
-          <p className={styles.disclaimer}>(Coming soon...)</p>
+          <Statistics />
         </section>
+
       </main>
     </div>
   );
