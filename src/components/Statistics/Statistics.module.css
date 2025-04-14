@@ -1,5 +1,5 @@
 .statisticsContainer {
-  max-width: 1000px;
+  max-width: 1300px;
   margin: 30px auto;
   padding: 20px;
   background-color: #fff;
@@ -35,29 +35,34 @@
   color: #8884d8;
 }
 
-.recharts-tooltip {
-  background-color: #7bd188;
-  border-radius: 5px;
-  color: #fff;
-}
-
-.recharts-bar {
-  border-radius: 3px;
-}
-
-.recharts-bar-rects {
-  transition: fill 0.3s ease;
-}
-
-.recharts-bar-rects:hover {
-  fill: #2e7d32;
-}
-
-.recharts-bar-rect {
-  fill: #4caf50;
-}
-
 .recharts-cartesian-grid line {
   stroke: #f0f0f0;
   stroke-width: 1px;
 }
+.chartHeader {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+/* Disable pointer effect on the BarChart */
+.recharts-wrapper .recharts-cartesian-axis, 
+.recharts-wrapper .recharts-bar {
+  pointer-events: none;
+}
+/* Disable pointer events for the entire BarChart */
+.recharts-wrapper {
+  pointer-events: none;
+}
+
+/* Enable pointer events on the chart container itself, so it doesn't block other elements */
+.recharts-wrapper * {
+  pointer-events: auto;
+}
+
+/* Disable pointer events for individual Bar chart elements */
+.recharts-bar-rectangles .recharts-bar-rectangle {
+  pointer-events: none;
+}
+

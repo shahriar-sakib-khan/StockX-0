@@ -124,7 +124,7 @@ export default function Dashboard() {
         </section>
 
         <section className={styles.statisticsSection}>
-          <h1 className={styles.statisticsTitle}>Statistics</h1>
+          <h1 className={styles.statisticsTitle}></h1>
           <Statistics />
         </section>
 

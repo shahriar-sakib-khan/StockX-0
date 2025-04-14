@@ -56,15 +56,15 @@ const Statistics = () => {
   const totalCost = fuelCost + maintenanceCost + totalBuyCost;
 
   const barChartData = [
-    { name: "Total Cost", cost: totalCost, fill: "#32CD32" },
-    { name: "Total Sell", cost: totalSellCost, fill: "#ff9800" }
+    { name: "Total Cost", cost: totalCost, fill: "#F4A261" },
+    { name: "Total Sell", cost: totalSellCost, fill: "#3A86FF" }
   ];
 
   const pieChartData = [
-    { name: "Fuel", cost: fuelCost, fill: "#4caf50" },
-    { name: "Maintenance", cost: maintenanceCost, fill: "#81c784" },
-    { name: "Buy", cost: totalBuyCost, fill: "#2196f3" },
-    { name: "Sell", cost: totalSellCost, fill: "#ff9800" }
+    { name: "Fuel", cost: fuelCost, fill: "#2A9D8F" },
+    { name: "Maintenance", cost: maintenanceCost, fill: "#264653" },
+    { name: "Buy", cost: totalBuyCost, fill: "#E63946" },
+    { name: "Sell", cost: totalSellCost, fill: "#E76F51" }
   ];
 
   const handleChartClick = (data) => {
@@ -75,52 +75,124 @@ const Statistics = () => {
           maintenanceCost,
           totalBuyCost,
           totalSellCost,
-          totalCost
+          totalCost,
+          vehicleData,
+          transactionData
         }
       });
     }
+  };
+
+  // Custom Tooltip for Bar Chart
+  const CustomBarTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{
+          backgroundColor: 'rgb(132, 132, 132)',
+          borderRadius: '5px',
+          padding: '8px',
+          color: '#fff',
+          fontSize: '16px'
+        }}>
+          {payload[0].value}
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
     <div className={styles.statisticsContainer}>
       <h2 className={styles.header}>Total Costs & Transactions</h2>
 
-      <ResponsiveContainer width="100%" height={350}>
-        <BarChart data={barChartData} barSize={100} onClick={({ activePayload }) => handleChartClick(activePayload?.[0]?.payload)}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgb(218, 218, 218)" />
-          <XAxis dataKey="name" stroke="#8884d8" />
-          <YAxis stroke="#8884d8" />
-          <Tooltip contentStyle={{ backgroundColor: 'rgb(132, 132, 132)', borderRadius: '5px', color: '#fff' }} />
-          <Legend wrapperStyle={{ fontSize: '14px', marginTop: '10px' }} />
-          <Bar dataKey="cost">
-            {barChartData.map((entry, index) => (
-              <Cell key={`bar-cell-${index}`} fill={entry.fill} radius={[10, 10, 0, 0]} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-
-      <div style={{ marginTop: "30px", width: "100%", height: "300px" }}>
-        <ResponsiveContainer>
-          <PieChart>
-            <Tooltip />
-            <Legend />
-            <Pie
-              data={pieChartData}
-              dataKey="cost"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label
-              onClick={(data) => handleChartClick(data)} // Same for pie chart click
-            >
-              {pieChartData.map((entry, index) => (
-                <Cell key={`pie-cell-${index}`} fill={entry.fill} />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <ResponsiveContainer width="80%" height={400}>
+          <BarChart
+            data={barChartData}
+            barSize={100}
+            onClick={({ activePayload }) => handleChartClick(activePayload?.[0]?.payload)}
+            style={{ cursor: 'default' }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="rgb(218, 218, 218)" />
+            <XAxis dataKey="name" stroke="#8884d8" />
+            <YAxis stroke="#8884d8" />
+            <Tooltip content={<CustomBarTooltip />} />
+            <Legend wrapperStyle={{ fontSize: '14px', marginTop: '10px' }} />
+            <Bar dataKey="cost">
+              {barChartData.map((entry, index) => (
+                <Cell key={`bar-cell-${index}`} fill={entry.fill} radius={[0, 0, 0, 0]} />
               ))}
-            </Pie>
-          </PieChart>
+            </Bar>
+          </BarChart>
         </ResponsiveContainer>
+      </div>
+
+      {/* Bar Chart Color Indicators */}
+      <div style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}>
+        {barChartData.map((entry, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: "24px"
+            }}
+          >
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                backgroundColor: entry.fill,
+                borderRadius: "50%",
+                marginRight: 8
+              }}
+            />
+            <span style={{ fontSize: "18px", color: "#333" }}>{entry.name}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Pie Chart */}
+      <div style={{ marginTop: "30px", width: "100%", height: "360px" }}>
+        <h3 className={styles.chartHeader}>Financial Summary</h3>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <ResponsiveContainer width="50%" height="100%">
+            <PieChart>
+              <Tooltip />
+              <Pie
+                data={pieChartData}
+                dataKey="cost"
+                nameKey="name"
+                cx="60%"
+                cy="50%"
+                outerRadius={100}
+                label
+                onClick={(data) => handleChartClick(data)}
+              >
+                {pieChartData.map((entry, index) => (
+                  <Cell key={`pie-cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+
+          <div style={{ marginLeft: "40px" }}>
+            {pieChartData.map((entry, index) => (
+              <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
+                <div
+                  style={{
+                    width: 14,
+                    height: 14,
+                    backgroundColor: entry.fill,
+                    borderRadius: "50%",
+                    marginRight: 8,
+                  }}
+                />
+                <span style={{ fontSize: "20px", color: "#333" }}>{entry.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
